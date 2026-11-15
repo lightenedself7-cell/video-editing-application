@@ -201,6 +201,39 @@ Talking stretches must never be static, and the presenter's face and room stay v
 - Never zoom while the page is scrolling or loading; wait for the settled frame.
 - List each zoom in director-treatment.md with start, end, centre point and zoom level.
 
+## Motion-graphics pattern library (HiringCafe video, 2026-11-15)
+Patterns built and approved for the HiringCafe video. Reuse them for other creators: pick the pattern
+by what the narration says, not by the topic. All use the theme colours (raspberry accent, cream text,
+dark plum ground), never platform red. Keep each one different from the last video's set.
+
+| Spoken cue | Pattern | How it looks |
+|---|---|---|
+| Reading an article aloud | Article zoom + highlighter | Zoom 1.6-2x into the article; a rose underline sweeps under each fact as it is spoken |
+| A website address | Address zoom + URL pill | Zoom about 170% on the address bar, then a crisp one-line pill with the URL |
+| The one line to remember | Centred quote card | Footage dims and blurs in place, large centred quote, key words in rose |
+| "Like, comment, subscribe" | Subscribe animation | Like, Comment and SUBSCRIBE pill in theme colours; cursor click turns it to Subscribed and rings the bell |
+| "Send them this video" | Share animation | Share button with arrow and a cursor click |
+| A named product or site | Brand icon chip | The real logo (fetched from the brand's own site, hashes in brand/SOURCES.json) on a glass chip; use a light tile when the logo is dark |
+| "X killed Y" | Strike-through logos | Logos land in the side margins, a rose strike line crosses each on the verb |
+| Long talking stretch about a process | Presenter-off flow diagram | Presenter hidden; boxes and arrows draw on in order, one highlighted shortcut path |
+| Point-by-point passage | Ringed step list / vertical glow rail | Numbered steps appear as each is spoken; a glowing rail connects them |
+| A number | Kinetic counter | Counts up to the spoken value, dims when the sentence moves on |
+| Two options or two sides | Two-sided compare | Two labelled columns, one item per column per sentence |
+| A prompt the creator reads out | Typed prompt card | Glass card that types the spoken words as spoken (show the meaning where the transcript misheard) |
+| A time or schedule idea | Timeline | 24 h bar with windows; the relevant window lights up |
+| One thing becoming many | Split cards | One card splitting into several |
+
+Rules learned while building it:
+- Presenter-off cutaways only on long talking stretches (20 s or more); keep the voice untouched.
+- Every claim shown must match what is spoken; show the spoken number if the screen differs.
+- Measure the side margins on the footage first and use backing glass where the wall is bright.
+- Keep the baked presenter bubble on screen recordings untouched; use its position only to keep chips and zooms clear of it.
+- Zoom paths (the pan between held crops): look at where the NAMED control sits in the source frame
+  before choosing a centre. Keep the whole control in frame with margin, and keep fixed side panes
+  (left nav, tab strip) in frame when the narration walks through them. Keep tab strips below the step bar.
+- Use one steady wider crop instead of a tight crop that then needs to move.
+- Description and chapters: see youtube-description-template.md.
+
 ## Revisions and previews
 - A revision names a time range. Re-render only the chunks that overlap it and splice them into the
   existing master. Everything outside the range, and all audio, stays byte for byte.

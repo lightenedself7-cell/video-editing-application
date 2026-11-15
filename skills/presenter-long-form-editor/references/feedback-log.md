@@ -49,3 +49,11 @@ Artifact: budget-free-website-startup-guide-clean, revision
 Observed issue: a 640p preview looked very low quality and was not wanted; the creator said "don't create any preview".
 Correction: removed the preview rule from the style guide; revisions render at full quality and only the final file is delivered.
 Reusable lesson: never produce preview or proxy renders for this creator. Verify with still frames internally.
+
+
+## 2026-11-15: Zoom cut off the named control (HiringCafe video, b17)
+
+Artifact: hiringcafe-hidden-job-board, save/tracker beat (270-327 s)
+Observed issue: the zoom at 277 s cropped away the "Apply now" button, and the tracker zoom path left out the left pane.
+Correction: one steady wider crop (1.45x) over the job-panel buttons, then tracker crops starting at the left edge so the nav, status tabs and first card stay in frame. Only the affected render chunk was redone.
+Reusable lesson: before placing a zoom, look at where the named control sits in the source frame and keep it fully in frame with margin; keep fixed side panes in frame while they are narrated.

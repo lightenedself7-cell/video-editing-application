@@ -20,6 +20,7 @@ export const themes: Theme[] = [
   { skill: 'long-form', id: 'dark-sketch', name: 'Dark Sketch Explainer', description: 'Flat charcoal, soft-white hand-drawn line art, blue fills and orange brush underlines, instant on-cue builds', swatches: ['#181A1C', '#E2E2E2', '#578AE0', '#CB9370'], isDefault: false },
   { skill: 'long-form', id: 'blackboard-style', name: 'Blackboard Live Pen', description: 'Pure black, handwriting written on live like a tablet pen, bright inks by meaning, red pointer arrows, a zooming infinite-canvas camera', swatches: ['#000000', '#F8F8F8', '#5454FC', '#6CFC6C', '#FCFC84'], isDefault: false },
   { skill: 'long-form', id: 'colorful-purple', name: 'Hand-Drawn Infographic', description: 'Near-white paper, bold black and periwinkle headline, marker handwriting, coral and blue offset boxes, mint callout pill', swatches: ['#F9F9F7', '#1D1D1D', '#8B97EE', '#EE8E72', '#A2AEF5'], isDefault: false },
+  { skill: 'long-form', id: 'clean-creator', name: 'Clean Creator', description: 'Presenter first, minimal motion. Burgundy-black ground with a raspberry glow, warm-white glowing titles behind the presenter, ringed number lists, glow-focus roadmap, side-column slides, UI click-target zooms, check-mark recap cards', swatches: ['#210A12', '#FAF9F8', '#92205A', '#E25C8E'], isDefault: false },
 ];
 
 export const themesFor = (skill: SkillId) => themes.filter((theme) => theme.skill === skill);

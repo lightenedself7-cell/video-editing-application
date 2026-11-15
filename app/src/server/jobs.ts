@@ -43,7 +43,7 @@ interface Runtime {
 
 const themes = {
   intro: new Set(['personal', 'lime-tech', 'navy-amber']),
-  'long-form': new Set(['warm-paper', 'personal', 'lime-tech', 'navy-amber', 'dark-sketch', 'blackboard-style', 'colorful-purple']),
+  'long-form': new Set(['warm-paper', 'personal', 'lime-tech', 'navy-amber', 'dark-sketch', 'blackboard-style', 'colorful-purple', 'clean-creator']),
 };
 const failureKinds = new Set<FailureKind>(['missing-tool', 'disk-full', 'invalid-plan', 'repo-capture', 'verification', 'agent-error', 'cancelled']);
 const phaseIds = new Set<PhaseId>(['intake', 'transcribe', 'brand-assets', 'repo-captures', 'directive', 'validate', 'graphics', 'composite', 'verify', 'deliver']);

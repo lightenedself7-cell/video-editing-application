@@ -16,6 +16,7 @@ const copy: Record<string, [string, string, string]> = {
   'dark-sketch': ['Start with a question.', 'Sketch the answer', 'See the bigger picture.'],
   'blackboard-style': ['Think it through.', 'Build it, one line at a time', 'Now it all connects.'],
   'colorful-purple': ['Ideas with personality.', 'A little color. A lot of clarity.', 'Make the message stick.'],
+  'clean-creator': ['Say it clearly.', 'One idea at a time', 'Here is the recap.'],
 };
 
 export function ThemeArtwork({ theme, time = 0 }: { theme: Theme; time?: number }) {
@@ -45,7 +46,7 @@ export function ThemeArtwork({ theme, time = 0 }: { theme: Theme; time?: number 
         {sketch && <path d="M48 220 Q150 213 350 220" stroke={extra} strokeWidth="8" opacity=".7" fill="none" />}
         <text x="48" y="263" fill={ink} fontSize="15">{scene === 0 ? 'Your story, with a visual point of view.' : 'Clear graphics. Room for your voice.'}</text>
         <rect x="48" y="298" width="190" height="37" rx={theme.id === 'lime-tech' ? 18 : 5} fill={accent} />
-        <text x="63" y="322" fill={['personal', 'warm-paper'].includes(theme.id) ? tokens.color.previewWhite : tokens.color.previewBlack} fontSize="12" fontWeight="700">{scene === 0 ? 'LET’S BREAK IT DOWN' : 'YOUR NEXT CHAPTER'}</text>
+        <text x="63" y="322" fill={['personal', 'warm-paper', 'clean-creator'].includes(theme.id) ? tokens.color.previewWhite : tokens.color.previewBlack} fontSize="12" fontWeight="700">{scene === 0 ? 'LET’S BREAK IT DOWN' : 'YOUR NEXT CHAPTER'}</text>
       </> : <>
         <text x="48" y="108" fill={ink} fontSize="27" fontWeight={sketch ? 700 : 500} fontStyle={sketch ? 'italic' : 'normal'}>{shown}</text>
         {['Idea', 'Process', 'Result'].map((label, i) => reveal(i) && <g key={label}>

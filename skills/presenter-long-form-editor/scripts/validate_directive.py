@@ -27,6 +27,7 @@ ALLOWED_THEMES = {
     "warm-paper",
     "blackboard-style",
     "colorful-purple",
+    "clean-creator",
 }
 
 SEGMENT_KINDS = {"camera", "voiceover"}

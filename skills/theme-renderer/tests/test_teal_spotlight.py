@@ -96,6 +96,28 @@ class TealSpotlightTests(unittest.TestCase):
             self.assertGreater(diff.max(), 50, key)
             self.assertLess(diff[0:600, 260:960].max(), 4.0, f"{key} reaches into the protected region")
 
+    def test_screen_share_card_hides_and_returns(self):
+        d = copy.deepcopy(self.directive)
+        d["beats"] = [beat(1, 0.5, 12.0, "FULLSCREEN_MOTION", "process", ["T"], component="screen-share",
+                           props={"screen": {"x": 0, "y": 0, "width": 1280, "height": 720},
+                                  "presenter": {"x": 880, "y": 400, "width": 360, "height": 280},
+                                  "presenter_visibility": [{"cue": 6.0, "visible": False}, {"cue": 9.0, "visible": True}]})]
+        self.assertEqual(self.validate(d)[0], 0)
+        ctx = engine.Context(d, str(self.dir))
+        paths = engine.render_pngs(ctx, [150, 240, 330], str(self.dir / "ss"))
+        shown, hidden, back = [cv2.cvtColor(cv2.imread(p), cv2.COLOR_BGR2RGB).astype(np.float32) for p in paths]
+        card = (slice(270, 450), slice(28, 260))  # where the presenter card sits
+        strip = (slice(120, 220), slice(60, 200))  # above the card: bare ground while the card is out, screen once the window grows into the space
+        ground = ctx.ground()
+        self.assertGreater(np.abs(shown[card] - ground[card]).mean(), 40)    # card visible
+        self.assertLess(np.abs(shown[strip] - ground[strip]).mean(), 12)     # window starts to the right of the card
+        self.assertGreater(np.abs(hidden[strip] - ground[strip]).mean(), 40)  # card hidden: window fills the space
+        self.assertGreater(np.abs(back[card] - ground[card]).mean(), 40)     # card returned
+        self.assertLess(np.abs(back[strip] - ground[strip]).mean(), 12)
+        bad = copy.deepcopy(d)
+        bad["beats"][0]["props"]["presenter_visibility"] = [{"cue": 6.0}]
+        self.assertEqual(self.validate(bad)[0], 1)
+
 
 if __name__ == "__main__":
     unittest.main()

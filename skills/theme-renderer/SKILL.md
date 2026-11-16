@@ -50,8 +50,9 @@ full-screen roadmap and phone panels, chips over screens, compare cards. Add the
 | `spotlight-box` | FULLSCREEN_MOTION | zoom to a box (source pixels), dim and blur the rest, optional marker, up to 3 boxes (pans) |
 | `lower-third-tag` | OVERLAY_CARD, SELECTIVE_TEXT | slanted tilted tag with bold shadow; layout box about 90 px tall |
 | `explainer-card` | OVERLAY_CARD | light card with cue-timed rows and skeleton bars |
+| `screen-share` | FULLSCREEN_MOTION | screen recording (`screen` rect, source pixels) in a rounded window on a dot grid, presenter (`presenter` rect) as a small marigold-ringed card at the left edge; `presenter_visibility` cues hide or bring it back, and the window grows to fill the space |
 
-Not yet components: screen-share framing with the presenter card, split-screen labels, glitch transition, glow sweep, word captions.
+Not yet components: split-screen labels, glitch transition, glow sweep, word captions.
 Titles use a second, condensed font face: tokens `fonts.display` / `display_width`, drawn with `face="display"`.
 
 ## Adding a component or a theme

@@ -22,10 +22,9 @@ Put these on directive beats (`component` + `props`); do not write graphics code
 | `spotlight-box` | FULLSCREEN_MOTION | zoom into the content being spoken about (boxes in source pixels), dim and blur the rest, glowing outline, optional marker on the key line, pans to a second box |
 | `lower-third-tag` | OVERLAY_CARD, SELECTIVE_TEXT | slanted tag (LINK DOWN BELOW, CHAT #1); give its layout box room for the tilt (about 90 px tall) |
 | `explainer-card` | OVERLAY_CARD | light card beside the presenter, one row per cue, skeleton bars and a connector line |
+| `screen-share` | FULLSCREEN_MOTION | the default demo layout: screen in a large rounded window on a dot grid, presenter in a small card at the left edge (rects are crops of the source frame); hide or restore the card with `presenter_visibility` cues |
 
-Not yet components (hand-build with `custom_graphics` and list under "Promote to library"): screen-share
-framing (large rounded screen window on a dot-grid ground, presenter in a small rounded card at the left edge
-that moves or hides per segment), split-screen with CHAT #1 / CHAT #2 tags, glitch fast-forward transition,
+Not yet components (hand-build with `custom_graphics` and list under "Promote to library"): split-screen with CHAT #1 / CHAT #2 tags, glitch fast-forward transition,
 a glowing line sweep pointing at an item, word-by-word highlighted captions.
 
 ## Editorial use

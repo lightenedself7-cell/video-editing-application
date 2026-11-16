@@ -4,65 +4,227 @@
   "components": {
     "section-title": {
       "summary": "Full-screen dark title card: teal bands with one marigold edge, plus-sign grid, huge condensed title, the key phrase on a tilted marigold block, optional brand tiles joined by plus signs.",
-      "treatments": ["FULLSCREEN_MOTION"],
+      "treatments": [
+        "FULLSCREEN_MOTION"
+      ],
       "touches_presenter": true,
       "needs": [],
       "props": {
-        "title": {"type": "string", "required": true},
-        "key": {"type": "string"},
-        "kicker": {"type": "string"},
-        "cue": {"type": "number"},
-        "tiles": {"type": "array", "min": 1, "max": 4, "items": {
-          "icon": {"type": "string", "required": true},
-          "cue": {"type": "number", "required": true}
-        }}
+        "title": {
+          "type": "string",
+          "required": true
+        },
+        "key": {
+          "type": "string"
+        },
+        "kicker": {
+          "type": "string"
+        },
+        "cue": {
+          "type": "number"
+        },
+        "tiles": {
+          "type": "array",
+          "min": 1,
+          "max": 4,
+          "items": {
+            "icon": {
+              "type": "string",
+              "required": true
+            },
+            "cue": {
+              "type": "number",
+              "required": true
+            }
+          }
+        }
       }
     },
     "spotlight-box": {
       "summary": "Zooms into the content being discussed (box in source pixels), dims and blurs the rest, frames it with a glowing teal outline, optional marigold marker on the key line; later boxes pan the spotlight.",
-      "treatments": ["FULLSCREEN_MOTION"],
+      "treatments": [
+        "FULLSCREEN_MOTION"
+      ],
       "touches_presenter": true,
       "needs": [],
       "props": {
-        "boxes": {"type": "array", "required": true, "min": 1, "max": 3, "items": {
-          "x": {"type": "number", "required": true},
-          "y": {"type": "number", "required": true},
-          "width": {"type": "number", "required": true},
-          "height": {"type": "number", "required": true},
-          "cue": {"type": "number", "required": true},
-          "marker": {"type": "object", "fields": {
-            "x": {"type": "number", "required": true},
-            "y": {"type": "number", "required": true},
-            "width": {"type": "number", "required": true},
-            "height": {"type": "number", "required": true}
-          }}
-        }}
+        "boxes": {
+          "type": "array",
+          "required": true,
+          "min": 1,
+          "max": 3,
+          "items": {
+            "x": {
+              "type": "number",
+              "required": true
+            },
+            "y": {
+              "type": "number",
+              "required": true
+            },
+            "width": {
+              "type": "number",
+              "required": true
+            },
+            "height": {
+              "type": "number",
+              "required": true
+            },
+            "cue": {
+              "type": "number",
+              "required": true
+            },
+            "marker": {
+              "type": "object",
+              "fields": {
+                "x": {
+                  "type": "number",
+                  "required": true
+                },
+                "y": {
+                  "type": "number",
+                  "required": true
+                },
+                "width": {
+                  "type": "number",
+                  "required": true
+                },
+                "height": {
+                  "type": "number",
+                  "required": true
+                }
+              }
+            }
+          }
+        }
       }
     },
     "lower-third-tag": {
       "summary": "Slanted, slightly tilted tag with a bold shadow and a marigold edge (for example LINK DOWN BELOW, CHAT #1). Its top-left corner is the layout box's.",
-      "treatments": ["OVERLAY_CARD", "SELECTIVE_TEXT"],
+      "treatments": [
+        "OVERLAY_CARD",
+        "SELECTIVE_TEXT"
+      ],
       "touches_presenter": false,
-      "needs": ["layout"],
+      "needs": [
+        "layout"
+      ],
       "props": {
-        "text": {"type": "string", "required": true},
-        "cue": {"type": "number", "required": true},
-        "sub": {"type": "string"}
+        "text": {
+          "type": "string",
+          "required": true
+        },
+        "cue": {
+          "type": "number",
+          "required": true
+        },
+        "sub": {
+          "type": "string"
+        }
       }
     },
     "explainer-card": {
       "summary": "Light rounded card beside the presenter: pastel wash along the top edge, thin outline, one row per spoken cue with a tile and grey skeleton bars, joined by a thin connector line.",
-      "treatments": ["OVERLAY_CARD"],
+      "treatments": [
+        "OVERLAY_CARD"
+      ],
       "touches_presenter": false,
-      "needs": ["layout"],
+      "needs": [
+        "layout"
+      ],
       "props": {
-        "title": {"type": "string"},
-        "skeleton": {"type": "boolean"},
-        "rows": {"type": "array", "required": true, "min": 1, "max": 4, "items": {
-          "text": {"type": "string", "required": true},
-          "cue": {"type": "number", "required": true},
-          "icon": {"type": "string"}
-        }}
+        "title": {
+          "type": "string"
+        },
+        "skeleton": {
+          "type": "boolean"
+        },
+        "rows": {
+          "type": "array",
+          "required": true,
+          "min": 1,
+          "max": 4,
+          "items": {
+            "text": {
+              "type": "string",
+              "required": true
+            },
+            "cue": {
+              "type": "number",
+              "required": true
+            },
+            "icon": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "screen-share": {
+      "summary": "Screen recording framed in a large rounded window on a dot-grid ground; the presenter is a small rounded marigold-ringed card at the left edge that can hide and come back on cue. Rectangles are in source pixels.",
+      "treatments": [
+        "FULLSCREEN_MOTION"
+      ],
+      "touches_presenter": true,
+      "needs": [],
+      "props": {
+        "screen": {
+          "type": "object",
+          "fields": {
+            "x": {
+              "type": "number",
+              "required": true
+            },
+            "y": {
+              "type": "number",
+              "required": true
+            },
+            "width": {
+              "type": "number",
+              "required": true
+            },
+            "height": {
+              "type": "number",
+              "required": true
+            }
+          }
+        },
+        "presenter": {
+          "type": "object",
+          "fields": {
+            "x": {
+              "type": "number",
+              "required": true
+            },
+            "y": {
+              "type": "number",
+              "required": true
+            },
+            "width": {
+              "type": "number",
+              "required": true
+            },
+            "height": {
+              "type": "number",
+              "required": true
+            }
+          }
+        },
+        "presenter_visibility": {
+          "type": "array",
+          "min": 1,
+          "max": 6,
+          "items": {
+            "cue": {
+              "type": "number",
+              "required": true
+            },
+            "visible": {
+              "type": "boolean",
+              "required": true
+            }
+          }
+        }
       }
     }
   }

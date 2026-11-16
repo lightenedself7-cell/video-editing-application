@@ -388,9 +388,115 @@ def explainer_card(ctx, beat, props, t, out, S):
     return out
 
 
+# ---------- screen-share ----------
+def _dots(ctx):
+    d = getattr(ctx, "_ts_dots", None)
+    if d is None:
+        u, W, H = ctx.kit.u, ctx.W, ctx.H
+        step = 40 * u
+        yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
+        fx, fy = (xx + step / 2) % step - step / 2, (yy + step / 2) % step - step / 2
+        r = 1.6 * u
+        d = np.clip(r + 0.5 - np.sqrt(fx ** 2 + fy ** 2), 0, 1)[..., None]
+        ctx._ts_dots = d
+    return d
+
+
+def _cover(S, rect, w, h):
+    """Crop `rect` (x, y, w, h) of S so it fills w x h (centre crop), scaled to exactly w x h."""
+    x, y, rw, rh = rect
+    s = max(w / rw, h / rh)
+    cw, ch = w / s, h / s
+    cx, cy = x + rw / 2, y + rh / 2
+    M = np.float32([[s, 0, -(cx - cw / 2) * s], [0, s, -(cy - ch / 2) * s]])
+    return cv2.warpAffine(S, M, (int(w), int(h)), flags=cv2.INTER_AREA if s < 1 else cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
+
+
+def _paste_rrect(out, patch, x, y, r, alpha=1.0):
+    h, w = patch.shape[:2]
+    X, Y = int(round(x)), int(round(y))
+    x0, y0, x1, y1 = max(X, 0), max(Y, 0), min(X + w, out.shape[1]), min(Y + h, out.shape[0])
+    if x1 <= x0 or y1 <= y0:
+        return
+    m = rrect_mask(w, h, max(int(round(r)), 1))[y0 - Y:y1 - Y, x0 - X:x1 - X][..., None] * alpha
+    out[y0:y1, x0:x1] = out[y0:y1, x0:x1] * (1 - m) + patch[y0 - Y:y1 - Y, x0 - X:x1 - X] * m
+
+
+def _presence(ctx, props, t):
+    """0..1: how much the presenter card is on screen at time t. Starts at 1; each cue slides it out or back in (cues at least 16 frames apart)."""
+    c, prev = 1.0, 1.0
+    for ev in sorted(props.get("presenter_visibility") or [], key=lambda e: e["cue"]):
+        if t < ev["cue"]:
+            break
+        target = 1.0 if ev["visible"] else 0.0
+        c = prev + (target - prev) * smoother((t - ev["cue"]) / (16 / ctx.fps))
+        prev = target
+    return c
+
+
+def screen_share(ctx, beat, props, t, out, S):
+    kit, u, fps = ctx.kit, ctx.kit.u, ctx.fps
+    W, H = ctx.W, ctx.H
+    a, e = beat["start"], beat["end"]
+    mv = ctx.tokens["motion"]
+    p = min(smoother((t - a) / (mv["inset_move_in_frames"] / fps)), smoother((e - t) / (mv["inset_move_out_frames"] / fps)))
+    if p <= 0:
+        return out
+    full = (0.0, 0.0, float(W), float(H))
+    sc = props.get("screen")
+    screen = (float(sc["x"]), float(sc["y"]), float(sc["width"]), float(sc["height"])) if sc else full
+    pres = props.get("presenter")
+    card_on = _presence(ctx, props, t) if pres else 0.0
+    # destination window: the area right of the card, keeping the screen's aspect, centred
+    margin = 36 * u
+    card_w = 236 * u
+    left = margin + (card_w + margin * 0.6) * card_on
+    aw, ah = W - left - margin, H - 2 * margin
+    asp = screen[2] / screen[3]
+    dw = min(aw, ah * asp)
+    dh = dw / asp
+    dest = (left + (aw - dw) / 2, (H - dh) / 2, dw, dh)
+    rect = tuple(v0 + (v1 - v0) * p for v0, v1 in zip(full, dest))
+    src = tuple(v0 + (v1 - v0) * p for v0, v1 in zip(full, screen))
+    dots = _dots(ctx)
+    g = ctx.ground()
+    g = g * (1 - dots * 0.16) + hexc(_col(ctx, "mint")) * dots * 0.16
+    res = out * (1 - p) + g * p
+    dx, dy, dw_, dh_ = rect
+    iw, ih = max(int(round(dw_)), 2), max(int(round(dh_)), 2)
+    r = 22 * u * p
+    if p > 0.02:  # bold hard shadow under the screen
+        sh = np.zeros((ih, iw, 3), np.float32)
+        sh[:] = hexc(_col(ctx, "shadow"))
+        _paste_rrect(res, sh, dx + 10 * u * p, dy + 10 * u * p, r, 0.85 * p)
+    sx, sy, sw, shh = src
+    M = np.float32([[iw / sw, 0, -sx * iw / sw], [0, ih / shh, -sy * ih / shh]])
+    patch = cv2.warpAffine(S, M, (iw, ih), flags=cv2.INTER_AREA if iw < sw else cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
+    _paste_rrect(res, patch, dx, dy, r)
+    if p > 0.02:
+        mg = kit.px(24)
+        over(res, rrect_ring(iw, ih, max(int(round(r)), 1), 2.5 * u, 10 * u, 0.7, _col(ctx, "accent"), _col(ctx, "accent"), mg), dx - mg, dy - mg, p)
+    # presenter card on the left edge, marigold ring
+    if pres and card_on > 0.01 and p > 0.3:
+        ca = clamp((p - 0.3) / 0.7) * card_on
+        ch = min(card_w * pres["height"] / pres["width"], 330 * u)
+        cx0 = margin * 0.7 - (1 - card_on) * (card_w + margin)
+        cy0 = (H - ch) / 2
+        cw_i, ch_i = int(round(card_w)), int(round(ch))
+        card = _cover(S, (pres["x"], pres["y"], pres["width"], pres["height"]), cw_i, ch_i)
+        shd = np.zeros((ch_i, cw_i, 3), np.float32)
+        shd[:] = hexc(_col(ctx, "shadow"))
+        _paste_rrect(res, shd, cx0 + 8 * u, cy0 + 8 * u, 20 * u, 0.85 * ca)
+        _paste_rrect(res, card, cx0, cy0, 20 * u, ca)
+        mg = kit.px(20)
+        over(res, rrect_ring(cw_i, ch_i, int(round(20 * u)), 3.5 * u, 6 * u, 0.6, _col(ctx, "pop"), _col(ctx, "pop"), mg), cx0 - mg, cy0 - mg, ca)
+    return res
+
+
 COMPONENTS = {
     "section-title": section_title,
     "spotlight-box": spotlight_box,
     "lower-third-tag": lower_third_tag,
     "explainer-card": explainer_card,
+    "screen-share": screen_share,
 }

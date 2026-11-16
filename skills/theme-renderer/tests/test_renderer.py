@@ -85,6 +85,17 @@ class RendererTests(unittest.TestCase):
         code, err = self.validate(self.directive)
         self.assertEqual(code, 0, err)
 
+    def test_custom_graphics_warns_and_needs_reason(self):
+        d = copy.deepcopy(self.directive)
+        b = d["beats"][0]
+        b.pop("component"); b.pop("props")
+        b["custom_graphics"] = "needs a map"
+        code, err = self.validate(d)
+        self.assertEqual(code, 0, err)
+        self.assertIn("needs a map", err)
+        b["custom_graphics"] = " "
+        self.assertEqual(self.validate(d)[0], 1)
+
     def test_validator_rejects_unknown_component(self):
         d = copy.deepcopy(self.directive)
         d["beats"][0]["component"] = "confetti-burst"

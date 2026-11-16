@@ -36,3 +36,7 @@ it('directs the editor and all progress protocols to the selected project folder
   for (const file of ['ui-progress.jsonl', 'ui-question.json', 'ui-result.json']) expect(prompt).toContain(`${destination}/${file}`);
   expect(prompt).toContain(`Write everything under ${destination}/`);
 });
+it("points long-form jobs at the theme renderer but not intro jobs", () => {
+  const longForm = buildPrompt({ ...createDraft("long-form"), projectName: "t", sections: [] }, "/skills", "/python", "/out/t");
+  expect(longForm).toContain("/skills/theme-renderer/render_directive.py /out/t");
+});

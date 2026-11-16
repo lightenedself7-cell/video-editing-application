@@ -26,6 +26,9 @@ a `registry.json` listing its components and their props, and a `components.py` 
    Check single frames first with `--png <frame> ...` (written to `<project-dir>/render/frames/`).
    Per the creator's ruling, do not make low-resolution previews; the render is full quality.
 
+Agent rule: for a theme with a registry, write components, not graphics code. If a beat has no matching component,
+mark it `custom_graphics` (see the long-form skill's "One-off graphics") and hand-build only that beat.
+
 ## Clean Creator components (registry v1)
 
 | Component | Treatment | Use for |

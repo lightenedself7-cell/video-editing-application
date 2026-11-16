@@ -111,3 +111,7 @@ checks the component name, that the beat's `treatment` is one the component supp
 example `layout` or `presenter_layout`), the props, and that every `cue` lies inside the beat. Render with
 `skills/theme-renderer/render_directive.py`; see its SKILL.md for the component list and prop shapes. A beat without
 `component` is unchanged.
+
+Choose from the registry; do not write graphics code when a component fits. When none fits, leave `component` off that
+beat and add `"custom_graphics": "<why no component fits>"` (a non-empty string). The validator warns for each such beat,
+and the treatment document lists them under "Promote to library" so they can become components later.

@@ -288,6 +288,16 @@ def validate(path: Path) -> tuple[list[str], list[str]]:
         previous_beat = beat
 
     validate_components(theme, beats, errors)
+    if isinstance(beats, list):
+        for i, beat in enumerate(beats):
+            if isinstance(beat, dict) and "custom_graphics" in beat:
+                reason = beat["custom_graphics"]
+                if not isinstance(reason, str) or not reason.strip():
+                    fail(errors, f"beats[{i}].custom_graphics must be a non-empty string saying why no component fits")
+                elif beat.get("component") is not None:
+                    fail(errors, f"beats[{i}] has both `component` and `custom_graphics`; use one")
+                else:
+                    warnings.append(f"beats[{i}] uses hand-built graphics ({reason.strip()}); list it under Promote to library")
 
     for vo_start, vo_end in voiceover:
         covered = overlap_s(vo_start, vo_end, fullscreen_intervals)

@@ -55,7 +55,7 @@ class Context:
     def ground(self):
         if self._ground is None:
             self._ground = self.kit.make_ground()
-        return self._ground
+        return self._ground.copy()  # callers draw on it; never hand out the cached image itself
 
     def beat_at(self, t: float):
         for b in self.beats:

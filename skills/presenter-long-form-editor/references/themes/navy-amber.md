@@ -16,3 +16,19 @@
   - Corner Geometric Balls: Enlarged overlapping circles at top-right and bottom-left inside 350×350 containers (Navy circle `r=142`, Amber circle `r=115`) with organic micro-floating drift (`±5px`).
   - Navigation Bar: Top bar with brand chevron identity and section tabs (`Overview`, `Checklist`, `Public Build`) with dynamic amber active underline.
   - Icons: Custom dual-tone vector line-art in Navy and Amber.
+
+## Template components (render with `skills/theme-renderer`)
+
+This theme is rendered by ready-made components; put `component` + `props` on directive beats and write no graphics code
+for them. Look comes from `skills/theme-renderer/themes/navy-amber/tokens.json`; the shared component pack is `renderer/flat.py`.
+Fonts: Montserrat stands in for Avenir Next / Plus Jakarta Sans. Ornament: overlapping navy and amber circles at top-right and bottom-left with a slight drift; a faint graph grid. Highlight: amber underline bar.
+
+| Component | Treatment | Use for |
+|---|---|---|
+| `title-scene` | FULLSCREEN_MOTION | full-screen title with the corner ornaments; optional subtitle and key phrase |
+| `checklist-scene` | FULLSCREEN_MOTION | numbered list on the canvas, up to 6 white cards, one per cue |
+| `card-overlay` | OVERLAY_CARD | white card beside the presenter with bullet rows |
+| `keyword-pill` | SELECTIVE_TEXT | one key word on an accent pill beside the presenter |
+| `inset-checklist` | PRESENTER_INSET | presenter in a rounded window on the left, numbered cards on the canvas |
+
+Not yet templated (hand-build with `custom_graphics`, list under "Promote to library"): the top navigation bar with section tabs, dual-tone line icons, typewriter reveals.

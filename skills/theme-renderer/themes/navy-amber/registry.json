@@ -1,0 +1,148 @@
+{
+  "theme": "navy-amber",
+  "version": 1,
+  "components": {
+    "title-scene": {
+      "summary": "Full-screen title on the theme canvas with its corner ornaments; optional subtitle and a key phrase on the theme's highlight (pill or underline).",
+      "treatments": [
+        "FULLSCREEN_MOTION"
+      ],
+      "touches_presenter": true,
+      "needs": [],
+      "props": {
+        "title": {
+          "type": "string",
+          "required": true
+        },
+        "subtitle": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "cue": {
+          "type": "number"
+        }
+      }
+    },
+    "checklist-scene": {
+      "summary": "Full-screen numbered list: a title and up to six white cards with number badges, one per spoken cue.",
+      "treatments": [
+        "FULLSCREEN_MOTION"
+      ],
+      "touches_presenter": true,
+      "needs": [],
+      "props": {
+        "title": {
+          "type": "string",
+          "required": true
+        },
+        "rows": {
+          "type": "array",
+          "required": true,
+          "min": 1,
+          "max": 6,
+          "items": {
+            "text": {
+              "type": "string",
+              "required": true
+            },
+            "cue": {
+              "type": "number",
+              "required": true
+            }
+          }
+        }
+      }
+    },
+    "card-overlay": {
+      "summary": "White card beside the presenter with accent bullets, one row per cue (no drop shadow, so it stays off the presenter).",
+      "treatments": [
+        "OVERLAY_CARD"
+      ],
+      "touches_presenter": false,
+      "needs": [
+        "layout"
+      ],
+      "props": {
+        "title": {
+          "type": "string"
+        },
+        "rows": {
+          "type": "array",
+          "required": true,
+          "min": 1,
+          "max": 5,
+          "items": {
+            "text": {
+              "type": "string",
+              "required": true
+            },
+            "cue": {
+              "type": "number",
+              "required": true
+            }
+          }
+        }
+      }
+    },
+    "keyword-pill": {
+      "summary": "One key word on an accent pill next to the presenter, with an optional small lead-in line.",
+      "treatments": [
+        "SELECTIVE_TEXT"
+      ],
+      "touches_presenter": false,
+      "needs": [
+        "layout"
+      ],
+      "props": {
+        "lead": {
+          "type": "string"
+        },
+        "word": {
+          "type": "string",
+          "required": true
+        },
+        "cue": {
+          "type": "number",
+          "required": true
+        }
+      }
+    },
+    "inset-checklist": {
+      "summary": "Presenter moves into a rounded window on the left of the theme canvas; a title and numbered cards fill the rest, one per cue.",
+      "treatments": [
+        "PRESENTER_INSET"
+      ],
+      "touches_presenter": true,
+      "needs": [
+        "presenter_layout"
+      ],
+      "props": {
+        "title": {
+          "type": "string",
+          "required": true
+        },
+        "source_cx": {
+          "type": "number"
+        },
+        "rows": {
+          "type": "array",
+          "required": true,
+          "min": 1,
+          "max": 6,
+          "items": {
+            "text": {
+              "type": "string",
+              "required": true
+            },
+            "cue": {
+              "type": "number",
+              "required": true
+            }
+          }
+        }
+      }
+    }
+  }
+}

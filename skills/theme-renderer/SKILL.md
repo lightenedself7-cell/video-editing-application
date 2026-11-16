@@ -1,6 +1,6 @@
 ---
 name: theme-renderer
-description: Render an approved editorial-directive.json with a theme's ready-made components, with no per-video graphics code. Use after the directive is validated, for themes that have a registry (currently clean-creator and teal-spotlight).
+description: Render an approved editorial-directive.json with a theme's ready-made components, with no per-video graphics code. Use after the directive is validated, for themes that have a registry (clean-creator, teal-spotlight, personal, navy-amber, lime-tech).
 ---
 
 # Theme renderer
@@ -49,6 +49,22 @@ checking or delivery.
 
 Not yet components (still hand-built per video): screen-share framing with the presenter bubble, punch-ins,
 full-screen roadmap and phone panels, chips over screens, compare cards. Add them to the registry as they recur.
+
+## Flat light themes: personal, navy-amber, lime-tech
+
+One shared pack (`renderer/flat.py`), restyled by each theme's `tokens.json` (canvas, accent, ink, ornament, highlight):
+
+| Component | Treatment | Use for |
+|---|---|---|
+| `title-scene` | FULLSCREEN_MOTION | title on the canvas with corner ornaments, optional subtitle and key phrase |
+| `checklist-scene` | FULLSCREEN_MOTION | numbered white cards, one per cue (up to 6) |
+| `card-overlay` | OVERLAY_CARD | white card beside the presenter |
+| `keyword-pill` | SELECTIVE_TEXT | one key word on an accent pill |
+| `inset-checklist` | PRESENTER_INSET | presenter window on the left, numbered cards on the canvas |
+
+A new flat theme is `tokens.json` + `registry.json` + a two-line `components.py`; see an existing one.
+`warm-paper`, `dark-sketch`, `blackboard-style` and `colorful-purple` are hand-drawn or live-pen styles that need their own
+handwriting fonts and sketch rendering, so they are not templated and stay hand-built.
 
 ## Teal Spotlight components (registry v1)
 

@@ -1,0 +1,32 @@
+# `dark-sketch` (Dark Sketch Explainer)
+- **Aesthetic**: Hand-drawn whiteboard explainer on a dark canvas. Calm and teacherly: one question as the scene title, then a few hand-drawn elements built up beneath it.
+- **Palette** (sampled from the reference):
+  - Canvas: Charcoal `#181A1C`, flat. No grid, gradient, texture, or vignette.
+  - Ink (text and line art): Soft white `#E2E2E2`, never pure white.
+  - Blue `#578AE0`: flat fills inside line art and icon outlines. Use `#6792D1` for blue text.
+  - Orange `#CB9370`: emphasis underlines, arrows, and orange text.
+  - No cards, panels, or shadows. Everything sits directly on the canvas.
+- **Typography**:
+  - Typeface: Shantell Sans, weight 700, for everything including code. Load it with `@remotion/google-fonts/ShantellSans`. Matched against the reference by rendering it side by side.
+  - 4K canvas (3840w): scene title 130px, centred key statement 124px, body and list items 96px, small labels 74px.
+  - 1080p canvas: half of each.
+  - Sentence case. No all-caps headings.
+- **Layout** (4K):
+  - Scene title top-left at x≈300 with its cap top at y≈210. It stays in place while the content beneath it changes.
+  - Lists sit left-aligned under the title, bullets at x≈460, line pitch ≈180px.
+  - A key statement sits centred, slightly above the vertical middle, in at most two lines.
+  - Explanations use two columns: a line-art illustration on the left (x≈290–940) and short text or code on the right (from x≈2090).
+  - Small labels sit directly under or beside the thing they name.
+- **Line art and ornaments**:
+  - Simple hand-drawn illustrations and icons: ~12px soft-white strokes with rounded joins, plus a few flat blue fills (for example, alternating awning stripes). Small icons may be drawn as blue outlines. Lines may wobble slightly, like a careful hand rather than a messy one.
+  - Emphasis underline: one orange brush stroke under the key phrase only, about 16px at its thickest, tapering to a point at the right end, about 20px below the baseline.
+  - Arrows: thin orange hand-drawn arrows between related labels.
+  - Code: set in the same font. Colour it by meaning as the narration reaches each part (for example, the condition turns blue, then the action turns orange), not with editor syntax highlighting.
+- **Motion grammar** (shared by `dark-sketch` and `warm-paper`):
+  - Inside a full-screen sequence, each element appears instantly, in one frame, on its spoken cue. No fade, rise, overshoot, typewriter, draw-on, or drift.
+  - Scene changes inside the sequence are hard cuts. Emphasis is a one-frame colour change or an underline appearing.
+  - Between topics, cut to the empty canvas for about 1.3 s before the next title appears. This is the theme's breathing beat.
+  - Static holds are part of this style, so the secondary-motion rules under "Visual character" do not apply to the sketch themes. Keep the build cadence dense instead: in the reference, a new element or emphasis lands every 1.2–6.2 s (median 2.5 s). When a hold would run past about 6 s, add a narration-synced build (a label, an underline, a colour change) rather than ambient motion.
+  - The standing entrance rules still govern the boundary with footage: the full-screen canvas enters from the right, top, or bottom with a slide or wipe, and `PRESENTER_INSET` moves as specified below. Only what happens inside the canvas is instant.
+- **Signature**: the optional wordmark (see "Brand signature") in Shantell Sans, first word in blue `#578AE0` and the rest in ink, upper-right, aligned to the title's cap line with a right margin matching the title's left margin (~300px).
+- **Inset border**: keep `#737985`; it stays visible on charcoal.

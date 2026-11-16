@@ -1,0 +1,50 @@
+# `warm-paper` (Warm Paper Sketch — default for long-form)
+- **Aesthetic**: The sketch explainer on warm paper. Light and calm, and the sketch theme closest to the `personal` brand: handwritten titles over clean body text.
+- **Palette**:
+  - Canvas: Warm paper `#F5F3EE`, flat.
+  - Ink (titles, body, line art): `#1D2025`.
+  - Muted (labels): `#6E737C`.
+  - Accent: Cobalt `#3659E3` for bullets, icon fills, code conditions, and the first word of the wordmark.
+  - Emphasis: Marker yellow `#FFD84D`, used only as a highlighter behind text.
+  - Cards: White `#FFFFFF` with an ink border. No shadows.
+- **Typography**:
+  - Titles and key statements: Shantell Sans 700 (`@remotion/google-fonts/ShantellSans`).
+  - Body and list items: Avenir Next 500. Labels: Avenir Next 600 in the muted tone.
+  - Code: JetBrains Mono 500 (`@remotion/google-fonts/JetBrainsMono`), with ligatures off (`font-variant-ligatures: none`, `"liga" 0, "calt" 0`), so code reads exactly as typed. Otherwise `>=` renders as `≥` and `||` as one glyph.
+  - 4K canvas (3840w): title 130px, key statement 124px, body 92px, labels 69px, code 77px, wordmark 58px. 1080p: half of each.
+  - Sentence case.
+- **Layout**: the same grid as `dark-sketch`: title top-left at x≈300 with its cap top at y≈210, list bullets at x≈460 with ≈180px pitch, centred key statements, and two-column explanations.
+- **Ornaments**:
+  - Bullets: short cobalt dashes, about 48×12px at 4K, tilted about -4°.
+  - Line art: ~12px ink strokes with rounded joins and flat cobalt fills.
+  - Cards: white, 12px ink border, ≈46px corner radius, optional speech tail.
+  - Emphasis: a yellow marker stroke behind the lower half of the key phrase, extending about 0.18em past each end, with slightly uneven rounded ends and a -0.8° tilt. In code, the action is highlighted the same way while the condition turns cobalt.
+  - Put the emphasised phrase on the last line of its text block so the mark never collides with the line below.
+  - **Code windows**: show code in a dark IDE-style window, not as bare text.
+    - Ink `#1D2025` body, 30px corner radius, and an 84px title bar `#2B2F37`.
+    - Three window dots (`#FF5F57`, `#FEBC2E`, `#28C840`) and a file tab in JetBrains Mono 44px `#C9CDD4`, e.g. `store.js`.
+    - Line numbers in `#6B717B`. Code text `#E8EAED`, 64–72px, ligatures off.
+    - Light up meaning on cue: conditions in light cobalt `#8FA8FF` (the theme cobalt is too dark on the editor), and the action with a full-height yellow highlight behind ink text. Don't use the half-height marker inside the editor: it leaves the top of ink glyphs on the ink background, where they are invisible.
+- **Presenter mask**: crop the camera to the presenter in a shape so no dead wall shows. A circle suits an angled tutorial camera, for example a laptop camera while the presenter looks at another screen.
+  - **No full-frame with such a camera**, when the creator asks for it: the angle only suits tutorials because the presenter looks at another screen. The masked window replaces the full-frame presenter everywhere, and the stage size is the "presenter-led" mode.
+  - Derive the crop from a whole-section face pass, and keep it static. Record the crop in the project (for example x540 y80 1000×1000 of a 1080p frame), and check that each new recording's face pass still sits inside it.
+  - Cap the upscale at 1.2x.
+  - Chrome: a 16px white mat, then an 8px ink ring `#1D2025`, constant on screen, with no shadow. This replaces the `#737985` rounded-inset border.
+  - Window states at 4K:
+    - `stage` circle: 1200px at (1960, 510).
+    - `corner` circle: 800px at (2920, 1240).
+    - `below`: off-canvas at (2920, 2260), for full-canvas moments.
+    - Moves: smootherstep about the centre path, 1.1–1.3 s, with a 180° shutter.
+  - The corner size comes from the measured clearance to the lowest corner-side graphic. Reflow graphics upward to make room rather than shrinking the presenter. Err toward a larger corner: smaller windows (540, then 690) were rejected in favour of 800.
+  - Side: if the presenter looks screen-left at a second monitor, the window stays on the right and faces the graphics. Variety comes from stage ↔ corner ↔ off-canvas, not from left/right swaps.
+  - Clearances: at stage, graphics stay at x ≤ 1856. In the corner, graphics stay at x ≤ 2780, or above y ≈ 1136 further right. The compositor audits an 80px clearance on every frame.
+  - The canvas clears when a move starts, and new graphics wait for the landing. A column already clear of the path may stay during the move.
+  - A rhythm that works:
+    - stage for claims, definitions, story beats and the section's opening and closing;
+    - corner (20–30 s holds) for comparisons, diagrams and code;
+    - one full-canvas moment of about 15–20 s per 1.5–3 min section.
+
+    Each section opens and ends at the stage size, so sections join cleanly.
+- **Motion grammar**: shared with `dark-sketch`, above.
+- **Signature**: the optional wordmark in Shantell Sans 700, first word in cobalt and the rest in ink, upper-right, aligned to the title's cap line.
+- **Inset border**: `#737985`, as in `personal`, for an uncropped rectangular inset only. A masked presenter uses the white mat and ink ring above.

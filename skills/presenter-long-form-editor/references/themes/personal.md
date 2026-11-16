@@ -1,0 +1,15 @@
+# `personal` (Signature — default for intros)
+- **Aesthetic**: Premium editorial, warm paper and cobalt signal.
+- **Palette**:
+  - Warm paper canvas: `#F5F3EE`
+  - Ink (primary typography): `#151922`
+  - Muted text: `#737985`
+  - Line / structural borders: `#D7D4CC` (soft line: `#E7E4DE`)
+  - Accent: Cobalt `#3659E3` (used as a precise signal, not a heavy wash)
+  - Card surface: `#FFFFFF` with subtle paper drop shadows (`rgba(21, 25, 34, 0.14)`)
+- **Typography**: Avenir Next (fallback: Avenir, Helvetica Neue, sans-serif).
+  - 4K canvas (3840w): body/list 90–100px, sub-heads 110–130px, headlines 140–195px.
+  - 1080p canvas: body/list 45–50px, sub-heads 55–65px, headlines 70–98px.
+- **Ornaments & Structure**:
+  - Thin structural connector lines and round nodes.
+  - Optional wordmark in the top right (see "Brand signature"): the first word in Cobalt, the rest in Ink.

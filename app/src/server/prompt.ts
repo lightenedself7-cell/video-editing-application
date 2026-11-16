@@ -54,14 +54,14 @@ export function buildPrompt(settings: JobSettings, skillsDir: string, python: st
   const framing = intro ? '' : `- Presenter framing: ${settings.presenterFraming === 'never-full-frame' ? "Never full frame: use the masked circle window (stage, corner, below) for the whole video, per the skill's Presenter mask rules." : 'Full frame allowed.'}\n- Delivery: ${settings.delivery === '4k' ? "3840x2160, source fps; record it in the directive's delivery field." : 'Match the source.'}\n`;
   return `You are running headless, started by the Agent Video Editor app. Nobody can answer you mid-run except through the files below.
 
-Use the skill at ${skillsDir}/${skillName}/. Read its SKILL.md and every reference it links, and follow its Required workflow exactly. When the workflow says to load video-use or the Remotion guidance, read ${skillsDir}/video-use/SKILL.md and the Remotion skills in ${skillsDir}/; if one is missing, continue without it and say so in ui-progress.jsonl. Follow CLAUDE.md (and AGENTS.md, if present) at the workspace root.
+Use the skill at ${skillsDir}/${skillName}/. Read its SKILL.md and the references it links that apply to this job${intro ? '' : " (for themes, only the file for the chosen theme; never open the other theme files)"}, and follow its Required workflow exactly. When the workflow says to load video-use or the Remotion guidance, read ${skillsDir}/video-use/SKILL.md and the Remotion skills in ${skillsDir}/; if one is missing, continue without it and say so in ui-progress.jsonl. Follow CLAUDE.md (and AGENTS.md, if present) at the workspace root.
 
 Use ${python} for every Python command, including the skill's scripts. If the skill points to a file that does not exist in this workspace (for example a theme kit or style reference under edit/ or outputs/ from the author's own machine), do not stop: build from the written specification in brand-system.md instead.
 
 The user has already answered these in the app. Do not ask again:
 - Project name: ${settings.projectName}. Write everything under ${output}/. This is the destination selected by the user in the app; use it for all output and progress files, replacing any default edit/<project> path in the skill.
 ${source}
-- Theme: ${settings.theme}. Chosen by the user in the app; this answers the theme selection prompt. Record it as "theme" in editorial-directive.json.
+- Theme: ${settings.theme}. Chosen by the user in the app; this answers the theme selection prompt.${intro ? '' : ` Read only ${settings.theme === 'clean-creator' ? 'references/clean-creator-style.md' : `references/themes/${settings.theme}.md`}.`} Record it as "theme" in editorial-directive.json.
 ${commonFields(settings)}
 ${repo}${framing}- Notes from the user: ${settings.notes || 'None.'}
 ${protocols(settings, output)}`;

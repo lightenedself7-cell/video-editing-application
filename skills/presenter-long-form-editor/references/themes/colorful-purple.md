@@ -1,0 +1,14 @@
+# `colorful-purple` (Hand-Drawn Infographic)
+- **Aesthetic**: A hand-drawn infographic on white paper. Bold caps headline, marker handwriting, boxes with a flat colour fill shifted off a wobbly ink outline, a lavender highlight on the key row, and a mint callout pill. Generate the paper texture procedurally (a faint crumple and grain).
+- **Palette**:
+  - Canvas: near-white paper with only a whisper of crumple and grain (`paper.jpg`, mean ≈ 249). A visible crumple is too loud; never make it louder.
+  - Headline: line 1 black `#1D1D1D`, line 2 periwinkle `#8B97EE`. Grey headlines were rejected.
+  - Ink `#222222` for hand text, outlines, arrows and icons.
+  - Box fills: coral `#EE8E72` and blue `#A2AEF5`, alternating by meaning.
+  - Notes: green `#1E7B46` hand text (labels on arrows, figures).
+  - Highlight row: lavender `#CCD2F6` band. Callout: mint `#D4F2CB` pill with deep green `#17462B` text. Accent underline: coral.
+- **Typography**: headline Archivo Black caps (`@remotion/google-fonts/ArchivoBlack`), 118px at 4K, two lines centred. Hand text Schoolbell with a 2.2% text-stroke (closest of nine handwriting fonts to the reference), labels 80–84px. Callout pill text Fredoka 600, 92px, sentence case.
+- **Line art**: one-stroke hand-drawn shapes (`roughRect`, `roughCircle`): bowed sides, uneven corners, the pen overshooting its start; ~13px ink strokes at 4K, round joins. Boxes are flat fills offset about 12px up-left of the drawn outline. Icons are simple ink monoline drawings inside the boxes. Arrows are gently curved with open heads.
+- **Motion grammar**: as `blackboard-style`, on spoken cues: text writes on left to right (handwriting ~26 cps, headline 60–70 cps), outlines, icons and arrows trace in 0.4–0.6 s with fills settling in at the end, and the band and pill paint on left to right as marker sweeps (0.45 s, smootherstep). No camera moves by default.
+- **Presenter**: the circle window, with a periwinkle disc offset up-left behind it and a hand-drawn ink ring (the box look). No mat. The crop is measured per recording.
+- **Signature**: the optional wordmark in Schoolbell, first word in periwinkle, centred below the circle window.

@@ -1,0 +1,13 @@
+# `blackboard-style` (Blackboard Live Pen)
+- **Aesthetic**: A live tablet-pen explainer on pure black. Diagrams grow as the narration goes, in a few bright inks, and the view moves over the canvas like a camera. It uses an infinite-canvas camera (below).
+- **Palette** (sampled from the reference):
+  - Canvas: pure black `#000000`, flat.
+  - Ink: white `#F8F8F8` for drawings and main labels. Grey `#B4B4B4` for side notes.
+  - Inks by meaning: blue `#5454FC` (fills; `#7C7CFC` for blue text), green `#6CFC6C`, yellow `#FCFC84`, pink `#EC6CEC`, orange `#E49C3C` underlines, bracket red `#E46C6C`.
+  - Pointer: a solid red `#F0302A` block arrow that points at the thing being discussed.
+- **Typography**: Gochi Hand (`@remotion/google-fonts/GochiHand`) for everything; it was the closest of six handwriting fonts to the reference handwriting. At 4K: title 130px, labels 84–92px, side notes 72–88px, wordmark 66px. Sentence case.
+- **Line art**: simple monoline drawings (~11px strokes at 4K, rounded joins) with flat blue or green fills, curved hand-drawn arrows, a blue/green globe, brackets around groups. Brand icons follow "Brand icons" below: white tile on black, or the brand's own white wordmark bare.
+- **Motion grammar** (differs from the sketch themes): every element is written or drawn on from its spoken cue, like a live pen. Text writes left to right at about 24–32 characters per second. Line art traces in 0.5–0.7 s, and fills settle in at the end. Logos appear in one frame. The red pointer pops in with a 0.25 s nudge toward its target.
+- **Camera (option C)**: each scene is a canvas larger than the screen. It opens zoomed in (about 1.25–1.35×, anchored at the title corner) on the first drawing, pulls out to 1× as the diagram grows, and pans to a new area (for example down to a statistic) instead of cutting. Camera moves use smootherstep over 1.2 s and are recorded per beat in the directive's `camera` field. At every camera state the visible graphics must respect the window clearances.
+- **Presenter**: the circle window with its stage, corner and below states, a 16px `#E2E2E2` mat and an 8px `#737985` ring. The crop is measured per recording.
+- **Signature**: the optional wordmark in Gochi Hand, first word in `#7C7CFC`, upper-right, fixed in screen space (never moved by the camera).

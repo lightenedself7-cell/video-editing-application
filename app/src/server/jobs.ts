@@ -9,6 +9,7 @@ import { resolveAgentInvocation } from './agent.js';
 import { discoverChecks, discoverMaster, readResultFile } from './artifacts.js';
 import { HttpError } from './http.js';
 import { probeMedia } from './media.js';
+import { prepareJob, preparedPromptNote } from './prepare.js';
 import { AgentOutputParser } from './outputParser.js';
 import { assertProjectName } from './paths.js';
 import { runCommand } from './process.js';
@@ -143,7 +144,17 @@ export class JobManager extends EventEmitter {
     }
     if (runtime.cancelling) return;
     runtime.job.status = 'processing';
-    runtime.job.activity = [...runtime.job.activity, 'Preflight passed', runtime.job.settings.skill === 'intro' ? 'Starting Intro editor' : 'Starting Long-form editor'];
+    runtime.job.activity = [...runtime.job.activity, 'Preflight passed', 'Measuring loudness and transcribing locally'];
+    runtime.job.status = 'processing';
+    this.changed(runtime);
+    try {
+      const prepared = await prepareJob(runtime.job.settings, runtime.projectDir, settings.python, settings.workspace, () => runtime.cancelling);
+      runtime.originalPrompt += preparedPromptNote(prepared);
+    } catch (error) {
+      runtime.job.activity = [...runtime.job.activity, `Pre-processing skipped: ${error instanceof Error ? error.message : String(error)}`];
+    }
+    if (runtime.cancelling) return;
+    runtime.job.activity = [...runtime.job.activity, runtime.job.settings.skill === 'intro' ? 'Starting Intro editor' : 'Starting Long-form editor'];
     this.spawnAgent(runtime, runtime.originalPrompt);
     this.changed(runtime);
   }

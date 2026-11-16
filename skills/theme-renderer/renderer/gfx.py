@@ -43,44 +43,52 @@ def ease_back(x, s=1.2):
 
 
 # ---------- fonts / text ----------
-_FONTS = {"regular": None, "italic": None}
+_FONTS = {"regular": None, "italic": None, "display": None, "display_width": 100}
 
 
-def set_fonts(regular: str, italic: str) -> None:
-    """Point the text helpers at a theme's variable fonts (weight axis). Clears the caches."""
+def set_fonts(regular: str, italic: str, display: str | None = None, display_width: float = 100) -> None:
+    """Point the text helpers at a theme's variable fonts (weight axis). Clears the caches.
+
+    `display` is an optional second face (width + weight axes, in that order) used with face="display".
+    """
     _FONTS["regular"], _FONTS["italic"] = regular, italic
+    _FONTS["display"], _FONTS["display_width"] = display, display_width
     font.cache_clear()
     text_sprite.cache_clear()
 
 
 @lru_cache(None)
-def font(size, weight=400, italic=False):
+def font(size, weight=400, italic=False, face="regular"):
+    if face == "display":
+        f = ImageFont.truetype(_FONTS["display"], size)
+        f.set_variation_by_axes([_FONTS["display_width"], weight])
+        return f
     f = ImageFont.truetype(_FONTS["italic"] if italic else _FONTS["regular"], size)
     f.set_variation_by_axes([weight])
     return f
 
 
-def rich_segments(text, size, weight, bold_weight=800):
+def rich_segments(text, size, weight, bold_weight=800, face="regular"):
     """'a **b** c' -> [(str, font)]"""
     parts = text.split("**")
     segs = []
     for i, p in enumerate(parts):
         if p:
-            segs.append((p, font(size, bold_weight if i % 2 else weight)))
+            segs.append((p, font(size, bold_weight if i % 2 else weight, False, face)))
     return segs
 
 
-def text_width(text, size, weight=400, bold_weight=800):
-    return sum(f.getlength(s) for s, f in rich_segments(text, size, weight, bold_weight))
+def text_width(text, size, weight=400, bold_weight=800, face="regular"):
+    return sum(f.getlength(s) for s, f in rich_segments(text, size, weight, bold_weight, face))
 
 
-def wrap(text, size, weight, maxw, bold_weight=800):
+def wrap(text, size, weight, maxw, bold_weight=800, face="regular"):
     words = text.split(" ")
     lines = []
     cur = ""
     for w in words:
         t = (cur + " " + w).strip()
-        if text_width(t.replace("**", "") if t.count("**") % 2 else t, size, weight, bold_weight) <= maxw or not cur:
+        if text_width(t.replace("**", "") if t.count("**") % 2 else t, size, weight, bold_weight, face) <= maxw or not cur:
             cur = t
         else:
             lines.append(cur)
@@ -102,11 +110,11 @@ def wrap(text, size, weight, maxw, bold_weight=800):
 
 
 @lru_cache(None)
-def text_sprite(text, size, weight=400, color="#FFFFFF", glow=0.0, italic=False, bold_weight=800, align="left", maxw=0, leading=1.25):
+def text_sprite(text, size, weight=400, color="#FFFFFF", glow=0.0, italic=False, bold_weight=800, align="left", maxw=0, leading=1.25, face="regular"):
     """RGBA float sprite (straight alpha) with optional soft glow. Padding 24px."""
-    lines = wrap(text, size, weight, maxw, bold_weight) if maxw else [text]
+    lines = wrap(text, size, weight, maxw, bold_weight, face) if maxw else [text]
     pad = 24
-    widths = [text_width(l, size, weight, bold_weight) for l in lines] if not italic else [font(size, weight, True).getlength(l) for l in lines]
+    widths = [text_width(l, size, weight, bold_weight, face) for l in lines] if not italic else [font(size, weight, True).getlength(l) for l in lines]
     lh = int(size * leading)
     w = int(max(widths)) + pad * 2 + 4
     h = lh * len(lines) + pad * 2
@@ -118,7 +126,7 @@ def text_sprite(text, size, weight=400, color="#FFFFFF", glow=0.0, italic=False,
         if italic:
             d.text((x, y), l, font=font(size, weight, True), fill=255)
         else:
-            for s, f in rich_segments(l, size, weight, bold_weight):
+            for s, f in rich_segments(l, size, weight, bold_weight, face):
                 d.text((x, y), s, font=f, fill=255)
                 x += f.getlength(s)
         y += lh
@@ -149,10 +157,10 @@ def over(dst, rgba, x, y, alpha=1.0):
     dst[y0:y1, x0:x1] = dst[y0:y1, x0:x1] * (1 - a) + s[..., :3] * a
 
 
-def put_text(dst, text, size, x, y, weight=400, color="#FFFFFF", alpha=1.0, glow=0.0, anchor="lt", maxw=0, italic=False, align="left", bold_weight=800, scale=1.0):
+def put_text(dst, text, size, x, y, weight=400, color="#FFFFFF", alpha=1.0, glow=0.0, anchor="lt", maxw=0, italic=False, align="left", bold_weight=800, scale=1.0, face="regular"):
     size = int(round(size))
     maxw = int(round(maxw)) if maxw else 0
-    rgba, pad = text_sprite(text, size, weight, color, glow, italic, bold_weight, align, maxw)
+    rgba, pad = text_sprite(text, size, weight, color, glow, italic, bold_weight, align, maxw, 1.25, face)
     if scale != 1.0:
         rgba = cv2.resize(rgba, None, fx=scale, fy=scale, interpolation=cv2.INTER_LINEAR)
         pad = pad * scale
@@ -272,7 +280,8 @@ class Kit:
         self.text = c["text"]
         self.text_rgb = hexc(c["text"])
         fonts = tokens["fonts"]
-        set_fonts(os.path.join(theme_dir, fonts["regular"]), os.path.join(theme_dir, fonts["italic"]))
+        set_fonts(os.path.join(theme_dir, fonts["regular"]), os.path.join(theme_dir, fonts["italic"]),
+                  os.path.join(theme_dir, fonts["display"]) if fonts.get("display") else None, fonts.get("display_width", 100))
         self._ground_img = None
 
     def px(self, v: float) -> int:

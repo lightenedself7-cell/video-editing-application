@@ -16,6 +16,7 @@ Each theme lives in its own file. **Read only the file for the theme chosen for 
 - `blackboard-style` (Blackboard Live Pen): [themes/blackboard-style.md](themes/blackboard-style.md)
 - `colorful-purple` (Hand-Drawn Infographic): [themes/colorful-purple.md](themes/colorful-purple.md)
 - `clean-creator` (Clean Creator): [clean-creator-style.md](clean-creator-style.md)
+- `teal-spotlight` (Teal Spotlight): [themes/teal-spotlight.md](themes/teal-spotlight.md)
 
 ## Visual character
 

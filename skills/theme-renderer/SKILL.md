@@ -1,6 +1,6 @@
 ---
 name: theme-renderer
-description: Render an approved editorial-directive.json with a theme's ready-made components, with no per-video graphics code. Use after the directive is validated, for themes that have a registry (currently clean-creator).
+description: Render an approved editorial-directive.json with a theme's ready-made components, with no per-video graphics code. Use after the directive is validated, for themes that have a registry (currently clean-creator and teal-spotlight).
 ---
 
 # Theme renderer
@@ -41,6 +41,18 @@ mark it `custom_graphics` (see the long-form skill's "One-off graphics") and han
 
 Not yet components (still hand-built per video): screen-share framing with the presenter bubble, punch-ins,
 full-screen roadmap and phone panels, chips over screens, compare cards. Add them to the registry as they recur.
+
+## Teal Spotlight components (registry v1)
+
+| Component | Treatment | Use for |
+|---|---|---|
+| `section-title` | FULLSCREEN_MOTION | dark title card, key phrase on a tilted marigold block, optional brand tiles |
+| `spotlight-box` | FULLSCREEN_MOTION | zoom to a box (source pixels), dim and blur the rest, optional marker, up to 3 boxes (pans) |
+| `lower-third-tag` | OVERLAY_CARD, SELECTIVE_TEXT | slanted tilted tag with bold shadow; layout box about 90 px tall |
+| `explainer-card` | OVERLAY_CARD | light card with cue-timed rows and skeleton bars |
+
+Not yet components: screen-share framing with the presenter card, split-screen labels, glitch transition, glow sweep, word captions.
+Titles use a second, condensed font face: tokens `fonts.display` / `display_width`, drawn with `face="display"`.
 
 ## Adding a component or a theme
 

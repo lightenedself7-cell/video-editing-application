@@ -17,6 +17,7 @@ const copy: Record<string, [string, string, string]> = {
   'blackboard-style': ['Think it through.', 'Build it, one line at a time', 'Now it all connects.'],
   'colorful-purple': ['Ideas with personality.', 'A little color. A lot of clarity.', 'Make the message stick.'],
   'clean-creator': ['Say it clearly.', 'One idea at a time', 'Here is the recap.'],
+  'teal-spotlight': ['Look closer.', 'Spotlight what matters', 'Now you know.'],
 };
 
 export function ThemeArtwork({ theme, time = 0 }: { theme: Theme; time?: number }) {

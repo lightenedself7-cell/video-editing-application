@@ -1,0 +1,75 @@
+{
+  "theme": "clean-creator",
+  "version": 1,
+  "components": {
+    "glass-card": {
+      "summary": "Frosted card beside the presenter. Rows of keyword text appear one at a time on their spoken cue.",
+      "treatments": ["OVERLAY_CARD"],
+      "touches_presenter": false,
+      "needs": ["layout"],
+      "props": {
+        "rows": {"type": "array", "required": true, "min": 1, "max": 5, "items": {
+          "text": {"type": "string", "required": true},
+          "cue": {"type": "number", "required": true},
+          "icon": {"type": "string"}
+        }},
+        "header": {"type": "object", "fields": {
+          "text": {"type": "string", "required": true},
+          "cue": {"type": "number", "required": true},
+          "icon": {"type": "string"}
+        }}
+      }
+    },
+    "kinetic-keyword": {
+      "summary": "One key word or short phrase next to the presenter: a small lead-in line over a large glowing word.",
+      "treatments": ["SELECTIVE_TEXT"],
+      "touches_presenter": false,
+      "needs": ["layout"],
+      "props": {
+        "lead": {"type": "string", "required": true},
+        "word": {"type": "string", "required": true},
+        "cue": {"type": "number", "required": true},
+        "anchor": {"type": "object", "fields": {"x": {"type": "number", "required": true}, "y": {"type": "number", "required": true}}}
+      }
+    },
+    "question-beat": {
+      "summary": "Footage darkens and blurs; one thin caption line with a bold keyword is centred in the layout box.",
+      "treatments": ["SELECTIVE_TEXT"],
+      "touches_presenter": true,
+      "needs": ["layout"],
+      "props": {
+        "text": {"type": "string", "required": true},
+        "cue": {"type": "number", "required": true}
+      }
+    },
+    "side-column-list": {
+      "summary": "Presenter moves into a left column; a title and a stack of check-mark rows fill the rest, one row per spoken cue.",
+      "treatments": ["PRESENTER_INSET"],
+      "touches_presenter": true,
+      "needs": ["presenter_layout"],
+      "props": {
+        "title": {"type": "string", "required": true},
+        "rows": {"type": "array", "required": true, "min": 1, "max": 6, "items": {
+          "text": {"type": "string", "required": true},
+          "cue": {"type": "number", "required": true},
+          "emphasis": {"type": "boolean"}
+        }},
+        "source_cx": {"type": "number"}
+      }
+    },
+    "recap-window": {
+      "summary": "Presenter in a rounded glowing window on the left with a caption under it; check-mark cards on the right, one per covered topic.",
+      "treatments": ["PRESENTER_INSET"],
+      "touches_presenter": true,
+      "needs": ["presenter_layout"],
+      "props": {
+        "title": {"type": "string", "required": true},
+        "caption": {"type": "string"},
+        "rows": {"type": "array", "required": true, "min": 1, "max": 5, "items": {
+          "text": {"type": "string", "required": true},
+          "cue": {"type": "number", "required": true}
+        }}
+      }
+    }
+  }
+}

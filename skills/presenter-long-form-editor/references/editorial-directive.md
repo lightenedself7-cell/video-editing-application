@@ -102,3 +102,12 @@ When the program is assembled from camera and audio-only sections, `source` desc
 - Run `scripts/validate_directive.py editorial-directive.json` before execution.
 
 Also write a brief `director-treatment.md` explaining the visual rhythm, why full-screen moments were selected, how presenter visibility is protected, and what remains intentionally clean.
+
+## Theme components (optional)
+
+When the chosen theme has a registry (`skills/theme-renderer/themes/<theme>/registry.json`; currently `clean-creator`),
+a beat may add `"component"` and `"props"` instead of the agent writing graphics code. `scripts/validate_directive.py`
+checks the component name, that the beat's `treatment` is one the component supports, the required beat fields (for
+example `layout` or `presenter_layout`), the props, and that every `cue` lies inside the beat. Render with
+`skills/theme-renderer/render_directive.py`; see its SKILL.md for the component list and prop shapes. A beat without
+`component` is unchanged.

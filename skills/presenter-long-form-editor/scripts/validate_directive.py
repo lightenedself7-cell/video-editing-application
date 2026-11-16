@@ -118,6 +118,28 @@ def validate_segments(data: dict[str, Any], duration: float, errors: list[str]) 
     return voiceover
 
 
+def validate_components(theme: Any, beats: Any, errors: list[str]) -> None:
+    """Beats may name a theme template with `component` + `props`; check them against the theme's registry."""
+    if not isinstance(beats, list):
+        return
+    used = [(i, b) for i, b in enumerate(beats) if isinstance(b, dict) and b.get("component") is not None]
+    if not used:
+        return
+    renderer_dir = Path(__file__).resolve().parents[2] / "theme-renderer"
+    sys.path.insert(0, str(renderer_dir))
+    try:
+        from renderer.registry import check_beat, load_registry
+    except ImportError:
+        fail(errors, "beats use `component` but skills/theme-renderer is not installed")
+        return
+    registry = load_registry(theme) if isinstance(theme, str) else None
+    if registry is None:
+        fail(errors, f"beats use `component` but theme {theme!r} has no templates yet (no skills/theme-renderer/themes/{theme}/registry.json)")
+        return
+    for i, beat in used:
+        errors.extend(check_beat(registry, beat, f"beats[{i}]"))
+
+
 def validate(path: Path) -> tuple[list[str], list[str]]:
     errors: list[str] = []
     warnings: list[str] = []
@@ -264,6 +286,8 @@ def validate(path: Path) -> tuple[list[str], list[str]]:
         if treatment == "PRESENTER_INSET" and (moves_in or beat.get("transition_out") == CORNER_MOVE) and end - start < MIN_CORNER_HOLD_S:
             warnings.append(f"{prefix} holds its corner for {end - start:.1f}s; aim for at least {MIN_CORNER_HOLD_S:.0f}s between corner moves")
         previous_beat = beat
+
+    validate_components(theme, beats, errors)
 
     for vo_start, vo_end in voiceover:
         covered = overlap_s(vo_start, vo_end, fullscreen_intervals)

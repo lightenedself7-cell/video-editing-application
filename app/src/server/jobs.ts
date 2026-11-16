@@ -10,6 +10,7 @@ import { discoverChecks, discoverMaster, readResultFile } from './artifacts.js';
 import { HttpError } from './http.js';
 import { probeMedia } from './media.js';
 import { prepareJob, preparedPromptNote } from './prepare.js';
+import { renderIneligibleReason } from './renderHandoff.js';
 import { AgentOutputParser } from './outputParser.js';
 import { assertProjectName } from './paths.js';
 import { runCommand } from './process.js';
@@ -198,6 +199,7 @@ export class JobManager extends EventEmitter {
   private async finish(runtime: Runtime, exitCode: number | null): Promise<void> {
     if (runtime.finalizing || runtime.finished) return;
     runtime.finalizing = true;
+    let handoff = false; // the app is about to run the renderer: the job stays open
     try {
       await this.syncArtifacts(runtime);
       runtime.child = undefined;
@@ -219,6 +221,13 @@ export class JobManager extends EventEmitter {
       }
       const questions = await this.readQuestions(runtime);
       if (questions.length) { this.needsDecision(runtime, questions); return; }
+      if (result?.status === 'render-by-app') {
+        const reason = await renderIneligibleReason(runtime.projectDir, runtime.settings.skillsDir);
+        if (reason) { this.fail(runtime, 'invalid-plan', 'The app cannot render this plan itself.', [reason], 'composite'); return; }
+        handoff = true;
+        this.startRenderer(runtime);
+        return;
+      }
       if (result?.status === 'complete') {
         const master = await discoverMaster(runtime.projectDir, runtime.projectDir, result.master);
         if (master) {
@@ -244,12 +253,54 @@ export class JobManager extends EventEmitter {
       if (!result) this.fail(runtime, 'agent-error', 'The editor exited without a result file.', [...runtime.stderr, ...(runtime.finalMessage ? [runtime.finalMessage] : [])].slice(-31));
       else this.fail(runtime, 'agent-error', 'The completed master was not found.', [...runtime.stderr, 'ui-result.json did not point to an existing master.'], 'deliver');
     } finally {
-      runtime.finished = true;
       runtime.finalizing = false;
-      this.stopWatch(runtime);
-      if (this.runningId === runtime.job.id) this.runningId = null;
+      if (!handoff) {
+        runtime.finished = true;
+        this.stopWatch(runtime);
+        if (this.runningId === runtime.job.id) this.runningId = null;
+      }
       this.changed(runtime);
     }
+  }
+
+  /** Render the approved directive with the theme's components, with no agent, then finish the job as usual. */
+  private startRenderer(runtime: Runtime): void {
+    const script = join(runtime.settings.skillsDir, 'theme-renderer', 'render_directive.py');
+    runtime.job.activity = [...runtime.job.activity, 'Plan is component-only: rendering with the theme renderer (no agent)'];
+    runtime.log = createWriteStream(join(runtime.projectDir, 'ui-agent.log'), { flags: 'a' });
+    runtime.log.write(`Resolved command: ${runtime.settings.python} ${script} ${runtime.projectDir}\n`);
+    const child = spawn(runtime.settings.python, [script, runtime.projectDir], { cwd: runtime.settings.workspace, detached: true, env: process.env, shell: false, stdio: ['ignore', 'pipe', 'pipe'] });
+    runtime.child = child;
+    let tail: string[] = [];
+    const collect = (chunk: Buffer): void => {
+      runtime.log?.write(chunk);
+      tail = [...tail, ...chunk.toString('utf8').split(/\r?\n/)].filter(Boolean).slice(-30);
+    };
+    child.stdout.on('data', collect);
+    child.stderr.on('data', collect);
+    child.on('error', (error) => { tail = [...tail, error.message].slice(-30); });
+    child.on('close', (code) => { runtime.log?.end(); void this.rendererDone(runtime, code, tail); });
+    this.changed(runtime);
+  }
+
+  private async rendererDone(runtime: Runtime, code: number | null, tail: string[]): Promise<void> {
+    runtime.child = undefined;
+    if (runtime.cancelling || runtime.job.status === 'cancelled') return;
+    if (code !== 0) {
+      const invalid = tail.some((line) => /failed validation/i.test(line));
+      runtime.finished = true;
+      this.fail(runtime, invalid ? 'invalid-plan' : 'agent-error', invalid ? 'The directive failed validation.' : 'The theme renderer failed.', tail, 'composite');
+      return;
+    }
+    let name = runtime.job.settings.projectName;
+    try {
+      const directive = JSON.parse(await readFile(join(runtime.projectDir, 'editorial-directive.json'), 'utf8')) as { project?: unknown };
+      if (typeof directive.project === 'string') name = directive.project;
+    } catch { /* The renderer already read the directive; fall back to the project name. */ }
+    await writeFile(join(runtime.projectDir, 'ui-result.json'), `${JSON.stringify({ status: 'complete', master: `${name}-master.mp4`, checks: 'reports/checks.json' })}\n`);
+    runtime.finalizing = false;
+    runtime.finished = false;
+    await this.finish(runtime, 0);
   }
 
   private needsDecision(runtime: Runtime, questions: Question[]): void {

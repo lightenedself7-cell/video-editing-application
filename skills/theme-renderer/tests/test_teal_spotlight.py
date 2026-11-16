@@ -96,6 +96,19 @@ class TealSpotlightTests(unittest.TestCase):
             self.assertGreater(diff.max(), 50, key)
             self.assertLess(diff[0:600, 260:960].max(), 4.0, f"{key} reaches into the protected region")
 
+    def test_every_frame_of_every_beat_renders(self):
+        # pop-in and wipe animations pass through near-zero sizes; a sweep catches crashes the spot checks miss
+        d = copy.deepcopy(self.directive)
+        d["beats"].append(beat(5, 18.2, 19.8, "FULLSCREEN_MOTION", "process", ["T"], component="screen-share",
+                               props={"presenter": {"x": 880, "y": 400, "width": 360, "height": 280}, "presenter_visibility": [{"cue": 19.0, "visible": False}]}))
+        ctx = engine.Context(d, str(self.dir))
+        S = np.full((720, 1280, 3), 90.0, np.float32)
+        for b in d["beats"]:
+            for n in range(int(b["start"] * 30) - 1, int(b["end"] * 30) + 2, 2):
+                out, _ = engine.render_frame(ctx, n, S)
+                self.assertEqual(out.shape, S.shape)
+                self.assertTrue(np.isfinite(out).all())
+
     def test_screen_share_card_hides_and_returns(self):
         d = copy.deepcopy(self.directive)
         d["beats"] = [beat(1, 0.5, 12.0, "FULLSCREEN_MOTION", "process", ["T"], component="screen-share",

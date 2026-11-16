@@ -49,6 +49,8 @@ def _rect_pts(x, y, w, h):
 def _rotated_text(out, text, size, cx, cy, deg, weight, color, alpha, face="display", glow=0.0, scale=1.0):
     """Draw text centred on (cx, cy), rotated by deg (positive = clockwise on screen)."""
     from renderer.gfx import text_sprite
+    if scale < 0.04:
+        return  # nothing visible yet; resizing to a near-empty sprite would fail
     rgba, pad = text_sprite(text, int(round(size)), weight, color, glow, False, 800, "left", 0, 1.25, face)
     if scale != 1.0:
         rgba = cv2.resize(rgba, None, fx=scale, fy=scale, interpolation=cv2.INTER_LINEAR)

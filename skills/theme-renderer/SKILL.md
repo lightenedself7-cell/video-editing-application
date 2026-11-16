@@ -29,6 +29,14 @@ a `registry.json` listing its components and their props, and a `components.py` 
 Agent rule: for a theme with a registry, write components, not graphics code. If a beat has no matching component,
 mark it `custom_graphics` (see the long-form skill's "One-off graphics") and hand-build only that beat.
 
+## Render and verify
+
+`render_directive.py` renders in parallel chunks, then runs `verify_master.py`, which writes `reports/checks.json`
+(full decode, size, frame rate, duration, loudness against the source, protected region untouched) and logs the
+`verify` and `deliver` phases. The app calls it directly when the agent writes `{"status":"render-by-app"}`
+(see `app/src/server/renderHandoff.ts` for when that is allowed), so a component-only job needs no agent for rendering,
+checking or delivery.
+
 ## Clean Creator components (registry v1)
 
 | Component | Treatment | Use for |

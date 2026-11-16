@@ -178,6 +178,9 @@ class RendererTests(unittest.TestCase):
         self.assertAlmostEqual(float(probe["format"]["duration"]), DUR, delta=0.1)
         self.assertLess(json.loads((proj / "render" / "safe.json").read_text())["max_overlay_delta_in_protected"], GLOW_TAIL)
         self.assertTrue((proj / "ui-progress.jsonl").exists())
+        checks = json.loads((proj / "reports" / "checks.json").read_text())["results"]  # what the app reads when it renders a job itself
+        self.assertTrue(all(c["pass"] for c in checks), checks)
+        self.assertGreaterEqual(len(checks), 6)
 
 
 if __name__ == "__main__":

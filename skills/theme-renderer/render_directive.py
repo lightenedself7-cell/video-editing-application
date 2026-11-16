@@ -25,8 +25,8 @@ sys.path.insert(0, str(HERE))
 from renderer import engine  # noqa: E402
 
 
-def progress(project: Path, percent: float, message: str) -> None:
-    line = {"t": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "phase": "composite", "percent": int(percent), "message": message}
+def progress(project: Path, percent: float, message: str, phase: str = "composite") -> None:
+    line = {"t": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "phase": phase, "percent": int(percent), "message": message}
     with open(project / "ui-progress.jsonl", "a", encoding="utf-8") as fh:
         fh.write(json.dumps(line) + "\n")
 
@@ -104,6 +104,13 @@ def main() -> int:
     (project / "render" / "safe.json").write_text(json.dumps(safe, indent=2))
     progress(project, 100, "Render complete")
     print(master)
+    from verify_master import write_checks  # noqa: E402
+    results = write_checks(project, directive, Path(master))
+    failed = [r for r in results if not r["pass"]]
+    for r in results:
+        print(("PASS " if r["pass"] else "FAIL ") + f"{r['check']}: {r['detail']}")
+    progress(project, 100, "All checks pass" if not failed else f"{len(failed)} check(s) failed", "verify")
+    progress(project, 100, "Master and checks written to the project folder", "deliver")
     return 0
 
 

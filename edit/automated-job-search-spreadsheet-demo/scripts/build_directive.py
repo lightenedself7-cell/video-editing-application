@@ -44,9 +44,10 @@ def shift_props(o):
     return o
 
 
-CARD = {"x": 976, "y": 200, "width": 280, "height": 20}
-CARD4 = {"x": 976, "y": 320, "width": 280, "height": 20}  # cards are centred on layout y; 4 rows need to sit lower
-TAG = {"x": 40, "y": 616, "width": 400, "height": 90}
+CARD = {"x": 8, "y": 360, "width": 250, "height": 20}  # left-centre (room 1)
+CARD4 = {"x": 8, "y": 360, "width": 250, "height": 20}  # cards are centred on layout y
+CARDR = {"x": 984, "y": 360, "width": 280, "height": 20}  # right-centre (second room, screen stretches)
+TAG = {"x": 24, "y": 466, "width": 400, "height": 90}  # left-centre, below the face region, clear of the player bar
 FULLSCR = {"x": 0, "y": 20, "width": 1280, "height": 680}
 b = []
 n = [0]
@@ -64,6 +65,17 @@ TABS = {"Config": {"x": 113, "width": 73}, "Jobs": {"x": 193, "width": 68}, "Rej
 
 def tab(name, cue_, dur=2.8):
     return {"cue": cue_, "dur": dur, "active": {"x": TABS[name]["x"], "y": 688, "width": TABS[name]["width"], "height": 32}}
+
+
+PIPE_STEPS = [{"label": "Blank sheet", "sub": "in Google Drive"}, {"label": "Setup prompt", "sub": "in Claude"},
+              {"label": "Check Config", "sub": "tabs fill in"}, {"label": "Nightly prompt", "sub": "runs every night"},
+              {"label": "Read the sheet", "sub": "Jobs, Rejected, Log"}, {"label": "Schedule it", "sub": "check in the morning"}]
+
+
+def pipe(a, b, active, cue_):
+    add(a, b, "FULLSCREEN_MOTION", "process", ["PIPELINE", PIPE_STEPS[active]["label"].upper()], cue_, component="pipeline",
+        props={"title": "The pipeline", "steps": PIPE_STEPS, "active": active, "cue": cue_},
+        purpose="Shows where we are in the pipeline and lights the step as it is discussed")
 
 
 # ---- 0 - 31: hook (round 2: graphics from the first second)
@@ -86,17 +98,19 @@ add(23.9, 31.0, "OVERLAY_CARD", "proof", ["36 searches", "15 jobs read", "1 in m
     props={"title": "One night", "rows": [{"text": "**36** searches", "cue": cue("36", 25)}, {"text": "**15** jobs read", "cue": cue("15", 26.4)},
                                            {"text": "**1** in my sheet", "cue": cue("one", 28.3)}]}, purpose="Makes the result concrete")
 # ---- 31 - 55: promise
-add(31.2, 36.6, "OVERLAY_CARD", "proof", ["no job board", "no prompt", "no cell"], 31.5, layout=CARD, component="explainer-card",
-    props={"title": "Hands off", "rows": [{"text": "No **job board** opened", "cue": 31.5}, {"text": "No **prompt** typed", "cue": 32.9},
-                                          {"text": "No **cell** typed", "cue": 35.2}]}, purpose="Shows how little effort it takes")
+add(31.2, 37.4, "OVERLAY_CARD", "proof", ["no job board", "no prompt", "no cell"], 31.3, layout=CARD, component="explainer-card",
+    props={"title": "Skipped", "rows": [{"text": "Open a **job board**", "cue": 31.3, "strike": 31.95},
+                                        {"text": "Type a **prompt**", "cue": 32.5, "strike": 33.3},
+                                        {"text": "Type a **cell**", "cue": 35.0, "strike": 36.15}]},
+    purpose="Each skipped chore gets struck through as it is named")
 add(39.6, 42.9, "OVERLAY_CARD", "context", ["NO BORED SEARCHING"], 40.2, layout=TAG, component="lower-third-tag",
     props={"text": "No bored searching", "cue": 40.2}, purpose="Names what the viewer skips")
-add(43.3, 52.0, "OVERLAY_CARD", "context", ["tested in Claude", "not locked to Claude", "any AI app with connectors"], 43.5, layout=CARD,
-    component="explainer-card",
-    props={"title": "Not just Claude", "rows": [{"text": "Tested in **Claude**", "cue": 43.5, "icon": "brand/claude.png"},
-                                                {"text": "Connector is **not locked** to Claude", "cue": 45.6},
-                                                {"text": "Any AI app with **connectors**", "cue": 48.0}]},
-    purpose="Says the idea works beyond Claude")
+add(43.3, 52.0, "FULLSCREEN_MOTION", "context", ["tested in Claude", "not locked to Claude", "any AI app with connectors"], 43.5, component="focus-points",
+    props={"title": "Works beyond Claude",
+           "points": [{"text": "Tested in **Claude**", "cue": 43.5, "icon": "brand/claude.png"},
+                      {"text": "Connector is **not locked** to Claude", "cue": 45.6},
+                      {"text": "Any AI app with **connectors**", "cue": 48.0}]},
+    purpose="Blurs the presenter and brings the three points to the centre")
 add(55.1, 59.2, "OVERLAY_CARD", "promise", ["1 SHEET + 2 PROMPTS"], cue("one", 55.3), layout=TAG, component="lower-third-tag",
     props={"text": "1 sheet + 2 prompts", "cue": cue("one", 55.3)}, purpose="States the deliverables")
 add(59.3, 72.3, "FULLSCREEN_MOTION", "process", ["WHAT YOU NEED", "3 THINGS"], cue("claude", 60.6), component="section-title",
@@ -132,21 +146,25 @@ add(149.9, 162.9, "OVERLAY_CARD", "process", ["alert vs this"], cue("matches", 1
                                                {"text": "Applies your **rules**", "cue": cue("rules", 152.9)},
                                                {"text": "Says **why** kept or out", "cue": cue("why", 154)},
                                                {"text": "Keeps a **record**", "cue": cue("record", 156.6)}]}, purpose="Answers the alerts question")
-add(163.95, 166.9, "FULLSCREEN_MOTION", "context", ["STEP 1", "BUILD THE SHEET"], 164.2, component="section-title",
-    props={"title": "Step 1", "key": "Build the sheet", "cue": 164.3}, purpose="Section title",
-    rationale="Short title card over 'Step one'")
-add(167.0, 186.7, "FULLSCREEN_MOTION", "process", ["Drive, sheet link, Claude prompt"], 167.2, component="screen-share", props={"screen": FULLSCR},
-    purpose="Teal window for the Drive and Claude setup steps")
+pipe(163.95, 168.9, 0, 166.0)
+add(169.0, 172.5, "FULLSCREEN_MOTION", "process", ["Drive sheet link"], 169.2, component="screen-share", props={"screen": FULLSCR},
+    purpose="Teal window for copying the sheet link")
+pipe(172.6, 176.6, 1, 173.1)
+add(176.7, 186.7, "FULLSCREEN_MOTION", "process", ["Claude setup prompt"], 176.9, component="screen-share", props={"screen": FULLSCR},
+    purpose="Teal window for the Claude setup prompt")
 add(186.8, 203.6, "FULLSCREEN_MOTION", "proof", ["deal-breakers"], cue("deal", 187), component="spotlight-box",
     props={"boxes": [{"x": 495, "y": 470, "width": 530, "height": 80, "cue": cue("deal", 187)}]}, purpose="Zoom on the deal-breakers text")
-add(204.4, 236.5, "FULLSCREEN_MOTION", "process", ["Config tab"], 204.8, component="screen-share", props={"screen": FULLSCR},
-    purpose="Teal window while the Config tab fills in")
+add(204.4, 210.3, "FULLSCREEN_MOTION", "process", ["Config tab"], 204.8, component="screen-share", props={"screen": FULLSCR},
+    purpose="Teal window while the sheet fills in")
+pipe(210.4, 214.4, 2, 210.7)
+add(214.5, 236.5, "FULLSCREEN_MOTION", "process", ["Config tab"], 214.7, component="screen-share", props={"screen": FULLSCR},
+    purpose="Teal window while the Config tab is explained")
 add(236.7, 252.9, "FULLSCREEN_MOTION", "proof", ["Gap: no people management"], cue("line", 237.4), component="spotlight-box",
     props={"boxes": [{"x": 545, "y": 392, "width": 700, "height": 52, "cue": cue("line", 237.4), "marker": {"x": 545, "y": 408, "width": 685, "height": 17}}]},
     purpose="Zoom on the gap line")
 add(254.6, 257.0, "OVERLAY_CARD", "cta", ["LIKE, COMMENT, SUBSCRIBE"], 254.8, layout=TAG, component="lower-third-tag",
     props={"text": "Like, comment, subscribe", "cue": cue("like", 254.8)}, purpose="Mid-roll call to action")
-add(260.4, 278.4, "OVERLAY_CARD", "context", ["sound familiar", "40 minutes later", "same posting 3 times", "months old"], 260.6, layout=CARD4,
+add(260.4, 278.4, "OVERLAY_CARD", "context", ["sound familiar", "40 minutes later", "same posting 3 times", "months old"], 260.6, layout=CARDR,
     component="explainer-card",
     props={"title": "Sound familiar?", "rows": [{"text": "Squeezing in **job hunting**", "cue": 260.8, "icon": "brand/user/img28.png"},
                                                 {"text": "**40 minutes** later...", "cue": 268.0},
@@ -155,8 +173,7 @@ add(260.4, 278.4, "OVERLAY_CARD", "context", ["sound familiar", "40 minutes late
     purpose="Fills the longest face-only stretch with the problem the viewer recognises")
 add(278.6, 281.3, "OVERLAY_CARD", "context", ["THAT'S SCROLLING", "NOT A JOB"], 278.7, layout=TAG, component="lower-third-tag",
     props={"text": "That's scrolling", "sub": "not a job", "cue": 278.7}, purpose="Punchline")
-add(281.45, 285.2, "FULLSCREEN_MOTION", "context", ["STEP 2", "THE NIGHTLY PROMPT"], 281.8, component="section-title",
-    props={"title": "Step 2", "key": "The nightly prompt", "cue": 281.9}, purpose="Section title")
+pipe(281.45, 285.2, 3, 281.9)
 add(285.3, 313.9, "FULLSCREEN_MOTION", "process", ["nightly prompt, 3 things"], 285.6, component="screen-share",
     props={"screen": {"x": 641, "y": 191, "width": 638, "height": 338}, "presenter": {"x": 110, "y": 190, "width": 400, "height": 350}},
     purpose="The split-screen source is re-framed: screen in the teal window, presenter in the card",
@@ -164,33 +181,37 @@ add(285.3, 313.9, "FULLSCREEN_MOTION", "process", ["nightly prompt, 3 things"], 
 # whole Customer Success Manager row, then the Technical PM row; the tab bar stays sharp with the Jobs tab glowing
 ROW3 = {"x": 2, "y": 282, "width": 1195, "height": 18}
 ROW2 = {"x": 2, "y": 264, "width": 1195, "height": 18}
-add(314.0, 322.4, "FULLSCREEN_MOTION", "proof", ["Medium", "High"], cue("medium", 319), component="spotlight-box",
-    props={"boxes": [{"x": 0, "y": 240, "width": 1280, "height": 100, "cue": 316.9, "marker": ROW3},
+pipe(313.95, 317.2, 4, 314.3)
+add(317.3, 322.4, "FULLSCREEN_MOTION", "proof", ["Medium", "High"], cue("medium", 319), component="spotlight-box",
+    props={"boxes": [{"x": 0, "y": 240, "width": 1280, "height": 100, "cue": 317.9, "marker": ROW3},
                      {"x": 0, "y": 240, "width": 1280, "height": 100, "cue": 320.3, "marker": ROW2}],
-           "keep": [{"x": 100, "y": 684, "width": 330, "height": 36}], "tab_marks": [tab("Jobs", 314.4, 8.0)]},
+           "keep": [{"x": 100, "y": 684, "width": 330, "height": 36}], "tab_marks": [tab("Jobs", 317.5, 5.0)]},
     purpose="Highlights the whole Customer Success Manager row (Medium), then Technical PM (High)")
-add(322.6, 377.3, "FULLSCREEN_MOTION", "process", ["Jobs, Rejected, Log, scheduling"], 323, component="screen-share",
+add(322.6, 364.6, "FULLSCREEN_MOTION", "process", ["Jobs, Rejected, Log"], 323, component="screen-share",
     props={"screen": FULL720, "tab_marks": [tab("Rejected", 328.75), tab("Log", 333.75), tab("Jobs", 337.75), tab("Rejected", 349.0),
                                             tab("Config", 361.25)]},
     purpose="Full-height teal window so the sheet tab names show, with the active tab glowing at each switch")
+pipe(364.7, 368.9, 5, 365.0)
+add(369.0, 377.3, "FULLSCREEN_MOTION", "process", ["Scheduled task"], 369.2, component="screen-share", props={"screen": FULL720},
+    purpose="Teal window for the scheduled-task page")
 add(377.5, 384.7, "FULLSCREEN_MOTION", "context", ["WHY MIDNIGHT?", "5-HOUR SESSIONS"], 378, component="section-title",
     props={"kicker": "Why midnight?", "title": "Usage works in", "key": "5-hour sessions", "cue": 377.8}, purpose="Section title")
-add(395.3, 411.4, "OVERLAY_CARD", "process", ["midnight", "5 AM", "weekly limit", "24 hours"], cue("midnight", 396), layout=CARD4,
+add(395.3, 411.4, "OVERLAY_CARD", "process", ["midnight", "5 AM", "weekly limit", "24 hours"], cue("midnight", 396), layout=CARDR,
     component="explainer-card",
     props={"title": "Why it works", "rows": [{"text": "Runs at **midnight**", "cue": cue("midnight", 396)},
                                               {"text": "Session ends by **5 AM**", "cue": cue("five", 398.2)},
                                               {"text": "Still counts toward your **weekly limit**", "cue": cue("weekly", 404.3)},
                                               {"text": "Last **24 hours**, max 25", "cue": cue("hours", 408.4)}]},
     purpose="Summarises the session and limit explanation")
-add(412.5, 417.2, "OVERLAY_CARD", "recap", ["blank sheet", "builds", "runs", "sleep"], cue("blank", 412.6), layout=CARD4, component="explainer-card",
+add(412.5, 417.2, "OVERLAY_CARD", "recap", ["blank sheet", "builds", "runs", "sleep"], cue("blank", 412.6), layout=CARDR, component="explainer-card",
     props={"title": "Recap", "rows": [{"text": "A **blank** sheet", "cue": cue("blank", 412.6)}, {"text": "One prompt **builds** it", "cue": cue("builds", 414.9)},
                                       {"text": "One prompt **runs** it", "cue": cue("runs", 415.8)}, {"text": "Works while you **sleep**", "cue": cue("sleep", 416.4)}]},
     purpose="Recap")
 add(417.3, 420.2, "OVERLAY_CARD", "cta", ["BOTH PROMPTS IN THE DESCRIPTION"], cue("both", 417.4) + 0.05, layout=TAG, component="lower-third-tag",
     props={"text": "Both prompts in the description", "cue": cue("both", 417.4) + 0.05}, purpose="Points to the prompts")
-add(420.4, 427.5, "OVERLAY_CARD", "process", ["search changes", "tell Claude", "add product manager", "it updates the sheet"], 420.5, layout=CARD4,
+add(420.4, 427.5, "OVERLAY_CARD", "process", ["search changes", "tell Claude", "add product manager", "it updates the sheet"], 420.5, layout=CARDR,
     component="explainer-card",
-    props={"title": "When your search changes", "rows": [{"text": "Don't touch the **prompt**", "cue": 420.5},
+    props={"title": "Search changed?", "rows": [{"text": "Don't touch the **prompt**", "cue": 420.5},
                                                           {"text": "Tell **Claude** what changed", "cue": 421.6, "icon": "brand/claude.png"},
                                                           {"text": "\"Add **product manager** to my titles\"", "cue": 423.0},
                                                           {"text": "It **updates** the sheet", "cue": 424.8}]},
@@ -205,7 +226,7 @@ d = {"version": 1, "project": "automated-job-search-spreadsheet-demo", "theme": 
                 "fps": "30/1", "duration_s": 446.273},
      "approval": {"status": "approved", "approved_scope": "Teal Spotlight plan in director-treatment.md, round 2: repeated 'five-hour sessions' take (384.8-391.7 s) and the false start 'that's why the prompt only look' (405.0-406.59 s) cut; extra graphics",
                   "ambiguities": []},
-     "protected_regions": [{"name": "presenter", "x": 260, "y": 0, "width": 700, "height": 600}],
+     "protected_regions": [{"name": "presenter", "x": 300, "y": 0, "width": 660, "height": 440}],
      "beats": b}
 json.dump(d, open(P / "editorial-directive.json", "w"), indent=1)
 print(len(b), "beats")

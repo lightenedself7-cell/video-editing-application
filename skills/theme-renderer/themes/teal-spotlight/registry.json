@@ -223,6 +223,9 @@
             },
             "icon": {
               "type": "string"
+            },
+            "strike": {
+              "type": "number"
             }
           }
         }
@@ -326,6 +329,73 @@
                   "required": true
                 }
               }
+            }
+          }
+        }
+      }
+    },
+    "pipeline": {
+      "summary": "Full-screen pipeline of steps joined by arrows: finished steps get a check, the current step pops in marigold on its cue, later steps stay dim. One beat per step.",
+      "treatments": [
+        "FULLSCREEN_MOTION"
+      ],
+      "touches_presenter": true,
+      "needs": [],
+      "props": {
+        "title": {
+          "type": "string"
+        },
+        "cue": {
+          "type": "number"
+        },
+        "active": {
+          "type": "number",
+          "required": true
+        },
+        "steps": {
+          "type": "array",
+          "required": true,
+          "min": 2,
+          "max": 8,
+          "items": {
+            "label": {
+              "type": "string",
+              "required": true
+            },
+            "sub": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "focus-points": {
+      "summary": "Presenter blurred and dimmed; the points come forward as large centred slabs one by one on their cues.",
+      "treatments": [
+        "FULLSCREEN_MOTION"
+      ],
+      "touches_presenter": true,
+      "needs": [],
+      "props": {
+        "title": {
+          "type": "string"
+        },
+        "points": {
+          "type": "array",
+          "required": true,
+          "min": 1,
+          "max": 4,
+          "items": {
+            "text": {
+              "type": "string",
+              "required": true
+            },
+            "cue": {
+              "type": "number",
+              "required": true
+            },
+            "icon": {
+              "type": "string"
             }
           }
         }

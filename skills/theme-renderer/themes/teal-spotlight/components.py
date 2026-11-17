@@ -149,29 +149,31 @@ def section_title(ctx, beat, props, t, out, S):
         n = len(tiles)
         base = 108 * u
         gap = 74 * u
-        total = n * base + (n - 1) * gap
+        widths = [base * tl.get("scale", 1.0) for tl in tiles]  # a tile may ask for more room (wide wordmarks)
+        total = sum(widths) + (n - 1) * gap
         x = cx - total / 2
         ty2 = H * 0.80
         for i, tile in enumerate(tiles):
             pt = ease_back(clamp((t - tile["cue"]) / (12 / fps)), 1.5)
             if pt > 0:
-                big = base * (1.3 if (n % 2 == 1 and i == n // 2 and n > 1) else 1.0)
+                emph = n % 2 == 1 and i == n // 2 and n > 1 and "scale" not in tile
+                big = widths[i] * (1.3 if emph else 1.0)
                 spr = ctx.icon(tile["icon"], int(round(big / u)), tile=True)
                 sc = max(pt, 0.05)
                 spr = cv2.resize(spr, None, fx=sc, fy=sc, interpolation=cv2.INTER_LINEAR)
                 hh, ww = spr.shape[:2]
-                tcx, tcy = x + base / 2, ty2
+                tcx, tcy = x + widths[i] / 2, ty2
                 pad = 8 * u * sc
                 border = _rot_pts(_rect_pts(tcx - ww / 2 - pad, tcy - hh / 2 - pad, ww + 2 * pad, hh + 2 * pad), tcx, tcy, (-4, 3, 5, -3)[i % 4])
-                _shadowed_poly(card, border, pop if big > base else mint, shadow, 6 * u, clamp(pt * 2))
+                _shadowed_poly(card, border, pop if emph else mint, shadow, 6 * u, clamp(pt * 2))
                 over(card, spr, tcx - ww / 2, tcy - hh / 2, clamp(pt * 2))
             if i < n - 1:
                 pp = clamp((t - tiles[i + 1]["cue"]) / (8 / fps))
-                px, py = x + base + gap / 2, ty2
+                px, py = x + widths[i] + gap / 2, ty2
                 arm = 15 * u
                 _poly(card, _rect_pts(px - arm, py - 3 * u, 2 * arm, 6 * u), pop, pp)
                 _poly(card, _rect_pts(px - 3 * u, py - arm, 6 * u, 2 * arm), pop, pp)
-            x += base + gap
+            x += widths[i] + gap
     # wipe in from the right, out to the right
     if k >= 0.999:
         return card
@@ -249,7 +251,13 @@ def spotlight_box(ctx, beat, props, t, out, S):
     x0, y0, x1, y1 = max(ix0, 0), max(iy0, 0), min(ix0 + iw, W), min(iy0 + ih, H)
     if x1 > x0 and y1 > y0:
         mask[y0:y1, x0:x1, 0] = m[y0 - iy0:y1 - iy0, x0 - ix0:x1 - ix0]
+    for kr in props.get("keep") or []:  # source regions that stay sharp and undimmed (e.g. the sheet tab bar)
+        kx0, ky0 = max(int(round((kr["x"] - vx) * s)), 0), max(int(round((kr["y"] - vy) * s)), 0)
+        kx1, ky1 = min(int(round((kr["x"] + kr["width"] - vx) * s)), W), min(int(round((kr["y"] + kr["height"] - vy) * s)), H)
+        if kx1 > kx0 and ky1 > ky0:
+            mask[ky0:ky1, kx0:kx1, 0] = 1.0
     res = dimmed * (1 - mask) + zoomed * mask
+    _tab_marks(ctx, res, props, t, lambda r: ((r["x"] - vx) * s, (r["y"] - vy) * s, r["width"] * s, r["height"] * s), min(1.0, pe * 3))
     # marker highlight on the key line (starts shortly after the box lands)
     mk = active.get("marker") if boxes else None
     if mk:
@@ -280,7 +288,7 @@ def lower_third_tag(ctx, beat, props, t, out, S):
     if k <= 0.001:
         return out
     L = beat["layout"]
-    size = 40 * u
+    size = props.get("size", 40) * u
     txt = _caps(props["text"])
     tw = text_width(txt, int(round(size)), 800, 800, "display")
     sub = props.get("sub")
@@ -288,7 +296,10 @@ def lower_third_tag(ctx, beat, props, t, out, S):
     w = tw + 96 * u
     slant = 22 * u
     x, y = L["x"], L["y"]
-    dx = (1 - clamp(k)) * -90 * u
+    from_right = props.get("align") == "right"  # top-right tag: hugs the right edge and slides in from the right
+    if from_right:
+        x = ctx.W - w - 20 * u
+    dx = (1 - clamp(k)) * (90 if from_right else -90) * u
     pts = [(x + slant + dx, y), (x + w + dx, y), (x + w - slant + dx, y + h), (x + dx, y + h)]
     cx, cy = x + w / 2 + dx, y + h / 2
     deg = -2.5
@@ -436,6 +447,25 @@ def _presence(ctx, props, t):
     return c
 
 
+def _tab_marks(ctx, res, props, t, tmap, gain=1.0):
+    """Briefly glow the active sheet tab when the presenter switches tabs. props.tab_marks: [{cue, dur, active:{x,y,width,height}}]
+    in source pixels; tmap maps a source rect to output pixels (x, y, w, h)."""
+    kit, u = ctx.kit, ctx.kit.u
+    H, W = res.shape[:2]
+    for tm in props.get("tab_marks") or []:
+        k = min(smoother((t - tm["cue"]) / 0.25), smoother((tm["cue"] + tm.get("dur", 2.8) - t) / 0.35)) * gain
+        if k <= 0.01:
+            continue
+        ax, ay, aw_, ah_ = tmap(tm["active"])
+        aw_, ah_ = max(int(round(aw_)), 2), max(int(round(ah_)), 2)
+        X0, Y0, X1, Y1 = max(int(round(ax)), 0), max(int(round(ay)), 0), min(int(round(ax)) + aw_, W), min(int(round(ay)) + ah_, H)
+        if X1 > X0 and Y1 > Y0:
+            pop = hexc(_col(ctx, "pop"))
+            res[Y0:Y1, X0:X1] = res[Y0:Y1, X0:X1] * (1 - 0.5 * k) + pop * 0.5 * k
+            mg2 = kit.px(18)
+            over(res, rrect_ring(aw_, ah_, max(int(8 * u), 2), 3.0 * u, 8 * u, 0.8, _col(ctx, "pop"), _col(ctx, "pop"), mg2), int(round(ax)) - mg2, int(round(ay)) - mg2, k)
+
+
 def screen_share(ctx, beat, props, t, out, S):
     kit, u, fps = ctx.kit, ctx.kit.u, ctx.fps
     W, H = ctx.W, ctx.H
@@ -473,8 +503,16 @@ def screen_share(ctx, beat, props, t, out, S):
         _paste_rrect(res, sh, dx + 10 * u * p, dy + 10 * u * p, r, 0.85 * p)
     sx, sy, sw, shh = src
     M = np.float32([[iw / sw, 0, -sx * iw / sw], [0, ih / shh, -sy * ih / shh]])
-    patch = cv2.warpAffine(S, M, (iw, ih), flags=cv2.INTER_AREA if iw < sw else cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
+    up = iw / sw
+    if up > 1.3:  # big upscale of a small panel: Lanczos plus a mild unsharp mask keeps text readable
+        patch = cv2.warpAffine(S, M, (iw, ih), flags=cv2.INTER_LANCZOS4, borderMode=cv2.BORDER_REPLICATE)
+        blur = cv2.GaussianBlur(patch, (0, 0), 1.2)
+        patch = np.clip(patch + 0.6 * (patch - blur), 0, 255).astype(patch.dtype)
+    else:
+        patch = cv2.warpAffine(S, M, (iw, ih), flags=cv2.INTER_AREA if iw < sw else cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
     _paste_rrect(res, patch, dx, dy, r)
+    fx, fy = iw / sw, ih / shh
+    _tab_marks(ctx, res, props, t, lambda r: (dx + (r["x"] - sx) * fx, dy + (r["y"] - sy) * fy, r["width"] * fx, r["height"] * fy), p)
     if p > 0.02:
         mg = kit.px(24)
         over(res, rrect_ring(iw, ih, max(int(round(r)), 1), 2.5 * u, 10 * u, 0.7, _col(ctx, "accent"), _col(ctx, "accent"), mg), dx - mg, dy - mg, p)

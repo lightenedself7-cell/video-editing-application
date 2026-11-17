@@ -1,0 +1,1638 @@
+{
+ "version": 1,
+ "project": "automated-job-search-spreadsheet-demo",
+ "theme": "teal-spotlight",
+ "source": {
+  "path": "/home/dev/videos/automated-job-search-spreadsheet-demo-cut.mp4",
+  "sha256": "3e8e7b10bb5c9e69c772215823057cd975cbc1952ffb2edaa8a27687732f5500",
+  "width": 1280,
+  "height": 720,
+  "fps": "30/1",
+  "duration_s": 446.273
+ },
+ "approval": {
+  "status": "approved",
+  "approved_scope": "Teal Spotlight plan in director-treatment.md, round 2: repeated 'five-hour sessions' take (384.8-391.7 s) and the false start 'that's why the prompt only look' (405.0-406.59 s) cut; extra graphics",
+  "ambiguities": []
+ },
+ "protected_regions": [
+  {
+   "name": "presenter",
+   "x": 260,
+   "y": 0,
+   "width": 700,
+   "height": 600
+  }
+ ],
+ "beats": [
+  {
+   "id": "b01",
+   "start": 0.3,
+   "end": 2.7,
+   "spoken_text": "THE BORING PART NOT APPLYING",
+   "role": "context",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Names the pain in the first seconds",
+   "on_screen_copy": [
+    "THE BORING PART",
+    "NOT APPLYING"
+   ],
+   "reveal_sync": [
+    {
+     "element": "THE BORING PART",
+     "time": 0.4
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 40,
+    "y": 616,
+    "width": 400,
+    "height": 90
+   },
+   "component": "lower-third-tag",
+   "props": {
+    "text": "The boring part",
+    "sub": "not applying",
+    "cue": 0.4
+   }
+  },
+  {
+   "id": "b02",
+   "start": 2.8,
+   "end": 7.7,
+   "spoken_text": "filtering matching to your CV shortlisting",
+   "role": "process",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Lists the three chores that get automated",
+   "on_screen_copy": [
+    "filtering",
+    "matching to your CV",
+    "shortlisting"
+   ],
+   "reveal_sync": [
+    {
+     "element": "filtering",
+     "time": 2.9
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 200,
+    "width": 280,
+    "height": 20
+   },
+   "component": "explainer-card",
+   "props": {
+    "title": "The boring part",
+    "rows": [
+     {
+      "text": "**Filtering**",
+      "cue": 2.9,
+      "icon": "brand/user/img25.png"
+     },
+     {
+      "text": "Matching every job to your **CV**",
+      "cue": 3.5
+     },
+     {
+      "text": "Shortlisting the few **worth your time**",
+      "cue": 5.2
+     }
+    ]
+   }
+  },
+  {
+   "id": "b03",
+   "start": 7.8,
+   "end": 10.0,
+   "spoken_text": "AUTOMATE IT TODAY",
+   "role": "promise",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "States the promise",
+   "on_screen_copy": [
+    "AUTOMATE IT TODAY"
+   ],
+   "reveal_sync": [
+    {
+     "element": "AUTOMATE IT TODAY",
+     "time": 8.3
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 40,
+    "y": 616,
+    "width": 400,
+    "height": 90
+   },
+   "component": "lower-third-tag",
+   "props": {
+    "text": "Automate it today",
+    "cue": 8.3
+   }
+  },
+  {
+   "id": "b04",
+   "start": 10.1,
+   "end": 19.2,
+   "spoken_text": "CLAUDE DOES IT WHILE YOU SLEEP hiringcafe.com",
+   "role": "process",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Shows Claude and the hiringcafe.com site name the moment they are said",
+   "on_screen_copy": [
+    "CLAUDE DOES IT",
+    "WHILE YOU SLEEP",
+    "hiringcafe.com"
+   ],
+   "reveal_sync": [
+    {
+     "element": "CLAUDE DOES IT",
+     "time": 10.2
+    }
+   ],
+   "transition_in": "wipe-from-right",
+   "transition_out": "wipe-from-right",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "component": "section-title",
+   "props": {
+    "title": "Claude does it",
+    "key": "while you sleep",
+    "cue": 10.2,
+    "tiles": [
+     {
+      "icon": "brand/claude.png",
+      "cue": 10.24
+     },
+     {
+      "icon": "brand/hiringcafe_com.png",
+      "cue": 12.9,
+      "scale": 2.4
+     }
+    ]
+   }
+  },
+  {
+   "id": "b05",
+   "start": 19.4,
+   "end": 23.5,
+   "spoken_text": "LINK UP HERE TAP THE CARD",
+   "role": "context",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Points at the YouTube card, which is the clickable link",
+   "on_screen_copy": [
+    "LINK UP HERE",
+    "TAP THE CARD"
+   ],
+   "reveal_sync": [
+    {
+     "element": "LINK UP HERE",
+     "time": 20.68
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 972,
+    "y": 112,
+    "width": 300,
+    "height": 90
+   },
+   "component": "lower-third-tag",
+   "props": {
+    "text": "Link up here",
+    "sub": "tap the card",
+    "cue": 20.68,
+    "size": 30,
+    "align": "right"
+   }
+  },
+  {
+   "id": "b06",
+   "start": 23.9,
+   "end": 31.0,
+   "spoken_text": "36 searches 15 jobs read 1 in my sheet",
+   "role": "proof",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Makes the result concrete",
+   "on_screen_copy": [
+    "36 searches",
+    "15 jobs read",
+    "1 in my sheet"
+   ],
+   "reveal_sync": [
+    {
+     "element": "36 searches",
+     "time": 24.96
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 200,
+    "width": 280,
+    "height": 20
+   },
+   "component": "explainer-card",
+   "props": {
+    "title": "One night",
+    "rows": [
+     {
+      "text": "**36** searches",
+      "cue": 24.96
+     },
+     {
+      "text": "**15** jobs read",
+      "cue": 26.52
+     },
+     {
+      "text": "**1** in my sheet",
+      "cue": 27.84
+     }
+    ]
+   }
+  },
+  {
+   "id": "b07",
+   "start": 31.2,
+   "end": 36.6,
+   "spoken_text": "no job board no prompt no cell",
+   "role": "proof",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Shows how little effort it takes",
+   "on_screen_copy": [
+    "no job board",
+    "no prompt",
+    "no cell"
+   ],
+   "reveal_sync": [
+    {
+     "element": "no job board",
+     "time": 31.5
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 200,
+    "width": 280,
+    "height": 20
+   },
+   "component": "explainer-card",
+   "props": {
+    "title": "Hands off",
+    "rows": [
+     {
+      "text": "No **job board** opened",
+      "cue": 31.5
+     },
+     {
+      "text": "No **prompt** typed",
+      "cue": 32.9
+     },
+     {
+      "text": "No **cell** typed",
+      "cue": 35.2
+     }
+    ]
+   }
+  },
+  {
+   "id": "b08",
+   "start": 39.6,
+   "end": 42.9,
+   "spoken_text": "NO BORED SEARCHING",
+   "role": "context",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Names what the viewer skips",
+   "on_screen_copy": [
+    "NO BORED SEARCHING"
+   ],
+   "reveal_sync": [
+    {
+     "element": "NO BORED SEARCHING",
+     "time": 40.2
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 40,
+    "y": 616,
+    "width": 400,
+    "height": 90
+   },
+   "component": "lower-third-tag",
+   "props": {
+    "text": "No bored searching",
+    "cue": 40.2
+   }
+  },
+  {
+   "id": "b09",
+   "start": 43.3,
+   "end": 52.0,
+   "spoken_text": "tested in Claude not locked to Claude any AI app with connectors",
+   "role": "context",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Says the idea works beyond Claude",
+   "on_screen_copy": [
+    "tested in Claude",
+    "not locked to Claude",
+    "any AI app with connectors"
+   ],
+   "reveal_sync": [
+    {
+     "element": "tested in Claude",
+     "time": 43.5
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 200,
+    "width": 280,
+    "height": 20
+   },
+   "component": "explainer-card",
+   "props": {
+    "title": "Not just Claude",
+    "rows": [
+     {
+      "text": "Tested in **Claude**",
+      "cue": 43.5,
+      "icon": "brand/claude.png"
+     },
+     {
+      "text": "Connector is **not locked** to Claude",
+      "cue": 45.6
+     },
+     {
+      "text": "Any AI app with **connectors**",
+      "cue": 48.0
+     }
+    ]
+   }
+  },
+  {
+   "id": "b10",
+   "start": 55.1,
+   "end": 59.2,
+   "spoken_text": "1 SHEET + 2 PROMPTS",
+   "role": "promise",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "States the deliverables",
+   "on_screen_copy": [
+    "1 SHEET + 2 PROMPTS"
+   ],
+   "reveal_sync": [
+    {
+     "element": "1 SHEET + 2 PROMPTS",
+     "time": 55.18
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 40,
+    "y": 616,
+    "width": 400,
+    "height": 90
+   },
+   "component": "lower-third-tag",
+   "props": {
+    "text": "1 sheet + 2 prompts",
+    "cue": 55.18
+   }
+  },
+  {
+   "id": "b11",
+   "start": 59.3,
+   "end": 72.3,
+   "spoken_text": "WHAT YOU NEED 3 THINGS",
+   "role": "process",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Opens the requirements section with the three apps shown as they are named",
+   "on_screen_copy": [
+    "WHAT YOU NEED",
+    "3 THINGS"
+   ],
+   "reveal_sync": [
+    {
+     "element": "WHAT YOU NEED",
+     "time": 60.66
+    }
+   ],
+   "transition_in": "wipe-from-right",
+   "transition_out": "wipe-from-right",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "component": "section-title",
+   "props": {
+    "title": "What you\nneed",
+    "key": "3 things",
+    "cue": 59.6,
+    "tiles": [
+     {
+      "icon": "brand/claude.png",
+      "cue": 60.66
+     },
+     {
+      "icon": "brand/hiringcafe.png",
+      "cue": 64.18
+     },
+     {
+      "icon": "brand/sheets_icon.png",
+      "cue": 68.74
+     }
+    ]
+   }
+  },
+  {
+   "id": "b12",
+   "start": 72.4,
+   "end": 75.8,
+   "spoken_text": "NO CODE, NO API KEYS",
+   "role": "reassurance",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Reassurance",
+   "on_screen_copy": [
+    "NO CODE, NO API KEYS"
+   ],
+   "reveal_sync": [
+    {
+     "element": "NO CODE, NO API KEYS",
+     "time": 72.54
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 40,
+    "y": 616,
+    "width": 400,
+    "height": 90
+   },
+   "component": "lower-third-tag",
+   "props": {
+    "text": "No code, no API keys",
+    "cue": 72.42
+   }
+  },
+  {
+   "id": "b13",
+   "start": 81.8,
+   "end": 85.9,
+   "spoken_text": "LAUNCHED LATE OCTOBER",
+   "role": "context",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Dates the connector",
+   "on_screen_copy": [
+    "LAUNCHED LATE OCTOBER"
+   ],
+   "reveal_sync": [
+    {
+     "element": "LAUNCHED LATE OCTOBER",
+     "time": 81.94
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 40,
+    "y": 616,
+    "width": 400,
+    "height": 90
+   },
+   "component": "lower-third-tag",
+   "props": {
+    "text": "Launched late October",
+    "cue": 81.94
+   }
+  },
+  {
+   "id": "b14",
+   "start": 86.0,
+   "end": 98.6,
+   "spoken_text": "THE HARD WAY A SCRAPER",
+   "role": "process",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Shows the Apify scraper story instead of a face-only stretch",
+   "on_screen_copy": [
+    "THE HARD WAY",
+    "A SCRAPER"
+   ],
+   "reveal_sync": [
+    {
+     "element": "THE HARD WAY",
+     "time": 86.1
+    }
+   ],
+   "transition_in": "wipe-from-right",
+   "transition_out": "wipe-from-right",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "component": "section-title",
+   "props": {
+    "title": "The hard way",
+    "key": "a scraper",
+    "cue": 86.1,
+    "tiles": [
+     {
+      "icon": "brand/user/img27.png",
+      "cue": 88.4,
+      "scale": 1.2
+     },
+     {
+      "icon": "brand/user/img29.png",
+      "cue": 89.4,
+      "scale": 1.7
+     },
+     {
+      "icon": "brand/hiringcafe.png",
+      "cue": 90.3
+     }
+    ]
+   }
+  },
+  {
+   "id": "b15",
+   "start": 98.8,
+   "end": 107.3,
+   "spoken_text": "Disallow: /*?searchState=*",
+   "role": "proof",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Zoom on the robots.txt rule being discussed",
+   "on_screen_copy": [
+    "Disallow: /*?searchState=*"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Disallow: /*?searchState=*",
+     "time": 99.3
+    }
+   ],
+   "transition_in": "wipe-from-right",
+   "transition_out": "wipe-from-right",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "component": "spotlight-box",
+   "props": {
+    "boxes": [
+     {
+      "x": 0,
+      "y": 420,
+      "width": 440,
+      "height": 100,
+      "cue": 99.3,
+      "marker": {
+       "x": 4,
+       "y": 470,
+       "width": 162,
+       "height": 16
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "b16",
+   "start": 107.7,
+   "end": 122.4,
+   "spoken_text": "the front door built for Claude and ChatGPT scrapers can get blocked",
+   "role": "process",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Connector vs scraper, with the apps shown",
+   "on_screen_copy": [
+    "the front door",
+    "built for Claude",
+    "and ChatGPT",
+    "scrapers can get blocked"
+   ],
+   "reveal_sync": [
+    {
+     "element": "the front door",
+     "time": 108.2
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 320,
+    "width": 280,
+    "height": 20
+   },
+   "component": "explainer-card",
+   "props": {
+    "title": "The front door",
+    "rows": [
+     {
+      "text": "Connector is the **front door**",
+      "cue": 108.2
+     },
+     {
+      "text": "Built for **Claude**",
+      "cue": 109.9,
+      "icon": "brand/claude.png"
+     },
+     {
+      "text": "And **ChatGPT**",
+      "cue": 110.84,
+      "icon": "brand/chatgpt.png"
+     },
+     {
+      "text": "Scrapers: cheaper, can get **blocked**",
+      "cue": 112.3,
+      "icon": "brand/user/img26.png"
+     }
+    ]
+   }
+  },
+  {
+   "id": "b17",
+   "start": 123.0,
+   "end": 127.5,
+   "spoken_text": "BUILT FOR THIS THE CONNECTOR",
+   "role": "context",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Lands the point",
+   "on_screen_copy": [
+    "BUILT FOR THIS",
+    "THE CONNECTOR"
+   ],
+   "reveal_sync": [
+    {
+     "element": "BUILT FOR THIS",
+     "time": 123.2
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 40,
+    "y": 616,
+    "width": 400,
+    "height": 90
+   },
+   "component": "lower-third-tag",
+   "props": {
+    "text": "Built for this",
+    "sub": "the connector",
+    "cue": 123.2
+   }
+  },
+  {
+   "id": "b18",
+   "start": 130.8,
+   "end": 144.8,
+   "spoken_text": "connector docs",
+   "role": "proof",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Frames the docs page while read-only and filters are explained",
+   "on_screen_copy": [
+    "connector docs"
+   ],
+   "reveal_sync": [
+    {
+     "element": "connector docs",
+     "time": 131.0
+    }
+   ],
+   "transition_in": "wipe-from-right",
+   "transition_out": "wipe-from-right",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "component": "screen-share",
+   "props": {
+    "screen": {
+     "x": 0,
+     "y": 20,
+     "width": 1280,
+     "height": 680
+    }
+   }
+  },
+  {
+   "id": "b19",
+   "start": 149.9,
+   "end": 162.9,
+   "spoken_text": "alert vs this",
+   "role": "process",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Answers the alerts question",
+   "on_screen_copy": [
+    "alert vs this"
+   ],
+   "reveal_sync": [
+    {
+     "element": "alert vs this",
+     "time": 151.12
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 320,
+    "width": 280,
+    "height": 20
+   },
+   "component": "explainer-card",
+   "props": {
+    "title": "Alert vs this",
+    "rows": [
+     {
+      "text": "Alert sends **matches**",
+      "cue": 151.12
+     },
+     {
+      "text": "Applies your **rules**",
+      "cue": 152.52
+     },
+     {
+      "text": "Says **why** kept or out",
+      "cue": 153.34
+     },
+     {
+      "text": "Keeps a **record**",
+      "cue": 155.8
+     }
+    ]
+   }
+  },
+  {
+   "id": "b20",
+   "start": 163.95,
+   "end": 166.9,
+   "spoken_text": "STEP 1 BUILD THE SHEET",
+   "role": "context",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Section title",
+   "on_screen_copy": [
+    "STEP 1",
+    "BUILD THE SHEET"
+   ],
+   "reveal_sync": [
+    {
+     "element": "STEP 1",
+     "time": 164.2
+    }
+   ],
+   "transition_in": "wipe-from-right",
+   "transition_out": "wipe-from-right",
+   "audio_continuity": "continuous",
+   "rationale": "Short title card over 'Step one'",
+   "review_status": "approved",
+   "component": "section-title",
+   "props": {
+    "title": "Step 1",
+    "key": "Build the sheet",
+    "cue": 164.3
+   }
+  },
+  {
+   "id": "b21",
+   "start": 167.0,
+   "end": 186.7,
+   "spoken_text": "Drive, sheet link, Claude prompt",
+   "role": "process",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Teal window for the Drive and Claude setup steps",
+   "on_screen_copy": [
+    "Drive, sheet link, Claude prompt"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Drive, sheet link, Claude prompt",
+     "time": 167.2
+    }
+   ],
+   "transition_in": "wipe-from-right",
+   "transition_out": "wipe-from-right",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "component": "screen-share",
+   "props": {
+    "screen": {
+     "x": 0,
+     "y": 20,
+     "width": 1280,
+     "height": 680
+    }
+   }
+  },
+  {
+   "id": "b22",
+   "start": 186.8,
+   "end": 203.6,
+   "spoken_text": "deal-breakers",
+   "role": "proof",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Zoom on the deal-breakers text",
+   "on_screen_copy": [
+    "deal-breakers"
+   ],
+   "reveal_sync": [
+    {
+     "element": "deal-breakers",
+     "time": 187.34
+    }
+   ],
+   "transition_in": "wipe-from-right",
+   "transition_out": "wipe-from-right",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "component": "spotlight-box",
+   "props": {
+    "boxes": [
+     {
+      "x": 495,
+      "y": 470,
+      "width": 530,
+      "height": 80,
+      "cue": 187.34
+     }
+    ]
+   }
+  },
+  {
+   "id": "b23",
+   "start": 204.4,
+   "end": 236.5,
+   "spoken_text": "Config tab",
+   "role": "process",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Teal window while the Config tab fills in",
+   "on_screen_copy": [
+    "Config tab"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Config tab",
+     "time": 204.8
+    }
+   ],
+   "transition_in": "wipe-from-right",
+   "transition_out": "wipe-from-right",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "component": "screen-share",
+   "props": {
+    "screen": {
+     "x": 0,
+     "y": 20,
+     "width": 1280,
+     "height": 680
+    }
+   }
+  },
+  {
+   "id": "b24",
+   "start": 236.7,
+   "end": 252.9,
+   "spoken_text": "Gap: no people management",
+   "role": "proof",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Zoom on the gap line",
+   "on_screen_copy": [
+    "Gap: no people management"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Gap: no people management",
+     "time": 237.08
+    }
+   ],
+   "transition_in": "wipe-from-right",
+   "transition_out": "wipe-from-right",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "component": "spotlight-box",
+   "props": {
+    "boxes": [
+     {
+      "x": 545,
+      "y": 392,
+      "width": 700,
+      "height": 52,
+      "cue": 237.08,
+      "marker": {
+       "x": 545,
+       "y": 408,
+       "width": 685,
+       "height": 17
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "b25",
+   "start": 254.6,
+   "end": 257.0,
+   "spoken_text": "LIKE, COMMENT, SUBSCRIBE",
+   "role": "cta",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Mid-roll call to action",
+   "on_screen_copy": [
+    "LIKE, COMMENT, SUBSCRIBE"
+   ],
+   "reveal_sync": [
+    {
+     "element": "LIKE, COMMENT, SUBSCRIBE",
+     "time": 254.8
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 40,
+    "y": 616,
+    "width": 400,
+    "height": 90
+   },
+   "component": "lower-third-tag",
+   "props": {
+    "text": "Like, comment, subscribe",
+    "cue": 255.04
+   }
+  },
+  {
+   "id": "b26",
+   "start": 260.4,
+   "end": 278.4,
+   "spoken_text": "sound familiar 40 minutes later same posting 3 times months old",
+   "role": "context",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Fills the longest face-only stretch with the problem the viewer recognises",
+   "on_screen_copy": [
+    "sound familiar",
+    "40 minutes later",
+    "same posting 3 times",
+    "months old"
+   ],
+   "reveal_sync": [
+    {
+     "element": "sound familiar",
+     "time": 260.6
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 320,
+    "width": 280,
+    "height": 20
+   },
+   "component": "explainer-card",
+   "props": {
+    "title": "Sound familiar?",
+    "rows": [
+     {
+      "text": "Squeezing in **job hunting**",
+      "cue": 260.8,
+      "icon": "brand/user/img28.png"
+     },
+     {
+      "text": "**40 minutes** later...",
+      "cue": 268.0
+     },
+     {
+      "text": "Same posting **3 times**",
+      "cue": 270.4
+     },
+     {
+      "text": "Some are **months old**",
+      "cue": 272.2
+     }
+    ]
+   }
+  },
+  {
+   "id": "b27",
+   "start": 278.6,
+   "end": 281.3,
+   "spoken_text": "THAT'S SCROLLING NOT A JOB",
+   "role": "context",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Punchline",
+   "on_screen_copy": [
+    "THAT'S SCROLLING",
+    "NOT A JOB"
+   ],
+   "reveal_sync": [
+    {
+     "element": "THAT'S SCROLLING",
+     "time": 278.7
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 40,
+    "y": 616,
+    "width": 400,
+    "height": 90
+   },
+   "component": "lower-third-tag",
+   "props": {
+    "text": "That's scrolling",
+    "sub": "not a job",
+    "cue": 278.7
+   }
+  },
+  {
+   "id": "b28",
+   "start": 281.45,
+   "end": 285.2,
+   "spoken_text": "STEP 2 THE NIGHTLY PROMPT",
+   "role": "context",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Section title",
+   "on_screen_copy": [
+    "STEP 2",
+    "THE NIGHTLY PROMPT"
+   ],
+   "reveal_sync": [
+    {
+     "element": "STEP 2",
+     "time": 281.8
+    }
+   ],
+   "transition_in": "wipe-from-right",
+   "transition_out": "wipe-from-right",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "component": "section-title",
+   "props": {
+    "title": "Step 2",
+    "key": "The nightly prompt",
+    "cue": 281.9
+   }
+  },
+  {
+   "id": "b29",
+   "start": 285.3,
+   "end": 313.9,
+   "spoken_text": "nightly prompt, 3 things",
+   "role": "process",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "The split-screen source is re-framed: screen in the teal window, presenter in the card",
+   "on_screen_copy": [
+    "nightly prompt, 3 things"
+   ],
+   "reveal_sync": [
+    {
+     "element": "nightly prompt, 3 things",
+     "time": 285.6
+    }
+   ],
+   "transition_in": "wipe-from-right",
+   "transition_out": "wipe-from-right",
+   "audio_continuity": "continuous",
+   "rationale": "Replaces the planned explainer card: the source is already split screen, so the card would cover content",
+   "review_status": "approved",
+   "component": "screen-share",
+   "props": {
+    "screen": {
+     "x": 641,
+     "y": 191,
+     "width": 638,
+     "height": 338
+    },
+    "presenter": {
+     "x": 110,
+     "y": 190,
+     "width": 400,
+     "height": 350
+    }
+   }
+  },
+  {
+   "id": "b30",
+   "start": 314.0,
+   "end": 322.4,
+   "spoken_text": "Medium High",
+   "role": "proof",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Highlights the whole Customer Success Manager row (Medium), then Technical PM (High)",
+   "on_screen_copy": [
+    "Medium",
+    "High"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Medium",
+     "time": 319.3
+    }
+   ],
+   "transition_in": "wipe-from-right",
+   "transition_out": "wipe-from-right",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "component": "spotlight-box",
+   "props": {
+    "boxes": [
+     {
+      "x": 0,
+      "y": 240,
+      "width": 1280,
+      "height": 100,
+      "cue": 316.9,
+      "marker": {
+       "x": 2,
+       "y": 282,
+       "width": 1195,
+       "height": 18
+      }
+     },
+     {
+      "x": 0,
+      "y": 240,
+      "width": 1280,
+      "height": 100,
+      "cue": 320.3,
+      "marker": {
+       "x": 2,
+       "y": 264,
+       "width": 1195,
+       "height": 18
+      }
+     }
+    ],
+    "keep": [
+     {
+      "x": 100,
+      "y": 684,
+      "width": 330,
+      "height": 36
+     }
+    ],
+    "tab_marks": [
+     {
+      "cue": 314.4,
+      "dur": 8.0,
+      "active": {
+       "x": 193,
+       "y": 688,
+       "width": 68,
+       "height": 32
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "b31",
+   "start": 322.6,
+   "end": 377.3,
+   "spoken_text": "Jobs, Rejected, Log, scheduling",
+   "role": "process",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Full-height teal window so the sheet tab names show, with the active tab glowing at each switch",
+   "on_screen_copy": [
+    "Jobs, Rejected, Log, scheduling"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Jobs, Rejected, Log, scheduling",
+     "time": 323
+    }
+   ],
+   "transition_in": "wipe-from-right",
+   "transition_out": "wipe-from-right",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "component": "screen-share",
+   "props": {
+    "screen": {
+     "x": 0,
+     "y": 0,
+     "width": 1280,
+     "height": 720
+    },
+    "tab_marks": [
+     {
+      "cue": 328.75,
+      "dur": 2.8,
+      "active": {
+       "x": 262,
+       "y": 688,
+       "width": 85,
+       "height": 32
+      }
+     },
+     {
+      "cue": 333.75,
+      "dur": 2.8,
+      "active": {
+       "x": 352,
+       "y": 688,
+       "width": 62,
+       "height": 32
+      }
+     },
+     {
+      "cue": 337.75,
+      "dur": 2.8,
+      "active": {
+       "x": 193,
+       "y": 688,
+       "width": 68,
+       "height": 32
+      }
+     },
+     {
+      "cue": 349.0,
+      "dur": 2.8,
+      "active": {
+       "x": 262,
+       "y": 688,
+       "width": 85,
+       "height": 32
+      }
+     },
+     {
+      "cue": 361.25,
+      "dur": 2.8,
+      "active": {
+       "x": 113,
+       "y": 688,
+       "width": 73,
+       "height": 32
+      }
+     }
+    ]
+   }
+  },
+  {
+   "id": "b32",
+   "start": 377.5,
+   "end": 384.7,
+   "spoken_text": "WHY MIDNIGHT? 5-HOUR SESSIONS",
+   "role": "context",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Section title",
+   "on_screen_copy": [
+    "WHY MIDNIGHT?",
+    "5-HOUR SESSIONS"
+   ],
+   "reveal_sync": [
+    {
+     "element": "WHY MIDNIGHT?",
+     "time": 378
+    }
+   ],
+   "transition_in": "wipe-from-right",
+   "transition_out": "wipe-from-right",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "component": "section-title",
+   "props": {
+    "kicker": "Why midnight?",
+    "title": "Usage works in",
+    "key": "5-hour sessions",
+    "cue": 377.8
+   }
+  },
+  {
+   "id": "b33",
+   "start": 388.4,
+   "end": 402.91,
+   "spoken_text": "midnight 5 AM weekly limit 24 hours",
+   "role": "process",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Summarises the session and limit explanation",
+   "on_screen_copy": [
+    "midnight",
+    "5 AM",
+    "weekly limit",
+    "24 hours"
+   ],
+   "reveal_sync": [
+    {
+     "element": "midnight",
+     "time": 389.38
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 320,
+    "width": 280,
+    "height": 20
+   },
+   "component": "explainer-card",
+   "props": {
+    "title": "Why it works",
+    "rows": [
+     {
+      "text": "Runs at **midnight**",
+      "cue": 389.38
+     },
+     {
+      "text": "Session ends by **5 AM**",
+      "cue": 390.98
+     },
+     {
+      "text": "Still counts toward your **weekly limit**",
+      "cue": 397.3
+     },
+     {
+      "text": "Last **24 hours**, max 25",
+      "cue": 400.21
+     }
+    ]
+   }
+  },
+  {
+   "id": "b34",
+   "start": 404.01,
+   "end": 408.71,
+   "spoken_text": "blank sheet builds runs sleep",
+   "role": "recap",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Recap",
+   "on_screen_copy": [
+    "blank sheet",
+    "builds",
+    "runs",
+    "sleep"
+   ],
+   "reveal_sync": [
+    {
+     "element": "blank sheet",
+     "time": 404.11
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 320,
+    "width": 280,
+    "height": 20
+   },
+   "component": "explainer-card",
+   "props": {
+    "title": "Recap",
+    "rows": [
+     {
+      "text": "A **blank** sheet",
+      "cue": 404.11
+     },
+     {
+      "text": "One prompt **builds** it",
+      "cue": 405.45
+     },
+     {
+      "text": "One prompt **runs** it",
+      "cue": 406.85
+     },
+     {
+      "text": "Works while you **sleep**",
+      "cue": 408.13
+     }
+    ]
+   }
+  },
+  {
+   "id": "b35",
+   "start": 408.81,
+   "end": 411.71,
+   "spoken_text": "BOTH PROMPTS IN THE DESCRIPTION",
+   "role": "cta",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Points to the prompts",
+   "on_screen_copy": [
+    "BOTH PROMPTS IN THE DESCRIPTION"
+   ],
+   "reveal_sync": [
+    {
+     "element": "BOTH PROMPTS IN THE DESCRIPTION",
+     "time": 408.86
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 40,
+    "y": 616,
+    "width": 400,
+    "height": 90
+   },
+   "component": "lower-third-tag",
+   "props": {
+    "text": "Both prompts in the description",
+    "cue": 408.86
+   }
+  },
+  {
+   "id": "b36",
+   "start": 411.91,
+   "end": 419.01,
+   "spoken_text": "search changes tell Claude add product manager it updates the sheet",
+   "role": "process",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Fills the face-only stretch with how to change the search",
+   "on_screen_copy": [
+    "search changes",
+    "tell Claude",
+    "add product manager",
+    "it updates the sheet"
+   ],
+   "reveal_sync": [
+    {
+     "element": "search changes",
+     "time": 412.01
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 320,
+    "width": 280,
+    "height": 20
+   },
+   "component": "explainer-card",
+   "props": {
+    "title": "When your search changes",
+    "rows": [
+     {
+      "text": "Don't touch the **prompt**",
+      "cue": 412.01
+     },
+     {
+      "text": "Tell **Claude** what changed",
+      "cue": 413.11,
+      "icon": "brand/claude.png"
+     },
+     {
+      "text": "\"Add **product manager** to my titles\"",
+      "cue": 414.51
+     },
+     {
+      "text": "It **updates** the sheet",
+      "cue": 416.31
+     }
+    ]
+   }
+  },
+  {
+   "id": "b37",
+   "start": 428.01,
+   "end": 431.81,
+   "spoken_text": "LIKE, COMMENT, SHARE",
+   "role": "cta",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Closing call to action",
+   "on_screen_copy": [
+    "LIKE, COMMENT, SHARE"
+   ],
+   "reveal_sync": [
+    {
+     "element": "LIKE, COMMENT, SHARE",
+     "time": 428.45
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 40,
+    "y": 616,
+    "width": 400,
+    "height": 90
+   },
+   "component": "lower-third-tag",
+   "props": {
+    "text": "Like, comment, share",
+    "cue": 428.45
+   }
+  },
+  {
+   "id": "b38",
+   "start": 440.91,
+   "end": 444.91,
+   "spoken_text": "STUCK? ASK IN THE COMMENTS",
+   "role": "cta",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Invites questions",
+   "on_screen_copy": [
+    "STUCK? ASK IN THE COMMENTS"
+   ],
+   "reveal_sync": [
+    {
+     "element": "STUCK? ASK IN THE COMMENTS",
+     "time": 441.11
+    }
+   ],
+   "transition_in": "fade",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Planned in director-treatment.md",
+   "review_status": "approved",
+   "layout": {
+    "x": 40,
+    "y": 616,
+    "width": 400,
+    "height": 90
+   },
+   "component": "lower-third-tag",
+   "props": {
+    "text": "Stuck? Ask in the comments",
+    "cue": 441.11
+   }
+  }
+ ]
+}

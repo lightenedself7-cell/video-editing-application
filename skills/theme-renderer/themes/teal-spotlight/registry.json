@@ -35,6 +35,9 @@
             "cue": {
               "type": "number",
               "required": true
+            },
+            "scale": {
+              "type": "number"
             }
           }
         }
@@ -96,6 +99,65 @@
               }
             }
           }
+        },
+        "keep": {
+          "type": "array",
+          "min": 1,
+          "max": 3,
+          "items": {
+            "x": {
+              "type": "number",
+              "required": true
+            },
+            "y": {
+              "type": "number",
+              "required": true
+            },
+            "width": {
+              "type": "number",
+              "required": true
+            },
+            "height": {
+              "type": "number",
+              "required": true
+            }
+          }
+        },
+        "tab_marks": {
+          "type": "array",
+          "min": 1,
+          "max": 8,
+          "items": {
+            "cue": {
+              "type": "number",
+              "required": true
+            },
+            "dur": {
+              "type": "number"
+            },
+            "active": {
+              "type": "object",
+              "required": true,
+              "fields": {
+                "x": {
+                  "type": "number",
+                  "required": true
+                },
+                "y": {
+                  "type": "number",
+                  "required": true
+                },
+                "width": {
+                  "type": "number",
+                  "required": true
+                },
+                "height": {
+                  "type": "number",
+                  "required": true
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -119,6 +181,12 @@
           "required": true
         },
         "sub": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        },
+        "align": {
           "type": "string"
         }
       }
@@ -222,6 +290,42 @@
             "visible": {
               "type": "boolean",
               "required": true
+            }
+          }
+        },
+        "tab_marks": {
+          "type": "array",
+          "min": 1,
+          "max": 8,
+          "items": {
+            "cue": {
+              "type": "number",
+              "required": true
+            },
+            "dur": {
+              "type": "number"
+            },
+            "active": {
+              "type": "object",
+              "required": true,
+              "fields": {
+                "x": {
+                  "type": "number",
+                  "required": true
+                },
+                "y": {
+                  "type": "number",
+                  "required": true
+                },
+                "width": {
+                  "type": "number",
+                  "required": true
+                },
+                "height": {
+                  "type": "number",
+                  "required": true
+                }
+              }
             }
           }
         }

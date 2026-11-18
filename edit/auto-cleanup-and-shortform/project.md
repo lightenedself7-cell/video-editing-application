@@ -23,6 +23,8 @@ USER DECISION (2026-11-17): short-form (step 4) is DEFERRED, not today. Build st
   local, flagged in cuts.md for approval). Slow explaining is not detected (idea: flag low words-per-second stretches, optional 1.1-1.2x speed-up).
   Whisper small mishears some words; --model medium is more accurate but slower. Use --keep-pause 0 for harder jump cuts.
 - From here, code changes happen in Claude Code on the user's PC (cloud session handed over 2026-11-18). git pull first.
+- Audio (2026-11-18): apply now runs a "studio sound" chain by default (--audio studio|loudnorm|none, --lufs -14);
+  user picked chain C in an A/B test (denoise + voice EQ + compression + two-pass loudnorm; noise floor -46 -> -70 dB).
 - Next: run it on one real raw recording, tune --max-pause / --min-repeat from the user's review of cuts.md. Then steps 2, 3, 5.
 
 ## Build order

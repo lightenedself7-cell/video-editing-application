@@ -12,6 +12,10 @@ Usage (from the repo root, inside WSL):
   .venv/bin/python skills/presenter-long-form-editor/scripts/auto_clean.py apply RAW.mp4 --out edit/<project>/cleanup
 
 The original file is never modified. Transcription is local only.
+
+Audio (apply step, --audio): "studio" (default) = rumble cut, denoise, voice EQ, compression, then two-pass loudness
+to --lufs (default -14, YouTube); "loudnorm" = two-pass loudness only; "none" = audio untouched.
+Chain chosen by the creator on 2026-11-18 (A/B test on the no-code-website video, option C).
 """
 import argparse
 import json
@@ -22,6 +26,13 @@ import sys
 
 FILLERS = {"um", "umm", "uh", "uhh", "uhm", "er", "erm", "ah", "ahh", "hmm", "mm", "mmm"}
 FILLER_PROMPT = "Um, uh, so, er, I mean, uh, let me, um, start again."
+
+# "Studio sound": highpass/lowpass, FFT + non-local-means denoise, -2 dB mud at 200 Hz, +3 dB presence at 3.5 kHz,
+# -2 dB sibilance at 7.5 kHz, 4:1 compression. Loudness is normalised after this (two-pass loudnorm).
+STUDIO_CHAIN = ("highpass=f=90,lowpass=f=12000,afftdn=nr=18:nf=-42:tn=1,anlmdn=s=4,"
+                "equalizer=f=200:t=q:w=1:g=-2,equalizer=f=3500:t=q:w=1:g=3,equalizer=f=7500:t=q:w=2:g=-2,"
+                "acompressor=threshold=-22dB:ratio=4:attack=5:release=120:makeup=3")
+LOUD_TP, LOUD_LRA = -1.5, 11
 
 
 # ---------- transcript ----------
@@ -235,24 +246,51 @@ def shift_transcript(tr, cuts):
     return {**tr, "duration": T(tr["duration"]), "words": words, "cut": {"removed": C}}
 
 
+def audio_segments(segs, fade=0.015):
+    """Audio-only trim graph (with 15 ms fades at each join), ending in [acat]."""
+    parts = []
+    for n, (s, e) in enumerate(segs):
+        af = f"[0:a]atrim={s:.3f}:{e:.3f},asetpts=PTS-STARTPTS"
+        if n > 0:
+            af += f",afade=t=in:st=0:d={fade}"
+        if n < len(segs) - 1:
+            af += f",afade=t=out:st={max(0, e - s - fade):.3f}:d={fade}"
+        parts.append(af + f"[a{n}];")
+    return "".join(parts) + "".join(f"[a{n}]" for n in range(len(segs))) + f"concat=n={len(segs)}:v=0:a=1[acat]"
+
+
+def measure_loudness(src, audio_graph, pre, lufs):
+    """Pass 1 of two-pass loudnorm on the cut + processed audio; returns the measured values."""
+    graph = audio_graph + f";[acat]{pre}loudnorm=I={lufs}:TP={LOUD_TP}:LRA={LOUD_LRA}:print_format=json[m]"
+    err = subprocess.run(["ffmpeg", "-hide_banner", "-nostdin", "-i", src, "-filter_complex", graph, "-map", "[m]",
+                          "-f", "null", "-"], capture_output=True, text=True).stderr
+    m = re.search(r"\{[^{}]*\"input_i\"[^{}]*\}", err)
+    if not m:
+        sys.exit("loudness measurement failed:\n" + err[-2000:])
+    return json.loads(m.group(0))
+
+
+def audio_chain(a, src, audio_graph):
+    """Filters applied after the cuts: '' for --audio none, else [studio chain,] two-pass loudnorm."""
+    if a.audio == "none":
+        return ""
+    pre = STUDIO_CHAIN + "," if a.audio == "studio" else ""
+    print(f"audio: {a.audio}, measuring loudness (pass 1) ...")
+    m = measure_loudness(src, audio_graph, pre, a.lufs)
+    return (f"{pre}loudnorm=I={a.lufs}:TP={LOUD_TP}:LRA={LOUD_LRA}:measured_I={m['input_i']}:measured_TP={m['input_tp']}"
+            f":measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true")
+
+
 def apply(a):
     plan = json.load(open(os.path.join(a.out, "cuts.json")))
     cuts = [c for c in plan["cuts"] if not c.get("skip")]
     duration = plan["duration"]
     segs = keep_segments(cuts, duration)
-    fade = 0.015
-    parts, labels = [], []
-    for n, (s, e) in enumerate(segs):
-        d = e - s
-        parts.append(f"[0:v]trim={s:.3f}:{e:.3f},setpts=PTS-STARTPTS[v{n}];")
-        af = f"[0:a]atrim={s:.3f}:{e:.3f},asetpts=PTS-STARTPTS"
-        if n > 0:
-            af += f",afade=t=in:st=0:d={fade}"
-        if n < len(segs) - 1:
-            af += f",afade=t=out:st={max(0, d - fade):.3f}:d={fade}"
-        parts.append(af + f"[a{n}];")
-        labels.append(f"[v{n}][a{n}]")
-    graph = "".join(parts) + "".join(labels) + f"concat=n={len(segs)}:v=1:a=1[v][a]"
+    agraph = audio_segments(segs)
+    post = audio_chain(a, a.src, agraph)
+    vgraph = "".join(f"[0:v]trim={s:.3f}:{e:.3f},setpts=PTS-STARTPTS[v{n}];" for n, (s, e) in enumerate(segs))
+    vgraph += "".join(f"[v{n}]" for n in range(len(segs))) + f"concat=n={len(segs)}:v=1:a=0[v]"
+    graph = f"{vgraph};{agraph};[acat]{post or 'anull'}[a]"
     gpath = os.path.join(a.out, "cut-graph.txt")
     open(gpath, "w").write(graph)
 
@@ -263,7 +301,7 @@ def apply(a):
     venc = ["-c:v", "h264_nvenc", "-preset", "p6", "-cq", "16"] if a.nvenc else ["-c:v", "libx264", "-preset", a.preset, "-crf", "12"]
     cmd = ["ffmpeg", "-hide_banner", "-nostdin", "-loglevel", "error", "-y", "-i", a.src,
            "-filter_complex_script", gpath, "-map", "[v]", "-map", "[a]", *venc, "-pix_fmt", "yuv420p",
-           "-c:a", "aac", "-b:a", "256k", "-movflags", "+faststart", dst]
+           "-c:a", "aac", "-b:a", "256k", *(["-ar", "48000"] if post else []), "-movflags", "+faststart", dst]
     subprocess.run(cmd, check=True)
 
     tpath = os.path.join(a.out, "transcript.json")
@@ -294,6 +332,9 @@ def main():
     p.add_argument("--output", help="cleaned video path (default: <out>/<name>-clean.mp4)")
     p.add_argument("--nvenc", action="store_true", help="encode on the NVIDIA GPU (check: ffmpeg -encoders | grep nvenc)")
     p.add_argument("--preset", default="medium", help="x264 preset when not using --nvenc")
+    p.add_argument("--audio", choices=["studio", "loudnorm", "none"], default="studio",
+                   help="studio = denoise + voice EQ + compression + loudness (default); loudnorm = loudness only")
+    p.add_argument("--lufs", type=float, default=-14.0, help="target integrated loudness (YouTube -14)")
     a = p.parse_args()
     os.makedirs(a.out, exist_ok=True)
     if a.step == "apply":

@@ -14,6 +14,15 @@ Local commits only until the user says push (see memory: career-ops / video-app 
 
 USER DECISION (2026-11-17): short-form (step 4) is DEFERRED, not today. Build steps 1-3 and 5 only; revisit short-form when the user asks.
 
+## STATUS (2026-11-17): steps 1, 2, 3, 5 built, local commit only
+- Step 1 DONE: skills/presenter-long-form-editor/scripts/auto_clean.py (`analyze` -> cuts.json + cuts.md, `apply --approved [--drop N] [--voice-chain]` -> cleaned mp4, transcript-cut.json, cut-map.json; `make_T` shifts times). Tests: `.venv/bin/python -m unittest discover -s skills/presenter-long-form-editor/tests` (instant).
+  Real test on the spreadsheet video (test-run/): found the repeated take (6:19.8-6:26.8, kept the LAST take, flagged for review), encode checked (decode OK, duration exact).
+  KNOWN LIMITS: Whisper smooths immediate repeats, so the 405.0 s false start ("that's why the prompt only look" twice) is NOT visible to word-level detection (try `--model medium` or review by ear). This speaker is fluent, so few pauses; threshold 0.5 s, keep 0.3 s, cuts under 0.25 s ignored. Silent screen demos: use `--protect a-b` or the ⚠ flag.
+- Step 2 DONE on the agent side: SKILL.md steps 1b/1c. NOT done: app UI (prepare.ts does not run the cleanup or show cuts.md for approval; a cut-approval screen in the app is a separate build).
+- Step 3 DONE: scripts/look.py (moody, aesthetic, cinematic, clean, natural -> registry theme + mild grade; `resolve`, `grade`, `list`). Grade is applied to the cleaned source before graphics.
+- Step 5 RESULT: GPU encode is NOT possible here (WSL has libd3d12 but no libcuda, so NVENC fails; VAAPI has no display). Use CPU: cleaned intermediate now defaults to `-preset veryfast -crf 12` (447 s video encoded in 3m17 vs roughly double at slow). Render time of the final theme video is unchanged (about 9-10 min).
+- Short-form (step 4) still deferred.
+
 ## Build order
 1. **Cleanup step (long-form first).** New script, e.g. skills/video-use/helpers/auto_clean.py or skills/presenter-long-form-editor/scripts/auto_clean.py:
    - transcribe with faster-whisper, word timestamps, KEEP fillers (initial_prompt with "um, uh, er"), vad_filter on (Silero is built in; venv av pinned 16.1.0, do not upgrade).

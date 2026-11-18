@@ -1,0 +1,57 @@
+{
+ "source": "/home/dev/videos/automated-job-search-spreadsheet-demo.mp4",
+ "duration": 454.763,
+ "params": {
+  "pause": 0.5,
+  "keep": 0.3,
+  "script": null,
+  "protect": "",
+  "model": "small"
+ },
+ "removed_s": 7.58,
+ "cleaned_duration": 447.18,
+ "cuts": [
+  {
+   "id": 1,
+   "start": 337.195,
+   "end": 337.585,
+   "len": 0.39,
+   "types": [
+    "repeat"
+   ],
+   "removed_text": "so",
+   "before": "for which day it ran and why",
+   "after": "So that's how your sheet looks like",
+   "review": false,
+   "approved": true
+  },
+  {
+   "id": 2,
+   "start": 379.845,
+   "end": 386.825,
+   "len": 6.98,
+   "types": [
+    "false-start"
+   ],
+   "removed_text": "Claude usage works in five hours sessions. A lot of people think it resets at a fixed time. It doesn't. The session starts with your first message and",
+   "before": "midnight? So this is a little trick.",
+   "after": "Claude usage works in five hours sessions",
+   "review": true,
+   "approved": true
+  },
+  {
+   "id": 3,
+   "start": 452.525,
+   "end": 452.735,
+   "len": 0.21,
+   "types": [
+    "pause"
+   ],
+   "removed_text": "[silence 0.2 s]",
+   "before": "the comments. I would love to help.",
+   "after": "Thank you for watching. See you in",
+   "review": false,
+   "approved": true
+  }
+ ]
+}

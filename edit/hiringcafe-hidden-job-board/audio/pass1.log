@@ -1,0 +1,46 @@
+Input #0, mov,mp4,m4a,3gp,3g2,mj2, from '/home/dev/videos/hiringcafe-hidden-job-board.mp4':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    title           : HiringCafe: Hidden Job Board Revelation
+    encoder         : Lavf60.3.100
+  Duration: 00:11:04.00, start: 0.000000, bitrate: 5488 kb/s
+  Stream #0:0[0x1](und): Video: h264 (High) (avc1 / 0x31637661), yuv420p(progressive), 1280x720 [SAR 1:1 DAR 16:9], 5238 kb/s, 30 fps, 30 tbr, 15360 tbn (default)
+    Metadata:
+      handler_name    : VideoHandler
+      vendor_id       : [0][0][0][0]
+  Stream #0:1[0x2](und): Audio: aac (LC) (mp4a / 0x6134706D), 48000 Hz, stereo, fltp, 242 kb/s (default)
+    Metadata:
+      handler_name    : SoundHandler
+      vendor_id       : [0][0][0][0]
+Stream mapping:
+  Stream #0:1 -> #0:0 (aac (native) -> pcm_s16le (native))
+Press [q] to stop, [?] for help
+Output #0, null, to 'pipe:':
+  Metadata:
+    major_brand     : isom
+    minor_version   : 512
+    compatible_brands: isomiso2avc1mp41
+    title           : HiringCafe: Hidden Job Board Revelation
+    encoder         : Lavf60.16.100
+  Stream #0:0(und): Audio: pcm_s16le, 192000 Hz, stereo, s16, 6144 kb/s (default)
+    Metadata:
+      handler_name    : SoundHandler
+      vendor_id       : [0][0][0][0]
+      encoder         : Lavc60.31.102 pcm_s16le
+[out#0/null @ 0x615f8ea54a80] video:0kB audio:498000kB subtitle:0kB other streams:0kB global headers:0kB muxing overhead: unknown
+size=N/A time=00:11:01.10 bitrate=N/A speed=5.86x    
+[Parsed_loudnorm_5 @ 0x615f8ece3b40] 
+{
+	"input_i" : "-23.69",
+	"input_tp" : "-3.31",
+	"input_lra" : "3.20",
+	"input_thresh" : "-34.15",
+	"output_i" : "-14.07",
+	"output_tp" : "-1.50",
+	"output_lra" : "3.10",
+	"output_thresh" : "-24.53",
+	"normalization_type" : "dynamic",
+	"target_offset" : "0.07"
+}

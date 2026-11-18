@@ -1,0 +1,2 @@
+valid directive: /tmp/structural.json
+sha256: a700765970baf3eccd71e99bbe97ff059159582f593f8049857e7c5c9a1a7e31

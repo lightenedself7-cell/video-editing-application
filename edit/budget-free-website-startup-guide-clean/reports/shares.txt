@@ -1,0 +1,8 @@
+CLEAN_PRESENTER                       76.9s  10.5%
+CLEAN_PRESENTER (over screen)        417.0s  57.2%
+FULLSCREEN_MOTION                     52.9s   7.3%
+OVERLAY_CARD                          33.9s   4.6%
+OVERLAY_CARD (over screen)            50.5s   6.9%
+PRESENTER_INSET                       84.7s  11.6%
+SELECTIVE_TEXT                        13.5s   1.9%
+camera 219.36700000000002 screen 509.99999999999994

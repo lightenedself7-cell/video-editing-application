@@ -1,0 +1,34 @@
+{
+  "results": [
+    {
+      "check": "full decode",
+      "pass": true,
+      "detail": "decoded without errors"
+    },
+    {
+      "check": "frame size",
+      "pass": true,
+      "detail": "1280x720 (source 1280x720)"
+    },
+    {
+      "check": "frame rate",
+      "pass": true,
+      "detail": "30.000 (source 30.000)"
+    },
+    {
+      "check": "duration",
+      "pass": true,
+      "detail": "446.267s (source 446.273s)"
+    },
+    {
+      "check": "audio matches source",
+      "pass": true,
+      "detail": "-20.0 LUFS, true peak -1.5 dBFS (source -20.0 LUFS)"
+    },
+    {
+      "check": "protected region untouched",
+      "pass": true,
+      "detail": "max change 0.0/255 over 4024 overlay frames"
+    }
+  ]
+}

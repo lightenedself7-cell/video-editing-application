@@ -1,0 +1,1661 @@
+{
+ "version": 1,
+ "project": "budget-free-website-startup-guide-clean",
+ "theme": "clean-creator",
+ "source": {
+  "path": "/home/dev/videos/budget-free-website-startup-guide-clean.mp4",
+  "sha256": "ea8bfd2eec998ef7393aac1695fb664b7b4fde70e56676f8b19530be5212617c",
+  "width": 1280,
+  "height": 720,
+  "fps": "30/1",
+  "duration_s": 729.367
+ },
+ "delivery": {
+  "width": 1280,
+  "height": 720,
+  "fps": "30/1",
+  "codec": "h264 yuv420p",
+  "audio": "source AAC 48 kHz stereo, stream-copied"
+ },
+ "approval": {
+  "status": "approved",
+  "approved_scope": "Creator approved director-treatment.md as planned (2026-11-07). Screens framed 1152x648 with glowing border; the baked presenter bubble stays round with a thin raspberry glow around the circle only, no rectangle or box around it. No wordmark.",
+  "ambiguities": []
+ },
+ "audio": {
+  "policy": "unchanged; source audio stream-copied",
+  "measured_integrated_lufs": -14.1,
+  "measured_true_peak_dbtp": -1.1,
+  "lra_lu": 3.5
+ },
+ "captions": null,
+ "palette": {
+  "ground": "#210A12",
+  "orb": [
+   "#92205A",
+   "#8C3D5D"
+  ],
+  "accent": "#92205A",
+  "highlight": "#E25C8E",
+  "text": "#FAF9F8"
+ },
+ "type": {
+  "family": "Montserrat",
+  "titles": "800 uppercase, soft warm-white glow",
+  "body": "300 sentence case"
+ },
+ "screen_framing": {
+  "approved": true,
+  "bubble": "kept round; thin raspberry glow ring on the circle only; no rectangle/box around it",
+  "wordmark": null,
+  "intervals": [
+   [
+    78.2,
+    94.6
+   ],
+   [
+    123.8,
+    290.0
+   ],
+   [
+    370.0,
+    697.4
+   ]
+  ],
+  "window": {
+   "x": 64,
+   "y": 36,
+   "width": 1152,
+   "height": 648,
+   "radius": 22,
+   "border": "1.5px #92205A glow"
+  },
+  "ground": "#210A12 with raspberry orb",
+  "protected_during_screens": [
+   {
+    "name": "baked-bubble-bottom-left",
+    "x": 0,
+    "y": 440,
+    "width": 300,
+    "height": 280
+   },
+   {
+    "name": "baked-bubble-bottom-right",
+    "x": 990,
+    "y": 410,
+    "width": 290,
+    "height": 310
+   }
+  ],
+  "note": "The presenter bubble baked into the screen recordings stays inside the frame."
+ },
+ "protected_regions": [
+  {
+   "name": "presenter-camera-head-shoulders",
+   "x": 260,
+   "y": 0,
+   "width": 700,
+   "height": 600
+  }
+ ],
+ "beats": [
+  {
+   "id": "b01",
+   "start": 0.0,
+   "end": 7.3,
+   "spoken_text": "This is a live website for my dad's hotel in Kerala, Ground Tourist Home. It loads instantly",
+   "role": "hook",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Live site on the phone in her hand; the face sells it",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Opening proof shot. Her phone already shows the site; nothing should compete.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b02",
+   "start": 7.4,
+   "end": 23.6,
+   "spoken_text": "mobile. Guests can message directly on WhatsApp to book and hosting costs $0. The only thing I paid for was the custom web address which was under $10 for a year. No monthly agency fees, no subscriptions.",
+   "role": "proof",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Glass stat card: what the site does and what it costs",
+   "on_screen_copy": [
+    "Instant on mobile",
+    "Book on WhatsApp",
+    "$0 hosting",
+    "Domain under $10 / year"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Instant on mobile",
+     "time": 7.72
+    },
+    {
+     "element": "Book on WhatsApp",
+     "time": 10.12
+    },
+    {
+     "element": "$0 hosting",
+     "time": 12.22
+    },
+    {
+     "element": "Domain under $10 / year",
+     "time": 18.28
+    }
+   ],
+   "transition_in": "glass-slide-from-right",
+   "transition_out": "glass-slide-out-right",
+   "audio_continuity": "continuous",
+   "rationale": "Four short facts the hook says aloud, one per spoken word. Lives right of the presenter corridor. WhatsApp icon (official) next to its line.",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 150,
+    "width": 280,
+    "height": 420
+   },
+   "brand_icons": [
+    {
+     "brand": "WhatsApp",
+     "time": 10.12
+    }
+   ]
+  },
+  {
+   "id": "b03",
+   "start": 23.6,
+   "end": 44.1,
+   "spoken_text": "It took me 4 hours to build because I wasn't specific about the type of website I wanted due to which I ran into dealing with dependency conflicts and file limit error. In this video, I'll show you the exact step by step process using free AI tools and the simple fix so you can finish yours",
+   "role": "problem",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Her four-hour story and the promise: trust moment",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Story + promise stay clean. Attention toolkit: punch-in 1.10x on the jump at 23.92 (new sentence), back to 1.0 at 34.80 ('In this video').",
+   "review_status": "approved",
+   "punch_ins": [
+    {
+     "in": 23.92,
+     "out": 34.8,
+     "scale": 1.1
+    }
+   ]
+  },
+  {
+   "id": "b04",
+   "start": 44.1,
+   "end": 47.9,
+   "spoken_text": "under two hours. This video is about creating",
+   "role": "promise",
+   "treatment": "SELECTIVE_TEXT",
+   "purpose": "Kinetic keyword on the payoff",
+   "on_screen_copy": [
+    "under **2 hours**"
+   ],
+   "reveal_sync": [
+    {
+     "element": "under **2 hours**",
+     "time": 44.32
+    }
+   ],
+   "transition_in": "scale-90-100",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "One keyword beside her head, right column, 90%->100% spring then fade.",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 250,
+    "width": 280,
+    "height": 90
+   }
+  },
+  {
+   "id": "b05",
+   "start": 47.9,
+   "end": 60.4,
+   "spoken_text": "website for a small hotel business. You can tweak based on your requirements so let's get started. When I sat down with my dad, he didn't need anything fancy.",
+   "role": "context",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Setup and the start of the dad story",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Punch-in at 50.46 (\"You can tweak\"), out at 58.16 (\"he didn't need anything fancy\").",
+   "review_status": "approved",
+   "punch_ins": [
+    {
+     "in": 50.46,
+     "out": 58.16,
+     "scale": 1.1
+    }
+   ]
+  },
+  {
+   "id": "b06",
+   "start": 60.4,
+   "end": 70.9,
+   "spoken_text": "He needed guests to see the rooms and the rates and to reach the reception on WhatsApp or call the number on the website that decided everything that",
+   "role": "definition",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Glass card: what Dad actually needed",
+   "on_screen_copy": [
+    "Rooms",
+    "Rates",
+    "WhatsApp or call"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Rooms",
+     "time": 62.74
+    },
+    {
+     "element": "Rates",
+     "time": 63.84
+    },
+    {
+     "element": "WhatsApp or call",
+     "time": 65.74
+    }
+   ],
+   "transition_in": "glass-slide-from-right",
+   "transition_out": "glass-slide-out-right",
+   "audio_continuity": "continuous",
+   "rationale": "The brief that 'decided everything that followed'; three items on their words.",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 150,
+    "width": 280,
+    "height": 420
+   }
+  },
+  {
+   "id": "b07",
+   "start": 71.0,
+   "end": 77.5,
+   "spoken_text": "Before you open any AI tool, get these together. This part is the most of the work.",
+   "role": "roadmap",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Roadmap marker: show where we are in the build",
+   "on_screen_copy": [
+    "Prep",
+    "Build",
+    "Go static",
+    "Mobile check",
+    "Go live",
+    "Speed check"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Prep",
+     "time": 73.96
+    }
+   ],
+   "transition_in": "slide-from-right",
+   "transition_out": "slide-out-right",
+   "audio_continuity": "continuous",
+   "rationale": "First roadmap appearance: path draws, six nodes appear left to right, node 1 lights on 'get these together'. Exits before the prep-doc screen at 78.2.",
+   "review_status": "approved",
+   "layout": {
+    "x": 0,
+    "y": 0,
+    "width": 1280,
+    "height": 720
+   },
+   "roadmap": {
+    "nodes": [
+     "Prep",
+     "Build",
+     "Go static",
+     "Mobile check",
+     "Go live",
+     "Speed check"
+    ],
+    "active": 1,
+    "done": []
+   }
+  },
+  {
+   "id": "b08",
+   "start": 77.5,
+   "end": 94.6,
+   "spoken_text": "You can create a prep doc in your local or in tools, check -in times, it can include the Google map location of your business and also the phone number to reach out on WhatsApp as well as for the deception.",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Prep doc screen recording, framed",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Creator's own screen share. Shown in the floating rounded frame (see screen_framing), no overlays.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b09",
+   "start": 94.8,
+   "end": 120.5,
+   "spoken_text": "can also store the real photos in your local, so when the website is getting created you can upload them. And about two hours and the price of the domain, these are the things you need. AI generates the code fast, but it can't guess your business. So if you are missing any details, leave it out and tell the AI to leave it out to else it will hallucinate. The prep is the work. AI is the fast part.",
+   "role": "process",
+   "treatment": "PRESENTER_INSET",
+   "purpose": "Side-column: the prep checklist",
+   "on_screen_copy": [
+    "Real photos",
+    "About 2 hours",
+    "Domain price",
+    "Missing info? Leave it out",
+    "The prep is the work"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Real photos",
+     "time": 95.74
+    },
+    {
+     "element": "About 2 hours",
+     "time": 101.3
+    },
+    {
+     "element": "Domain price",
+     "time": 102.2
+    },
+    {
+     "element": "Missing info? Leave it out",
+     "time": 110.98
+    },
+    {
+     "element": "The prep is the work",
+     "time": 117.4
+    }
+   ],
+   "transition_in": "column-move-in",
+   "transition_out": "column-move-out",
+   "audio_continuity": "continuous",
+   "rationale": "Presenter moves into a full-height left column (crop x408-812, scale 0.911, eyes upper third); checklist cards build on the right, each with a rose check. Last line is the payoff, bold.",
+   "review_status": "approved",
+   "presenter_layout": {
+    "x": 32,
+    "y": 32,
+    "width": 368,
+    "height": 656
+   },
+   "layout": {
+    "x": 440,
+    "y": 56,
+    "width": 808,
+    "height": 608
+   }
+  },
+  {
+   "id": "b10",
+   "start": 120.6,
+   "end": 123.7,
+   "spoken_text": "So let's jump straight into the tool.",
+   "role": "roadmap",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Roadmap marker: show where we are in the build",
+   "on_screen_copy": [
+    "Prep",
+    "Build",
+    "Go static",
+    "Mobile check",
+    "Go live",
+    "Speed check"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Build",
+     "time": 121.32
+    }
+   ],
+   "transition_in": "slide-from-right",
+   "transition_out": "slide-out-right",
+   "audio_continuity": "continuous",
+   "rationale": "Node 2 'Build' lights on 'jump straight into the tool'; exits right as the AI Studio screen begins (123.8).",
+   "review_status": "approved",
+   "layout": {
+    "x": 0,
+    "y": 0,
+    "width": 1280,
+    "height": 720
+   },
+   "roadmap": {
+    "nodes": [
+     "Prep",
+     "Build",
+     "Go static",
+     "Mobile check",
+     "Go live",
+     "Speed check"
+    ],
+    "active": 2,
+    "done": [
+     1
+    ]
+   }
+  },
+  {
+   "id": "b11",
+   "start": 123.8,
+   "end": 124.5,
+   "spoken_text": "are",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "AI Studio screen",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Framed screen.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b12",
+   "start": 124.5,
+   "end": 129.5,
+   "spoken_text": "Google AI Studio. Go to aistudio .google .com",
+   "role": "process",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Brand chip on the tool name",
+   "on_screen_copy": [
+    "Google AI Studio"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Google AI Studio",
+     "time": 124.6
+    }
+   ],
+   "transition_in": "chip-fade-slide",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Official AI Studio icon + label chip on the word, top-right over the browser tab bar.",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 40,
+    "width": 272,
+    "height": 44
+   },
+   "brand_icons": [
+    {
+     "brand": "Google AI Studio",
+     "time": 124.6
+    }
+   ],
+   "screen": true
+  },
+  {
+   "id": "b13",
+   "start": 129.5,
+   "end": 191.0,
+   "spoken_text": "under settings in that you can choose the default version which is free Gemini 3 .8. If you notice I have a pro subscription but that is not required to create a simple website. Go to the prompt section under new app. Here there is this mic where you can click and talk in simple human language about your requirements. The golden rule of building with AI Studio is, you provide the real world inputs like the Google map links, real photos, actual phone number and AI desktop research, design and coding. I'll put the detailed prompt in the pinned comment so you can copy paste it with your own details. So this is the initial build and I'm just gonna keep it in default mode and hit send prompt. So now you see the first prompt gave us a result in less than six minutes. So this is a basic site which you receive once that initial prompt was given to AI Studio.",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Build walkthrough on screen",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Screen carries it; framed only.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b14",
+   "start": 191.0,
+   "end": 196.0,
+   "spoken_text": "Now let's do an immediate reality chip. Are the phone numbers and the",
+   "role": "process",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Chip: reality check",
+   "on_screen_copy": [
+    "Reality check"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Reality check",
+     "time": 192.52
+    }
+   ],
+   "transition_in": "chip-fade-slide",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Marks the sub-step without a full roadmap stop.",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 40,
+    "width": 272,
+    "height": 44
+   },
+   "screen": true
+  },
+  {
+   "id": "b15",
+   "start": 196.0,
+   "end": 215.8,
+   "spoken_text": "rates exact? Did AI insert fake generated room photos? AI generated luxury suites that do not exist in real life. If a guest shows up expecting an infinity pool because AI hallucinated it, you're going to have an upset customer. Let's make it",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Screen",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Framed screen.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b16",
+   "start": 215.8,
+   "end": 220.6,
+   "spoken_text": "first photos. So click upload. Add your real",
+   "role": "process",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Numbered chip 1",
+   "on_screen_copy": [
+    "1  Real photos"
+   ],
+   "reveal_sync": [
+    {
+     "element": "1  Real photos",
+     "time": 215.88
+    }
+   ],
+   "transition_in": "chip-fade-slide",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Spoken list item, numbered badge.",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 40,
+    "width": 272,
+    "height": 44
+   },
+   "screen": true
+  },
+  {
+   "id": "b17",
+   "start": 220.6,
+   "end": 225.8,
+   "spoken_text": "Tell the AI to swap out the placeholders.",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Screen",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Framed screen.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b18",
+   "start": 225.8,
+   "end": 230.8,
+   "spoken_text": "Second, distances. Paste your Google",
+   "role": "process",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Numbered chip 2",
+   "on_screen_copy": [
+    "2  Distances"
+   ],
+   "reveal_sync": [
+    {
+     "element": "2  Distances",
+     "time": 227.62
+    }
+   ],
+   "transition_in": "chip-fade-slide",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Spoken list item.",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 40,
+    "width": 272,
+    "height": 44
+   },
+   "screen": true
+  },
+  {
+   "id": "b19",
+   "start": 230.8,
+   "end": 248.6,
+   "spoken_text": "links and ask it to calculate travel times to key landmarks like the local waterfalls or the bus station. Always verify these numbers yourself because AI will state a travel time with complete confidence even when it is completely wrong.",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Screen",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Framed screen.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b20",
+   "start": 248.6,
+   "end": 253.6,
+   "spoken_text": "Third, the booking button. I'll show it to you in the actual website so if you",
+   "role": "process",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Numbered chip 3",
+   "on_screen_copy": [
+    "3  Booking button"
+   ],
+   "reveal_sync": [
+    {
+     "element": "3  Booking button",
+     "time": 249.68
+    }
+   ],
+   "transition_in": "chip-fade-slide",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Spoken list item.",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 40,
+    "width": 272,
+    "height": 44
+   },
+   "screen": true
+  },
+  {
+   "id": "b21",
+   "start": 253.6,
+   "end": 289.8,
+   "spoken_text": "click the booking button you can see it will prompt the user to select the type of the room they want if they need any extra mattress the check -in date check -out date number of huddles and it drafts a message automatically based on the selections you do. Once you click it, it will send an enquiry via WhatsApp or you can click on reception and call and ask them directly. We don't need a complicated booking engine, payment processors or a database. The guest picks their dates, taps the button and checks directly with the reception to confirm.",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Booking demo on screen",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Framed screen.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b22",
+   "start": 289.8,
+   "end": 292.6,
+   "spoken_text": "Here is the part where I got stuck.",
+   "role": "roadmap",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Roadmap marker: show where we are in the build",
+   "on_screen_copy": [
+    "Prep",
+    "Build",
+    "Go static",
+    "Mobile check",
+    "Go live",
+    "Speed check"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Go static",
+     "time": 291.52
+    }
+   ],
+   "transition_in": "slide-from-right",
+   "transition_out": "slide-out-right",
+   "audio_continuity": "continuous",
+   "rationale": "Node 3 'Go static' lights on 'where I got stuck'. Enters as the camera returns (290.0).",
+   "review_status": "approved",
+   "layout": {
+    "x": 0,
+    "y": 0,
+    "width": 1280,
+    "height": 720
+   },
+   "roadmap": {
+    "nodes": [
+     "Prep",
+     "Build",
+     "Go static",
+     "Mobile check",
+     "Go live",
+     "Speed check"
+    ],
+    "active": 3,
+    "done": [
+     1,
+     2
+    ]
+   }
+  },
+  {
+   "id": "b23",
+   "start": 292.7,
+   "end": 302.4,
+   "spoken_text": "Quick question. If you ask an AI to build a website and give it no limits, what kind of site do you think it builds? Hold that guess.",
+   "role": "question",
+   "treatment": "SELECTIVE_TEXT",
+   "purpose": "Question beat",
+   "on_screen_copy": [
+    "No limits: what kind of site does AI **build**?"
+   ],
+   "reveal_sync": [
+    {
+     "element": "No limits: what kind of site does AI **build**?",
+     "time": 294.42
+    }
+   ],
+   "transition_in": "darken-blur-in",
+   "transition_out": "darken-blur-out",
+   "audio_continuity": "continuous",
+   "rationale": "Turn in the argument: footage dims + soft blur, one thin centred line, one bold word; holds through 'Hold that guess'.",
+   "review_status": "approved",
+   "layout": {
+    "x": 160,
+    "y": 616,
+    "width": 960,
+    "height": 56
+   },
+   "footage_treatment": "dim 45% + 6px blur"
+  },
+  {
+   "id": "b24",
+   "start": 302.6,
+   "end": 349.8,
+   "spoken_text": "So, there are two kinds of websites, a dynamic and a static. A dynamic site knows who you are and changes for you, like Amazon shopping cart, a train booking site or even your banking app, where you log in with your ID and it will show your balance because behind it there is a server and a database but a static site is like a brochure everyone sees the same page nothing is stored nobody locks in for a small hotel that is enough rooms rates and button to call a message so when I give AI studio no limits it built a dynamic site a full react app structured for logins databases and live",
+   "role": "comparison",
+   "treatment": "PRESENTER_INSET",
+   "purpose": "Side-column: dynamic vs static",
+   "on_screen_copy": [
+    "Dynamic",
+    "Static",
+    "Knows who you are",
+    "Server + database",
+    "A brochure: same page for everyone",
+    "Enough for a small hotel",
+    "No limits → a full React app"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Dynamic",
+     "time": 305.14
+    },
+    {
+     "element": "Static",
+     "time": 306.06
+    },
+    {
+     "element": "Knows who you are",
+     "time": 307.2
+    },
+    {
+     "element": "Server + database",
+     "time": 323.0
+    },
+    {
+     "element": "A brochure: same page for everyone",
+     "time": 328.98
+    },
+    {
+     "element": "Enough for a small hotel",
+     "time": 335.42
+    },
+    {
+     "element": "No limits → a full React app",
+     "time": 344.66
+    }
+   ],
+   "transition_in": "column-move-in",
+   "transition_out": "column-move-out",
+   "audio_continuity": "continuous",
+   "rationale": "Two glass cards side by side. Amazon icon under Dynamic on 'Amazon' (311.10). Final line lights the Dynamic card rose: that's what AI built.",
+   "review_status": "approved",
+   "presenter_layout": {
+    "x": 32,
+    "y": 32,
+    "width": 368,
+    "height": 656
+   },
+   "layout": {
+    "x": 440,
+    "y": 56,
+    "width": 808,
+    "height": 608
+   },
+   "brand_icons": [
+    {
+     "brand": "Amazon",
+     "time": 311.1
+    }
+   ]
+  },
+  {
+   "id": "b25",
+   "start": 349.8,
+   "end": 357.6,
+   "spoken_text": "For a guest house it was built like a banking app and my dad needed a brochure. When I tried to upload it",
+   "role": "reveal",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Punchline: built like a banking app, Dad needed a brochure",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Full frame for the payoff line.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b26",
+   "start": 357.6,
+   "end": 364.8,
+   "spoken_text": "cloud player it hit the file size of 25 MIB and it failed.",
+   "role": "proof",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Glass stat card: the failure",
+   "on_screen_copy": [
+    "25 MiB file limit",
+    "Upload failed"
+   ],
+   "reveal_sync": [
+    {
+     "element": "25 MiB file limit",
+     "time": 361.26
+    },
+    {
+     "element": "Upload failed",
+     "time": 363.3
+    }
+   ],
+   "transition_in": "glass-slide-from-right",
+   "transition_out": "glass-slide-out-right",
+   "audio_continuity": "continuous",
+   "rationale": "Cloudflare icon on 'Cloudflare' (heard as 'cloud player', 357.88). One fact card.",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 150,
+    "width": 280,
+    "height": 420
+   },
+   "brand_icons": [
+    {
+     "brand": "Cloudflare",
+     "time": 357.88
+    }
+   ]
+  },
+  {
+   "id": "b27",
+   "start": 364.8,
+   "end": 370.0,
+   "spoken_text": "almost took me an hour to figure it out what is happening.",
+   "role": "story",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "An hour to figure out",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Punch-in 1.10x at 364.66 to the cut at 370.0.",
+   "review_status": "approved",
+   "punch_ins": [
+    {
+     "in": 364.9,
+     "out": 370.0,
+     "scale": 1.1
+    }
+   ]
+  },
+  {
+   "id": "b28",
+   "start": 370.0,
+   "end": 386.6,
+   "spoken_text": "I went back to Google AI studio and I just asked it to build a static website that is mobile friendly and can be hosted on cloudflare by drag and drop option. So after this prompt it recreated the website in simple static form.",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "The static-site prompt on screen",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Framed screen.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b29",
+   "start": 386.6,
+   "end": 389.6,
+   "spoken_text": "Most of your guest will open this on a phone.",
+   "role": "roadmap",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Roadmap marker: show where we are in the build",
+   "on_screen_copy": [
+    "Prep",
+    "Build",
+    "Go static",
+    "Mobile check",
+    "Go live",
+    "Speed check"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Mobile check",
+     "time": 387.62
+    }
+   ],
+   "transition_in": "slide-from-right",
+   "transition_out": "slide-out-right",
+   "audio_continuity": "continuous",
+   "rationale": "Node 4 'Mobile check' lights on 'Most of your guests'.",
+   "review_status": "approved",
+   "layout": {
+    "x": 0,
+    "y": 0,
+    "width": 1280,
+    "height": 720
+   },
+   "roadmap": {
+    "nodes": [
+     "Prep",
+     "Build",
+     "Go static",
+     "Mobile check",
+     "Go live",
+     "Speed check"
+    ],
+    "active": 4,
+    "done": [
+     1,
+     2,
+     3
+    ]
+   }
+  },
+  {
+   "id": "b30",
+   "start": 395.2,
+   "end": 406.4,
+   "spoken_text": "option and you can see how it is. you can see that the menu and the WhatsApp is not completely visible and also just check whether anything spill off the site or a link is opening properly.",
+   "role": "process",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Phone mockup: the live mobile preview",
+   "on_screen_copy": [
+    "Look at it on a phone"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Look at it on a phone",
+     "time": 395.7
+    }
+   ],
+   "transition_in": "slide-from-right",
+   "transition_out": "slide-out-right",
+   "audio_continuity": "continuous",
+   "rationale": "Attention toolkit phone mockup. The live mobile preview from the screen recording (crop x596-910 y180-680, scale 1.25) plays inside a 9:16 rounded phone frame with a raspberry glow; her baked bubble (crop x996-1262 y420-688) sits in a glowing portrait bubble bottom-right. Real footage, nothing faked. Starts at 395.2 s, the first settled frame after the preview switches to Mobile (395.1 s).",
+   "review_status": "approved",
+   "layout": {
+    "x": 0,
+    "y": 0,
+    "width": 1280,
+    "height": 720
+   },
+   "footage_inserts": [
+    {
+     "name": "mobile-preview",
+     "crop": {
+      "x": 596,
+      "y": 180,
+      "width": 314,
+      "height": 500
+     }
+    },
+    {
+     "name": "bubble",
+     "crop": {
+      "x": 996,
+      "y": 420,
+      "width": 266,
+      "height": 268
+     }
+    }
+   ]
+  },
+  {
+   "id": "b31",
+   "start": 406.4,
+   "end": 430.0,
+   "spoken_text": "If something is off, what you can do is take a screenshot of that, put it over here in this area and just chat with AI to please fix that particular icon or that particular menu option and then it will be updated. it so after making those changes this is how my website actually looked like and",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Screenshot-and-fix on screen",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Framed screen; she points at UI, so it stays visible.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b32",
+   "start": 430.0,
+   "end": 447.6,
+   "spoken_text": "after fixing it these icons are visible and you don't have to scroll to the right to see that it's all intact on a page because most of the guests will be reaching out the hotels via phone so it's very important to keep the phone interface smooth and",
+   "role": "proof",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Phone mockup: after the fix",
+   "on_screen_copy": [
+    "After the fix"
+   ],
+   "reveal_sync": [
+    {
+     "element": "After the fix",
+     "time": 430.04
+    }
+   ],
+   "transition_in": "slide-from-right",
+   "transition_out": "slide-out-right",
+   "audio_continuity": "continuous",
+   "rationale": "Same phone mockup, same geometry, showing the fixed mobile view while she says the phone interface must be smooth.",
+   "review_status": "approved",
+   "layout": {
+    "x": 0,
+    "y": 0,
+    "width": 1280,
+    "height": 720
+   },
+   "footage_inserts": [
+    {
+     "name": "mobile-preview",
+     "crop": {
+      "x": 596,
+      "y": 180,
+      "width": 314,
+      "height": 500
+     }
+    },
+    {
+     "name": "bubble",
+     "crop": {
+      "x": 996,
+      "y": 420,
+      "width": 266,
+      "height": 268
+     }
+    }
+   ]
+  },
+  {
+   "id": "b33",
+   "start": 447.6,
+   "end": 481.8,
+   "spoken_text": "okay another thing I want to tell you is if you go to the settings and if you want to restore a particular version of the change you made for the website you can select that from this area you can click this and if you want this particular click this and click restore version and that will restore that particular version of your website so it's not necessary that you have to go with the ultimate change you did you can switch back or undo the changes by doing that okay",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Restore versions on screen",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Framed screen.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b34",
+   "start": 481.8,
+   "end": 484.6,
+   "spoken_text": "once we are happy with",
+   "role": "roadmap",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Roadmap marker: show where we are in the build",
+   "on_screen_copy": [
+    "Prep",
+    "Build",
+    "Go static",
+    "Mobile check",
+    "Go live",
+    "Speed check"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Go live",
+     "time": 481.94
+    }
+   ],
+   "transition_in": "slide-from-right",
+   "transition_out": "slide-out-right",
+   "audio_continuity": "continuous",
+   "rationale": "Node 5 'Go live' lights on 'once we are happy'.",
+   "review_status": "approved",
+   "layout": {
+    "x": 0,
+    "y": 0,
+    "width": 1280,
+    "height": 720
+   },
+   "roadmap": {
+    "nodes": [
+     "Prep",
+     "Build",
+     "Go static",
+     "Mobile check",
+     "Go live",
+     "Speed check"
+    ],
+    "active": 5,
+    "done": [
+     1,
+     2,
+     3,
+     4
+    ]
+   }
+  },
+  {
+   "id": "b35",
+   "start": 484.6,
+   "end": 528.0,
+   "spoken_text": "our website is looking you can go to this angle bracket which is next to preview click there click export there are different ways you can export to anti -gravity or you can push to GitHub or you can download as zip file I'll show you the easiest way now I have my code in the data with GitHub but you can this download data set. So click this option and that will download your file in your local as a zip. Once you have it in your local click this and you can extract all and once it is extracted you can take this zip file which is for cloudflare. You can",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Export and unzip on screen",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Framed screen.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b36",
+   "start": 528.0,
+   "end": 533.0,
+   "spoken_text": "cloudflare drop",
+   "role": "process",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Brand chip",
+   "on_screen_copy": [
+    "Cloudflare Drop"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Cloudflare Drop",
+     "time": 528.1
+    }
+   ],
+   "transition_in": "chip-fade-slide",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Official Cloudflare icon chip on the word.",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 40,
+    "width": 272,
+    "height": 44
+   },
+   "brand_icons": [
+    {
+     "brand": "Cloudflare",
+     "time": 528.1
+    }
+   ],
+   "screen": true
+  },
+  {
+   "id": "b37",
+   "start": 533.0,
+   "end": 570.4,
+   "spoken_text": "then you can drag this file and put it here so it's checking for the size and relevant checklist before uploading this and bringing it live okay so once all the files are uploaded it is hosting the website when site is ready you can claim it click claim and it is going to click this and it is created this is hosted under my email ID and you can finish setting it up",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Upload, claim",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Framed screen.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b38",
+   "start": 570.4,
+   "end": 573.7,
+   "spoken_text": "so the site is live and you get a free cloudflare",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Live site on screen",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Framed screen.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b39",
+   "start": 573.7,
+   "end": 579.2,
+   "spoken_text": "open it on your phone tap every button and make sure all the buttons are working",
+   "role": "process",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Chip: launch check",
+   "on_screen_copy": [
+    "Open on your phone, tap every button"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Open on your phone, tap every button",
+     "time": 573.88
+    }
+   ],
+   "transition_in": "chip-fade-slide",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "The live site is on screen (desktop view), so a phone mockup would need invented UI; a single chip carries the instruction.",
+   "review_status": "approved",
+   "layout": {
+    "x": 968,
+    "y": 36,
+    "width": 280,
+    "height": 68
+   },
+   "screen": true
+  },
+  {
+   "id": "b39b",
+   "start": 579.2,
+   "end": 591.0,
+   "spoken_text": "before you buy a domain you can even share this URL if you're working for somebody to get a site created and update changes if needed. In my case it was my dad I asked him",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Live site on screen",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Framed screen.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b39c",
+   "start": 591.0,
+   "end": 596.4,
+   "spoken_text": "to check every room every rate every number he knows the business right not me",
+   "role": "process",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Chip: Dad's check",
+   "on_screen_copy": [
+    "Check every room, rate, number"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Check every room, rate, number",
+     "time": 591.12
+    }
+   ],
+   "transition_in": "chip-fade-slide",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Her dad's review, the human check before buying a domain.",
+   "review_status": "approved",
+   "layout": {
+    "x": 968,
+    "y": 36,
+    "width": 280,
+    "height": 68
+   },
+   "screen": true
+  },
+  {
+   "id": "b39d",
+   "start": 596.4,
+   "end": 597.0,
+   "spoken_text": "",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Screen",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Framed screen.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b40",
+   "start": 597.0,
+   "end": 612.0,
+   "spoken_text": "it is done you can buy a custom domain click purchase domain and groundtouristgroup .com just checking a domain like that and it's 11",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Domain purchase",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Framed screen.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b41",
+   "start": 612.0,
+   "end": 617.0,
+   "spoken_text": "CAD which is under $10 in USD for a year. So you can buy that",
+   "role": "proof",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Stat chip",
+   "on_screen_copy": [
+    "Under $10 / year"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Under $10 / year",
+     "time": 613.52
+    }
+   ],
+   "transition_in": "chip-fade-slide",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "Price chip on the spoken figure.",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 40,
+    "width": 272,
+    "height": 44
+   },
+   "screen": true
+  },
+  {
+   "id": "b42",
+   "start": 617.0,
+   "end": 631.2,
+   "spoken_text": "and the good part with Cloudflare is the renewal remains the same price and it will give you a HTTPS site so that is good. Cloudflare sells domains",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Renewal, HTTPS",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Framed screen.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b43",
+   "start": 631.2,
+   "end": 636.0,
+   "spoken_text": "wholesale cost with zero markup. Mine was under $10 USD for",
+   "role": "proof",
+   "treatment": "OVERLAY_CARD",
+   "purpose": "Stat chip",
+   "on_screen_copy": [
+    "Wholesale, zero markup"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Wholesale, zero markup",
+     "time": 631.32
+    }
+   ],
+   "transition_in": "chip-fade-slide",
+   "transition_out": "fade",
+   "audio_continuity": "continuous",
+   "rationale": "",
+   "review_status": "approved",
+   "layout": {
+    "x": 976,
+    "y": 40,
+    "width": 272,
+    "height": 44
+   },
+   "screen": true
+  },
+  {
+   "id": "b44",
+   "start": 636.0,
+   "end": 647.6,
+   "spoken_text": "the full year with no monthly hosting fees attached. Click Continue Payment and then click Confirm, link it to your project and your website is officially live to the world.",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "Link and go live",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Framed screen.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b45",
+   "start": 647.6,
+   "end": 650.4,
+   "spoken_text": "Next, let's do speed check. There is a",
+   "role": "roadmap",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Roadmap marker: show where we are in the build",
+   "on_screen_copy": [
+    "Prep",
+    "Build",
+    "Go static",
+    "Mobile check",
+    "Go live",
+    "Speed check"
+   ],
+   "reveal_sync": [
+    {
+     "element": "Speed check",
+     "time": 648.54
+    }
+   ],
+   "transition_in": "slide-from-right",
+   "transition_out": "slide-out-right",
+   "audio_continuity": "continuous",
+   "rationale": "Node 6 'Speed check' lights on 'speed check'.",
+   "review_status": "approved",
+   "layout": {
+    "x": 0,
+    "y": 0,
+    "width": 1280,
+    "height": 720
+   },
+   "roadmap": {
+    "nodes": [
+     "Prep",
+     "Build",
+     "Go static",
+     "Mobile check",
+     "Go live",
+     "Speed check"
+    ],
+    "active": 6,
+    "done": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   }
+  },
+  {
+   "id": "b46",
+   "start": 650.4,
+   "end": 697.4,
+   "spoken_text": "called patespeed .web .dev which is a free Google tool that tests how fast your website loads and how well it performs especially on mobile devices. So go to page speedbrotweb .dev and paste your address and click analyze. Make sure you select the mobile. My first scores were not this, it was low. So what I did is I went back to Google AI studio and with the screenshot and told it to fix it. Then I ran the test again and I got better scores. I stopped there because I only wanted it to load fast on phone. There is something called agentic browsing. Mine was 3 out of 4 so I didn't chase it like it was not needed for me.",
+   "role": "process",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "PageSpeed walkthrough",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "Framed screen; scores are already legible.",
+   "review_status": "approved",
+   "screen": true
+  },
+  {
+   "id": "b47",
+   "start": 697.5,
+   "end": 700.6,
+   "spoken_text": "That's the entire process. My dad now has",
+   "role": "roadmap",
+   "treatment": "FULLSCREEN_MOTION",
+   "purpose": "Roadmap marker: show where we are in the build",
+   "on_screen_copy": [
+    "Prep",
+    "Build",
+    "Go static",
+    "Mobile check",
+    "Go live",
+    "Speed check"
+   ],
+   "reveal_sync": [
+    {
+     "element": "all steps lit",
+     "time": 698.12
+    }
+   ],
+   "transition_in": "slide-from-right",
+   "transition_out": "slide-out-right",
+   "audio_continuity": "continuous",
+   "rationale": "Final roadmap return: all six nodes lit on 'That's the entire process'.",
+   "review_status": "approved",
+   "layout": {
+    "x": 0,
+    "y": 0,
+    "width": 1280,
+    "height": 720
+   },
+   "roadmap": {
+    "nodes": [
+     "Prep",
+     "Build",
+     "Go static",
+     "Mobile check",
+     "Go live",
+     "Speed check"
+    ],
+    "active": "all",
+    "done": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   }
+  },
+  {
+   "id": "b48",
+   "start": 700.6,
+   "end": 712.4,
+   "spoken_text": "a clean fast website with zero ongoing hosting fee, built for under $10 total. All the prompts, templates and steps are in the pinned comment below.",
+   "role": "recap",
+   "treatment": "PRESENTER_INSET",
+   "purpose": "Recap window with check-mark cards",
+   "on_screen_copy": [
+    "$0 hosting fees",
+    "Built for under $10",
+    "Prompts in the pinned comment"
+   ],
+   "reveal_sync": [
+    {
+     "element": "$0 hosting fees",
+     "time": 702.58
+    },
+    {
+     "element": "Built for under $10",
+     "time": 705.34
+    },
+    {
+     "element": "Prompts in the pinned comment",
+     "time": 711.02
+    }
+   ],
+   "transition_in": "window-move-in",
+   "transition_out": "window-move-out",
+   "audio_continuity": "continuous",
+   "rationale": "Recap layout: presenter in a 768x432 rounded window with a thin glowing border, italic caption under it ('A budget-free website, start to finish'); three cards right, rose checks pop on the words.",
+   "review_status": "approved",
+   "presenter_layout": {
+    "x": 48,
+    "y": 120,
+    "width": 768,
+    "height": 432
+   },
+   "layout": {
+    "x": 860,
+    "y": 120,
+    "width": 380,
+    "height": 480
+   }
+  },
+  {
+   "id": "b49",
+   "start": 712.4,
+   "end": 729.367,
+   "spoken_text": "If this video helped, subscribe so you don't miss the next guy. Drop a comment below with the kind of businesses you are building a website for. And if you get stuck anywhere, let me know in the comments so I can help you out. Thank you for watching. See you in the next video.",
+   "role": "cta",
+   "treatment": "CLEAN_PRESENTER",
+   "purpose": "CTA and sign-off, untouched",
+   "on_screen_copy": [],
+   "reveal_sync": [],
+   "transition_in": "cut",
+   "transition_out": "cut",
+   "audio_continuity": "continuous",
+   "rationale": "The ending is fixed by the creator: no graphics, no zoom, no change.",
+   "review_status": "approved"
+  }
+ ]
+}

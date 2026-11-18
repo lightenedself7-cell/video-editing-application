@@ -1,0 +1,1274 @@
+{
+ "version": 1,
+ "project": "hiringcafe-hidden-job-board",
+ "theme": "clean-creator",
+ "source": {
+  "path": "/home/dev/videos/hiringcafe-hidden-job-board.mp4",
+  "sha256": "2ddfc5e95adcece3239536ab94b09a2b736a0c140aaa483d74c8614ff6c7d457",
+  "width": 1280,
+  "height": 720,
+  "fps": "30/1",
+  "duration_s": 664.0
+ },
+ "approval": {
+  "status": "approved",
+  "approved_scope": "Full plan in director-treatment.md (all 35 beats) approved by the creator on 2026-11-14/15, including real brand logos (LinkedIn, Indeed, HiringCafe, Claude, Google Sheets) and YouTube-style subscribe / like / share buttons in theme colours. Execution notes: b30 is classified FULLSCREEN_MOTION (footage blurs in place); ChatGPT icon added because the narration names it.",
+  "ambiguities": []
+ },
+ "protected_regions": [
+  {
+   "name": "presenter-face-core",
+   "x": 580,
+   "y": 150,
+   "width": 160,
+   "height": 410
+  }
+ ],
+ "beats": [
+  {
+   "id": "b01",
+   "start": 0.0,
+   "end": 4.6,
+   "treatment": "SELECTIVE_TEXT",
+   "role": "hook",
+   "spoken_text": "AI just killed LinkedIn and Indeed.",
+   "on_screen_copy": [
+    "LinkedIn",
+    "Indeed"
+   ],
+   "purpose": "Cross out both big boards on the hook line",
+   "layout": {
+    "x": 960,
+    "y": 290,
+    "width": 210,
+    "height": 100
+   },
+   "reveal_sync": [
+    {
+     "element": "LinkedIn",
+     "time": 2.48
+    },
+    {
+     "element": "Indeed",
+     "time": 3.08
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "One short phrase whose timing is the effect; presenter untouched.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b02",
+   "start": 4.6,
+   "end": 10.5,
+   "treatment": "SELECTIVE_TEXT",
+   "role": "hook",
+   "spoken_text": "There's a free site that is 10x better than both and almost nobody knows about it.",
+   "on_screen_copy": [
+    "10x",
+    "BETTER"
+   ],
+   "purpose": "Land the 10x claim beside the presenter",
+   "layout": {
+    "x": 900,
+    "y": 200,
+    "width": 330,
+    "height": 230
+   },
+   "reveal_sync": [
+    {
+     "element": "10x",
+     "time": 5.74
+    },
+    {
+     "element": "BETTER",
+     "time": 6.62
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "One short phrase whose timing is the effect; presenter untouched.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b03",
+   "start": 14.8,
+   "end": 22.1,
+   "treatment": "OVERLAY_CARD",
+   "role": "promise",
+   "spoken_text": "It is called HiringCafe, hiringcafe.com. It is free. You don't even need an account.",
+   "on_screen_copy": [
+    "HiringCafe",
+    "hiringcafe.com",
+    "Free",
+    "No account needed"
+   ],
+   "purpose": "Name the site, its address and the two promises",
+   "layout": {
+    "x": 884,
+    "y": 176,
+    "width": 372,
+    "height": 296
+   },
+   "reveal_sync": [
+    {
+     "element": "HiringCafe",
+     "time": 15.34
+    },
+    {
+     "element": "hiringcafe.com",
+     "time": 17.9
+    },
+    {
+     "element": "Free",
+     "time": 19.54
+    },
+    {
+     "element": "No account needed",
+     "time": 20.88
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b04",
+   "start": 23.1,
+   "end": 35.5,
+   "treatment": "SELECTIVE_TEXT",
+   "role": "problem",
+   "spoken_text": "You're fighting hundreds of people for the same job. Your applicant number 400. Nobody is reading number 400.",
+   "on_screen_copy": [
+    "APPLICANT #",
+    "400"
+   ],
+   "purpose": "Make applicant 400 feel hopeless",
+   "layout": {
+    "x": 900,
+    "y": 200,
+    "width": 330,
+    "height": 280
+   },
+   "reveal_sync": [
+    {
+     "element": "APPLICANT #",
+     "time": 23.76
+    },
+    {
+     "element": "400",
+     "time": 29.5
+    },
+    {
+     "element": "nobody is reading",
+     "time": 30.6
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "One short phrase whose timing is the effect; presenter untouched.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b05",
+   "start": 36.2,
+   "end": 64.0,
+   "treatment": "FULLSCREEN_MOTION",
+   "role": "process",
+   "spoken_text": "A job doesn't start on LinkedIn. It starts on the company's own careers page... three times a day.",
+   "on_screen_copy": [
+    "Company careers page",
+    "Recruiter",
+    "Delay",
+    "LinkedIn",
+    "Indeed",
+    "HiringCafe",
+    "3x a day"
+   ],
+   "purpose": "Show why the job reaches HiringCafe first (flow diagram)",
+   "layout": {
+    "x": 0,
+    "y": 0,
+    "width": 1280,
+    "height": 720
+   },
+   "reveal_sync": [
+    {
+     "element": "Company careers page",
+     "time": 39.4
+    },
+    {
+     "element": "LinkedIn",
+     "time": 42.12
+    },
+    {
+     "element": "Indeed",
+     "time": 42.9
+    },
+    {
+     "element": "Recruiter",
+     "time": 49.4
+    },
+    {
+     "element": "DELAY",
+     "time": 53.86
+    },
+    {
+     "element": "HiringCafe",
+     "time": 56.3
+    },
+    {
+     "element": "3x a day",
+     "time": 62.78
+    }
+   ],
+   "transition_in": "slide-from-right",
+   "transition_out": "slide-to-right",
+   "audio_continuity": "continuous",
+   "rationale": "Process or comparison that needs the whole canvas; narration continues underneath.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b06",
+   "start": 64.4,
+   "end": 79.0,
+   "treatment": "SELECTIVE_TEXT",
+   "role": "reveal",
+   "spoken_text": "You see the job before it shows up on LinkedIn and you apply before the crowd. You are early.",
+   "on_screen_copy": [
+    "YOU ARE",
+    "EARLY"
+   ],
+   "purpose": "Land 'You are early'",
+   "layout": {
+    "x": 900,
+    "y": 210,
+    "width": 330,
+    "height": 230
+   },
+   "reveal_sync": [
+    {
+     "element": "YOU ARE",
+     "time": 75.72
+    },
+    {
+     "element": "EARLY",
+     "time": 76.1
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "One short phrase whose timing is the effect; presenter untouched.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b07",
+   "start": 79.0,
+   "end": 88.8,
+   "treatment": "PRESENTER_INSET",
+   "role": "proof",
+   "spoken_text": "The big job boards only show you 20% of the jobs companies pay to promote. The other 80% are here.",
+   "on_screen_copy": [
+    "20%",
+    "paid to promote",
+    "80%",
+    "everything else"
+   ],
+   "purpose": "Show 20 % promoted vs 80 % everything else",
+   "layout": {
+    "x": 840,
+    "y": 100,
+    "width": 400,
+    "height": 520
+   },
+   "reveal_sync": [
+    {
+     "element": "20%",
+     "time": 81.54
+    },
+    {
+     "element": "80%",
+     "time": 85.36
+    }
+   ],
+   "presenter_layout": {
+    "x": 48,
+    "y": 120,
+    "width": 768,
+    "height": 432
+   },
+   "transition_in": "scale-move-to-window",
+   "transition_out": "scale-move-to-full-frame",
+   "audio_continuity": "continuous",
+   "rationale": "Presenter moves into a rounded window while graphics use the remaining space.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b08",
+   "start": 88.8,
+   "end": 95.0,
+   "treatment": "OVERLAY_CARD",
+   "role": "demo",
+   "spoken_text": "Go to hiringcafe.com. That's the site and this is how it looks.",
+   "on_screen_copy": [
+    "hiringcafe.com"
+   ],
+   "purpose": "Zoom the address bar and show a crisp URL pill",
+   "layout": {
+    "x": 870,
+    "y": 48,
+    "width": 330,
+    "height": 150
+   },
+   "reveal_sync": [
+    {
+     "element": "hiringcafe.com",
+     "time": 91.3
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b09",
+   "start": 95.0,
+   "end": 176.13,
+   "treatment": "OVERLAY_CARD",
+   "role": "demo",
+   "spoken_text": "Filters, account executive, past 24 hours, Atacama seen by five, posted 13 hours ago; LinkedIn shows only three.",
+   "on_screen_copy": [
+    "Posted 13 h ago · 0 applied",
+    "Not on LinkedIn yet"
+   ],
+   "purpose": "Walk the demo with zooms: filters, 24 h, Atacama, LinkedIn",
+   "layout": {
+    "x": 870,
+    "y": 48,
+    "width": 330,
+    "height": 150
+   },
+   "reveal_sync": [
+    {
+     "element": "Posted 13 h ago",
+     "time": 144.0
+    },
+    {
+     "element": "Not on LinkedIn yet",
+     "time": 164.0
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b10",
+   "start": 176.6,
+   "end": 186.0,
+   "treatment": "OVERLAY_CARD",
+   "role": "reveal",
+   "spoken_text": "That's the gap. The job is live on company site. It is on HiringCafe. It hasn't reached LinkedIn.",
+   "on_screen_copy": [
+    "Company site",
+    "HiringCafe",
+    "LinkedIn (not yet)"
+   ],
+   "purpose": "Check-list of the gap: company site, HiringCafe, not LinkedIn",
+   "layout": {
+    "x": 20,
+    "y": 170,
+    "width": 300,
+    "height": 340
+   },
+   "reveal_sync": [
+    {
+     "element": "Company site",
+     "time": 178.68
+    },
+    {
+     "element": "HiringCafe",
+     "time": 180.14
+    },
+    {
+     "element": "LinkedIn",
+     "time": 181.72
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b11",
+   "start": 186.0,
+   "end": 191.4,
+   "treatment": "SELECTIVE_TEXT",
+   "role": "promise",
+   "spoken_text": "Time is your leverage. Early applicants get the call.",
+   "on_screen_copy": [
+    "Time is your leverage",
+    "Early applicants get the call"
+   ],
+   "purpose": "Named-rule line: time is your leverage",
+   "layout": {
+    "x": 340,
+    "y": 610,
+    "width": 600,
+    "height": 100
+   },
+   "reveal_sync": [
+    {
+     "element": "Time is your leverage",
+     "time": 186.16
+    },
+    {
+     "element": "Early applicants get the call",
+     "time": 186.52
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "One short phrase whose timing is the effect; presenter untouched.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b12",
+   "start": 191.4,
+   "end": 197.5,
+   "treatment": "OVERLAY_CARD",
+   "role": "context",
+   "spoken_text": "Stay with me, I'll show how to use Claude to search and update your tracker overnight.",
+   "on_screen_copy": [
+    "Claude",
+    "Google Sheets",
+    "Coming up"
+   ],
+   "purpose": "Tease the Claude and Google Sheets tracker",
+   "layout": {
+    "x": 28,
+    "y": 300,
+    "width": 264,
+    "height": 124
+   },
+   "reveal_sync": [
+    {
+     "element": "Claude",
+     "time": 192.3
+    },
+    {
+     "element": "Google Sheets",
+     "time": 195.4
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b13",
+   "start": 198.6,
+   "end": 203.8,
+   "treatment": "OVERLAY_CARD",
+   "role": "cta",
+   "spoken_text": "Please like, comment and subscribe to my channel.",
+   "on_screen_copy": [
+    "Like",
+    "Comment",
+    "Subscribe"
+   ],
+   "purpose": "Like / comment / subscribe animation",
+   "layout": {
+    "x": 28,
+    "y": 240,
+    "width": 264,
+    "height": 140
+   },
+   "reveal_sync": [
+    {
+     "element": "Like",
+     "time": 199.0
+    },
+    {
+     "element": "Comment",
+     "time": 199.25
+    },
+    {
+     "element": "Subscribe",
+     "time": 199.5
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b14",
+   "start": 204.27,
+   "end": 231.0,
+   "treatment": "OVERLAY_CARD",
+   "role": "context",
+   "spoken_text": "It started as a spreadsheet; ex-Meta engineer; 10,000 jobs; Reddit; 2 million users; no money spent on ads.",
+   "on_screen_copy": [
+    "Ex-Meta engineer",
+    "10,000 jobs",
+    "Reddit",
+    "2 million users"
+   ],
+   "purpose": "Highlight the founder story and numbers in the article",
+   "layout": {
+    "x": 870,
+    "y": 48,
+    "width": 330,
+    "height": 150
+   },
+   "reveal_sync": [
+    {
+     "element": "Ex-Meta engineer",
+     "time": 209.9
+    },
+    {
+     "element": "10,000 jobs",
+     "time": 212.04
+    },
+    {
+     "element": "Reddit",
+     "time": 217.05
+    },
+    {
+     "element": "2 million",
+     "time": 219.72
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b15",
+   "start": 231.0,
+   "end": 238.3,
+   "treatment": "OVERLAY_CARD",
+   "role": "definition",
+   "spoken_text": "There are two ways to search here. Classic search and AI search.",
+   "on_screen_copy": [
+    "Classic search",
+    "AI search"
+   ],
+   "purpose": "Name the two search modes",
+   "layout": {
+    "x": 870,
+    "y": 48,
+    "width": 330,
+    "height": 150
+   },
+   "reveal_sync": [
+    {
+     "element": "Classic search",
+     "time": 233.64
+    },
+    {
+     "element": "AI search",
+     "time": 235.14
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b16",
+   "start": 238.3,
+   "end": 270.4,
+   "treatment": "OVERLAY_CARD",
+   "role": "process",
+   "spoken_text": "Registered nurse, the filters, date posted set to 24 hours. That one filter is the whole strategy.",
+   "on_screen_copy": [
+    "Date posted: 24 h",
+    "One filter = the whole strategy"
+   ],
+   "purpose": "Zoom the Date posted filter and name the rule",
+   "layout": {
+    "x": 440,
+    "y": 600,
+    "width": 400,
+    "height": 60
+   },
+   "reveal_sync": [
+    {
+     "element": "Date posted: 24 h",
+     "time": 260.06
+    },
+    {
+     "element": "One filter = the whole strategy",
+     "time": 267.9
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b17",
+   "start": 270.4,
+   "end": 326.8,
+   "treatment": "OVERLAY_CARD",
+   "role": "process",
+   "spoken_text": "Apply now, save the job, the tracker, statuses, follow-up notes.",
+   "on_screen_copy": [
+    "Save",
+    "Applied",
+    "Interviewing",
+    "Notes"
+   ],
+   "purpose": "Follow the controls: save, applied, interviewing, notes",
+   "layout": {
+    "x": 330,
+    "y": 44,
+    "width": 620,
+    "height": 56
+   },
+   "reveal_sync": [
+    {
+     "element": "Save",
+     "time": 283.2
+    },
+    {
+     "element": "Applied",
+     "time": 293.84
+    },
+    {
+     "element": "Interviewing",
+     "time": 295.2
+    },
+    {
+     "element": "Notes",
+     "time": 318.66
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b18",
+   "start": 326.8,
+   "end": 354.6,
+   "treatment": "OVERLAY_CARD",
+   "role": "definition",
+   "spoken_text": "Network: recruiters reach out to you. Add jobs is only for recruiters.",
+   "on_screen_copy": [
+    "Network: recruiters come to you",
+    "Add jobs: recruiters only"
+   ],
+   "purpose": "Explain Network vs Add jobs",
+   "layout": {
+    "x": 870,
+    "y": 48,
+    "width": 330,
+    "height": 150
+   },
+   "reveal_sync": [
+    {
+     "element": "Network",
+     "time": 339.34
+    },
+    {
+     "element": "Add jobs",
+     "time": 350.04
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b19",
+   "start": 354.6,
+   "end": 373.2,
+   "treatment": "FULLSCREEN_MOTION",
+   "role": "problem",
+   "spoken_text": "The mistake: one title. 10 companies will call the same job 10 different things.",
+   "on_screen_copy": [
+    "1 title",
+    "10 names"
+   ],
+   "purpose": "One title splits into ten names",
+   "layout": {
+    "x": 0,
+    "y": 0,
+    "width": 1280,
+    "height": 720
+   },
+   "reveal_sync": [
+    {
+     "element": "1 title",
+     "time": 357.2
+    },
+    {
+     "element": "10 names",
+     "time": 363.1
+    }
+   ],
+   "transition_in": "slide-from-bottom",
+   "transition_out": "slide-to-bottom",
+   "audio_continuity": "continuous",
+   "rationale": "Process or comparison that needs the whole canvas; narration continues underneath.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b20",
+   "start": 373.8,
+   "end": 396.5,
+   "treatment": "FULLSCREEN_MOTION",
+   "role": "process",
+   "spoken_text": "Open Claude or ChatGPT, upload your resume and give this prompt.",
+   "on_screen_copy": [
+    "Claude",
+    "ChatGPT",
+    "prompt"
+   ],
+   "purpose": "Type the prompt exactly as spoken",
+   "layout": {
+    "x": 0,
+    "y": 0,
+    "width": 1280,
+    "height": 720
+   },
+   "reveal_sync": [
+    {
+     "element": "Claude",
+     "time": 374.6
+    },
+    {
+     "element": "ChatGPT",
+     "time": 375.18
+    },
+    {
+     "element": "prompt",
+     "time": 380.38
+    }
+   ],
+   "transition_in": "slide-from-right",
+   "transition_out": "slide-to-right",
+   "audio_continuity": "continuous",
+   "rationale": "Process or comparison that needs the whole canvas; narration continues underneath.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b21",
+   "start": 401.8,
+   "end": 425.2,
+   "treatment": "OVERLAY_CARD",
+   "role": "proof",
+   "spoken_text": "On September 28th... launching its AI talent agent allowing anyone to create AI agents to search across millions of jobs.",
+   "on_screen_copy": [
+    "September 28",
+    "AI talent agent"
+   ],
+   "purpose": "Highlight the AI talent agent launch line",
+   "layout": {
+    "x": 870,
+    "y": 48,
+    "width": 330,
+    "height": 150
+   },
+   "reveal_sync": [
+    {
+     "element": "September 28",
+     "time": 409.38
+    },
+    {
+     "element": "AI talent agent",
+     "time": 413.76
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b22",
+   "start": 425.2,
+   "end": 473.0,
+   "treatment": "OVERLAY_CARD",
+   "role": "demo",
+   "spoken_text": "Upload my resume... almost 33 jobs, seven matching and 15 related... schedule an email alert.",
+   "on_screen_copy": [
+    "33 jobs",
+    "7 matching",
+    "15 related",
+    "Email alerts"
+   ],
+   "purpose": "Counters for 33 / 7 / 15 and the email alert",
+   "layout": {
+    "x": 900,
+    "y": 48,
+    "width": 300,
+    "height": 150
+   },
+   "reveal_sync": [
+    {
+     "element": "33 jobs",
+     "time": 447.26
+    },
+    {
+     "element": "7 matching",
+     "time": 449.3
+    },
+    {
+     "element": "15 related",
+     "time": 450.64
+    },
+    {
+     "element": "Email alerts",
+     "time": 468.64
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b23",
+   "start": 473.0,
+   "end": 508.6,
+   "treatment": "OVERLAY_CARD",
+   "role": "reassurance",
+   "spoken_text": "On the free plan you can have only one chat per account... the free plan covers everything.",
+   "on_screen_copy": [
+    "Free plan: 1 agent chat",
+    "Everything shown = free"
+   ],
+   "purpose": "Free plan facts",
+   "layout": {
+    "x": 870,
+    "y": 48,
+    "width": 330,
+    "height": 150
+   },
+   "reveal_sync": [
+    {
+     "element": "Free plan",
+     "time": 476.94
+    },
+    {
+     "element": "Everything free",
+     "time": 502.86
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b24",
+   "start": 508.63,
+   "end": 515.8,
+   "treatment": "OVERLAY_CARD",
+   "role": "cta",
+   "spoken_text": "Please consider to like and subscribe.",
+   "on_screen_copy": [
+    "Subscribe"
+   ],
+   "purpose": "Short subscribe reminder",
+   "layout": {
+    "x": 28,
+    "y": 270,
+    "width": 232,
+    "height": 100
+   },
+   "reveal_sync": [
+    {
+     "element": "Subscribe",
+     "time": 510.6
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b25",
+   "start": 518.0,
+   "end": 555.0,
+   "treatment": "OVERLAY_CARD",
+   "role": "demo",
+   "spoken_text": "HiringCafe connects to Claude, also ChatGPT... pink funnel... scheduled task... Google Sheet.",
+   "on_screen_copy": [
+    "Claude",
+    "ChatGPT",
+    "Google Sheets"
+   ],
+   "purpose": "Connector, funnel, schedule and Sheets icons",
+   "layout": {
+    "x": 870,
+    "y": 48,
+    "width": 330,
+    "height": 150
+   },
+   "reveal_sync": [
+    {
+     "element": "Claude",
+     "time": 521.72
+    },
+    {
+     "element": "ChatGPT",
+     "time": 525.64
+    },
+    {
+     "element": "Google Sheets",
+     "time": 547.54
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b26",
+   "start": 555.0,
+   "end": 582.2,
+   "treatment": "FULLSCREEN_MOTION",
+   "role": "process",
+   "spoken_text": "Why midnight? Claude usage works in five-hour sessions; search runs while I'm asleep.",
+   "on_screen_copy": [
+    "24 h",
+    "5-hour windows",
+    "Used while you sleep"
+   ],
+   "purpose": "Explain why midnight with a 24 h timeline",
+   "layout": {
+    "x": 0,
+    "y": 0,
+    "width": 1280,
+    "height": 720
+   },
+   "reveal_sync": [
+    {
+     "element": "24 h",
+     "time": 557.6
+    },
+    {
+     "element": "Used while you sleep",
+     "time": 559.22
+    }
+   ],
+   "transition_in": "slide-from-top",
+   "transition_out": "slide-to-top",
+   "audio_continuity": "continuous",
+   "rationale": "Process or comparison that needs the whole canvas; narration continues underneath.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b27",
+   "start": 582.3,
+   "end": 595.8,
+   "treatment": "PRESENTER_INSET",
+   "role": "recap",
+   "spoken_text": "The whole thing in one breath: careers page, HiringCafe three times a day, ghost jobs and scams filtered, you apply early.",
+   "on_screen_copy": [
+    "Careers page",
+    "HiringCafe 3x a day",
+    "Ghost jobs & scams filtered",
+    "You apply early"
+   ],
+   "purpose": "Recap rail beside the presenter",
+   "layout": {
+    "x": 840,
+    "y": 100,
+    "width": 410,
+    "height": 520
+   },
+   "reveal_sync": [
+    {
+     "element": "Careers page",
+     "time": 583.0
+    },
+    {
+     "element": "HiringCafe",
+     "time": 587.2
+    },
+    {
+     "element": "Ghost jobs",
+     "time": 591.18
+    }
+   ],
+   "presenter_layout": {
+    "x": 48,
+    "y": 120,
+    "width": 768,
+    "height": 432
+   },
+   "transition_in": "scale-move-to-window",
+   "transition_out": "scale-move-to-full-frame",
+   "audio_continuity": "continuous",
+   "rationale": "Presenter moves into a rounded window while graphics use the remaining space.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b28",
+   "start": 597.1,
+   "end": 610.8,
+   "treatment": "SELECTIVE_TEXT",
+   "role": "promise",
+   "spoken_text": "An agent searching over 5 million jobs for you all day for free.",
+   "on_screen_copy": [
+    "5,000,000+",
+    "jobs"
+   ],
+   "purpose": "Count up to 5,000,000+ jobs",
+   "layout": {
+    "x": 28,
+    "y": 250,
+    "width": 320,
+    "height": 170
+   },
+   "reveal_sync": [
+    {
+     "element": "5,000,000+",
+     "time": 606.02
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "One short phrase whose timing is the effect; presenter untouched.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b29",
+   "start": 610.8,
+   "end": 617.6,
+   "treatment": "OVERLAY_CARD",
+   "role": "reveal",
+   "spoken_text": "Keep LinkedIn for networking and posting. But for finding a job, use HiringCafe.",
+   "on_screen_copy": [
+    "LinkedIn: Networking, Posting",
+    "HiringCafe: Finding"
+   ],
+   "purpose": "LinkedIn for networking and posting, HiringCafe for finding",
+   "layout": {
+    "x": 28,
+    "y": 210,
+    "width": 320,
+    "height": 290
+   },
+   "reveal_sync": [
+    {
+     "element": "Networking",
+     "time": 612.74
+    },
+    {
+     "element": "Finding",
+     "time": 615.44
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b30",
+   "start": 617.6,
+   "end": 623.4,
+   "treatment": "FULLSCREEN_MOTION",
+   "role": "reveal",
+   "spoken_text": "LinkedIn is for being found. HiringCafe is for finding.",
+   "on_screen_copy": [
+    "LinkedIn is for being found.",
+    "HiringCafe is for finding."
+   ],
+   "purpose": "Centre quote of the closing line",
+   "layout": {
+    "x": 0,
+    "y": 0,
+    "width": 1280,
+    "height": 720
+   },
+   "reveal_sync": [
+    {
+     "element": "LinkedIn is for being found.",
+     "time": 619.4
+    },
+    {
+     "element": "HiringCafe is for finding.",
+     "time": 621.55
+    }
+   ],
+   "transition_in": "dim-blur-fade",
+   "transition_out": "dim-blur-fade",
+   "audio_continuity": "continuous",
+   "rationale": "Process or comparison that needs the whole canvas; narration continues underneath.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b31",
+   "start": 623.4,
+   "end": 634.9,
+   "treatment": "OVERLAY_CARD",
+   "role": "cta",
+   "spoken_text": "Bookmark hiringcafe.com, search your title, last 24 hours, apply for one job. 5 minutes.",
+   "on_screen_copy": [
+    "Bookmark hiringcafe.com",
+    "Search your title",
+    "Last 24 hours",
+    "Apply to one"
+   ],
+   "purpose": "Four-step action list with URL pill",
+   "layout": {
+    "x": 18,
+    "y": 100,
+    "width": 340,
+    "height": 500
+   },
+   "reveal_sync": [
+    {
+     "element": "Bookmark",
+     "time": 624.4
+    },
+    {
+     "element": "Last 24 hours",
+     "time": 627.8
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b32",
+   "start": 634.9,
+   "end": 640.2,
+   "treatment": "OVERLAY_CARD",
+   "role": "cta",
+   "spoken_text": "If you get stuck, tell me in the comments.",
+   "on_screen_copy": [
+    "Comment below"
+   ],
+   "purpose": "Invite comments",
+   "layout": {
+    "x": 28,
+    "y": 290,
+    "width": 200,
+    "height": 60
+   },
+   "reveal_sync": [
+    {
+     "element": "Comment below",
+     "time": 634.94
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b33",
+   "start": 640.2,
+   "end": 645.9,
+   "treatment": "OVERLAY_CARD",
+   "role": "cta",
+   "spoken_text": "If you got something out of this, consider subscribing. Hit like.",
+   "on_screen_copy": [
+    "Subscribe",
+    "Like"
+   ],
+   "purpose": "Subscribe and like",
+   "layout": {
+    "x": 28,
+    "y": 260,
+    "width": 260,
+    "height": 130
+   },
+   "reveal_sync": [
+    {
+     "element": "Subscribe",
+     "time": 640.5
+    },
+    {
+     "element": "Like",
+     "time": 643.16
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  },
+  {
+   "id": "b34",
+   "start": 645.9,
+   "end": 652.3,
+   "treatment": "OVERLAY_CARD",
+   "role": "cta",
+   "spoken_text": "Know someone who is job hunting right now. Send them this video.",
+   "on_screen_copy": [
+    "Share"
+   ],
+   "purpose": "Share button click",
+   "layout": {
+    "x": 28,
+    "y": 290,
+    "width": 160,
+    "height": 60
+   },
+   "reveal_sync": [
+    {
+     "element": "Share",
+     "time": 648.62
+    }
+   ],
+   "transition_in": "fade-slide-12f",
+   "transition_out": "fade-10f",
+   "audio_continuity": "continuous",
+   "rationale": "Small supporting element in a side margin (camera) or inside the framed screen; presenter face clear.",
+   "review_status": "approved"
+  }
+ ]
+}

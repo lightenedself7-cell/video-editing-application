@@ -1,0 +1,38 @@
+{
+ "source": "/home/dev/videos/automated-job-search-spreadsheet-demo.mp4",
+ "cleaned": "/tmp/clean-test.mp4",
+ "removed": [
+  [
+   337.195,
+   337.585
+  ],
+  [
+   379.845,
+   386.825
+  ],
+  [
+   452.525,
+   452.735
+  ]
+ ],
+ "keep": [
+  [
+   0.0,
+   337.195
+  ],
+  [
+   337.585,
+   379.845
+  ],
+  [
+   386.825,
+   452.525
+  ],
+  [
+   452.735,
+   454.766667
+  ]
+ ],
+ "old_duration": 454.763,
+ "new_duration": 447.18
+}

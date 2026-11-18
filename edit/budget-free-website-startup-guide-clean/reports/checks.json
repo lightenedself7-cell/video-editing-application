@@ -1,0 +1,224 @@
+{
+ "master": "budget-free-website-startup-guide-clean-master.mp4",
+ "source": "/home/dev/videos/budget-free-website-startup-guide-clean.mp4",
+ "probe": {
+  "source": {
+   "width": 1280,
+   "height": 720,
+   "r_frame_rate": "30/1",
+   "nb_frames": 21881,
+   "pix_fmt": "yuv420p",
+   "v_codec": "h264",
+   "a_codec": "aac",
+   "sample_rate": "48000",
+   "channels": 2,
+   "duration": 729.4,
+   "v_duration": 729.366667,
+   "a_duration": 729.4
+  },
+  "master": {
+   "width": 1280,
+   "height": 720,
+   "r_frame_rate": "30/1",
+   "nb_frames": 21881,
+   "pix_fmt": "yuv420p",
+   "v_codec": "h264",
+   "a_codec": "aac",
+   "sample_rate": "48000",
+   "channels": 2,
+   "duration": 729.4,
+   "v_duration": 729.366667,
+   "a_duration": 729.4
+  }
+ },
+ "probe_match": true,
+ "full_decode": {
+  "ok": true,
+  "stderr": ""
+ },
+ "audio_packets_identical": true,
+ "loudness": {
+  "source": {
+   "integrated_lufs": -14.1,
+   "lra_lu": 3.5,
+   "true_peak_dbfs": -1.1
+  },
+  "master": {
+   "integrated_lufs": -14.1,
+   "lra_lu": 3.5,
+   "true_peak_dbfs": -1.1
+  }
+ },
+ "source_identity_frames": [
+  {
+   "check": "clean hook",
+   "frame": 60,
+   "psnr_db_vs_source": 44.09
+  },
+  {
+   "check": "clean CTA",
+   "frame": 21600,
+   "psnr_db_vs_source": 42.45
+  },
+  {
+   "check": "final frame",
+   "frame": 21880,
+   "psnr_db_vs_source": 91.48
+  },
+  {
+   "check": "b09 inset move first frame",
+   "frame": 2844,
+   "psnr_db_vs_source": 43.26
+  },
+  {
+   "check": "b09 inset return last frame",
+   "frame": 3615,
+   "psnr_db_vs_source": 42.08
+  },
+  {
+   "check": "b24 inset move first frame",
+   "frame": 9078,
+   "psnr_db_vs_source": 43.0
+  },
+  {
+   "check": "b24 inset return last frame",
+   "frame": 10494,
+   "psnr_db_vs_source": 42.72
+  },
+  {
+   "check": "b48 inset move first frame",
+   "frame": 21018,
+   "psnr_db_vs_source": 42.18
+  },
+  {
+   "check": "b48 inset return last frame",
+   "frame": 21372,
+   "psnr_db_vs_source": 44.12
+  }
+ ],
+ "source_identity_ok": true,
+ "safe_region": {
+  "protected_region": {
+   "name": "presenter-camera-head-shoulders",
+   "x": 260,
+   "y": 0,
+   "width": 700,
+   "height": 600
+  },
+  "frames_checked": 1131,
+  "max_pixel_change_inside": 0.3975067138671875,
+  "frames_written": 21881
+ },
+ "safe_region_ok": true,
+ "alpha_assets": [
+  {
+   "file": "assets/bubble_glow_ring_r108.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  },
+  {
+   "file": "assets/bubble_glow_ring_r115.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  },
+  {
+   "file": "assets/bubble_glow_ring_r120.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  },
+  {
+   "file": "assets/bubble_glow_ring_r82.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  },
+  {
+   "file": "assets/bubble_glow_ring_r91.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  },
+  {
+   "file": "assets/bubble_glow_ring_r98.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  },
+  {
+   "file": "assets/check_mark_r17.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  },
+  {
+   "file": "assets/presenter_column_glow_368x656.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  },
+  {
+   "file": "assets/recap_window_glow_768x432.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  },
+  {
+   "file": "assets/screen_window_glow_1152x648.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  },
+  {
+   "file": "assets/title_build.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  },
+  {
+   "file": "assets/title_go_live.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  },
+  {
+   "file": "assets/title_go_static.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  },
+  {
+   "file": "assets/title_mobile_check.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  },
+  {
+   "file": "assets/title_prep.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  },
+  {
+   "file": "assets/title_recap.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  },
+  {
+   "file": "assets/title_speed_check.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  },
+  {
+   "file": "assets/title_the_entire_process.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  },
+  {
+   "file": "assets/title_two_kinds_of_sites.png",
+   "rgba": true,
+   "alpha_range_ok": true
+  }
+ ],
+ "alpha_ok": true,
+ "contact_sheets": [
+  "verify/contact/sheet_00.jpg",
+  "verify/contact/sheet_01.jpg",
+  "verify/contact/sheet_02.jpg",
+  "verify/contact/source_cuts.jpg"
+ ],
+ "sha256": {
+  "master": "d8df4334fe0f578446bd17524f4c4c242fb3ee3e5f8341dcbd06d077200ff4ee",
+  "source": "ea8bfd2eec998ef7393aac1695fb664b7b4fde70e56676f8b19530be5212617c",
+  "directive": "3702e4f053763d4c21b788e8553a675616604031877fe9e518b773fb871ef121"
+ },
+ "source_unchanged": true,
+ "all_ok": true
+}

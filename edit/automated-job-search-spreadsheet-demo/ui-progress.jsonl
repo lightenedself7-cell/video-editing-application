@@ -1,0 +1,87 @@
+{"t": "2026-11-17T17:35:38Z", "phase": "composite", "percent": 0, "message": "Rendered about 0 of 13436 frames"}
+{"t": "2026-11-17T17:36:38Z", "phase": "composite", "percent": 0, "message": "Rendered about 0 of 13436 frames"}
+{"t": "2026-11-17T17:37:38Z", "phase": "composite", "percent": 2, "message": "Rendered about 300 of 13436 frames"}
+{"t": "2026-11-17T17:38:38Z", "phase": "composite", "percent": 6, "message": "Rendered about 900 of 13436 frames"}
+{"t": "2026-11-17T17:39:38Z", "phase": "composite", "percent": 8, "message": "Rendered about 1200 of 13436 frames"}
+{"t": "2026-11-17T17:40:39Z", "phase": "composite", "percent": 20, "message": "Rendered about 2700 of 13436 frames"}
+{"t": "2026-11-17T17:41:39Z", "phase": "composite", "percent": 22, "message": "Rendered about 3000 of 13436 frames"}
+{"t": "2026-11-17T17:42:39Z", "phase": "composite", "percent": 26, "message": "Rendered about 3600 of 13436 frames"}
+{"t": "2026-11-17T17:43:39Z", "phase": "composite", "percent": 31, "message": "Rendered about 4200 of 13436 frames"}
+{"t": "2026-11-17T17:44:39Z", "phase": "composite", "percent": 37, "message": "Rendered about 5100 of 13436 frames"}
+{"t": "2026-11-17T17:45:39Z", "phase": "composite", "percent": 44, "message": "Rendered about 6000 of 13436 frames"}
+{"t": "2026-11-17T17:46:39Z", "phase": "composite", "percent": 49, "message": "Rendered about 6600 of 13436 frames"}
+{"t": "2026-11-17T17:47:39Z", "phase": "composite", "percent": 60, "message": "Rendered about 8100 of 13436 frames"}
+{"t": "2026-11-17T17:48:39Z", "phase": "composite", "percent": 66, "message": "Rendered about 9000 of 13436 frames"}
+{"t": "2026-11-17T17:49:39Z", "phase": "composite", "percent": 71, "message": "Rendered about 9600 of 13436 frames"}
+{"t": "2026-11-17T17:50:39Z", "phase": "composite", "percent": 78, "message": "Rendered about 10500 of 13436 frames"}
+{"t": "2026-11-17T17:51:39Z", "phase": "composite", "percent": 82, "message": "Rendered about 11100 of 13436 frames"}
+{"t": "2026-11-17T17:52:39Z", "phase": "composite", "percent": 87, "message": "Rendered about 11700 of 13436 frames"}
+{"t": "2026-11-17T17:53:39Z", "phase": "composite", "percent": 87, "message": "Rendered about 11700 of 13436 frames"}
+{"t": "2026-11-17T17:54:06Z", "phase": "composite", "percent": 100, "message": "Render complete"}
+{"t": "2026-11-17T17:54:45Z", "phase": "verify", "percent": 100, "message": "1 check(s) failed"}
+{"t": "2026-11-17T17:54:45Z", "phase": "deliver", "percent": 100, "message": "Master and checks written to the project folder"}
+{"t": "2026-11-17T18:10:32Z", "phase": "composite", "percent": 89, "message": "Rendered about 12000 of 13436 frames"}
+{"t": "2026-11-17T18:11:33Z", "phase": "composite", "percent": 89, "message": "Rendered about 12000 of 13436 frames"}
+{"t": "2026-11-17T18:12:33Z", "phase": "composite", "percent": 80, "message": "Rendered about 10800 of 13436 frames"}
+{"t": "2026-11-17T18:13:33Z", "phase": "composite", "percent": 64, "message": "Rendered about 8700 of 13436 frames"}
+{"t": "2026-11-17T18:14:33Z", "phase": "composite", "percent": 55, "message": "Rendered about 7500 of 13436 frames"}
+{"t": "2026-11-17T18:15:33Z", "phase": "composite", "percent": 44, "message": "Rendered about 6000 of 13436 frames"}
+{"t": "2026-11-17T18:16:33Z", "phase": "composite", "percent": 49, "message": "Rendered about 6600 of 13436 frames"}
+{"t": "2026-11-17T18:17:33Z", "phase": "composite", "percent": 53, "message": "Rendered about 7200 of 13436 frames"}
+{"t": "2026-11-17T18:18:33Z", "phase": "composite", "percent": 53, "message": "Rendered about 7200 of 13436 frames"}
+{"t": "2026-11-17T18:19:33Z", "phase": "composite", "percent": 55, "message": "Rendered about 7500 of 13436 frames"}
+{"t": "2026-11-17T18:20:33Z", "phase": "composite", "percent": 53, "message": "Rendered about 7200 of 13436 frames"}
+{"t": "2026-11-17T18:21:35Z", "phase": "composite", "percent": 60, "message": "Rendered about 8100 of 13436 frames"}
+{"t": "2026-11-17T18:22:36Z", "phase": "composite", "percent": 60, "message": "Rendered about 8100 of 13436 frames"}
+{"t": "2026-11-17T18:23:38Z", "phase": "composite", "percent": 60, "message": "Rendered about 8100 of 13436 frames"}
+{"t": "2026-11-17T18:24:39Z", "phase": "composite", "percent": 60, "message": "Rendered about 8100 of 13436 frames"}
+{"t": "2026-11-17T18:25:39Z", "phase": "composite", "percent": 60, "message": "Rendered about 8100 of 13436 frames"}
+{"t": "2026-11-17T18:26:40Z", "phase": "composite", "percent": 60, "message": "Rendered about 8100 of 13436 frames"}
+{"t": "2026-11-17T18:27:49Z", "phase": "composite", "percent": 60, "message": "Rendered about 8100 of 13436 frames"}
+{"t": "2026-11-17T18:30:39Z", "phase": "composite", "percent": 60, "message": "Rendered about 8100 of 13436 frames"}
+{"t": "2026-11-17T18:31:45Z", "phase": "composite", "percent": 60, "message": "Rendered about 8100 of 13436 frames"}
+{"t": "2026-11-17T18:33:10Z", "phase": "composite", "percent": 60, "message": "Rendered about 8100 of 13436 frames"}
+{"t": "2026-11-17T18:35:15Z", "phase": "composite", "percent": 66, "message": "Rendered about 9000 of 13436 frames"}
+{"t": "2026-11-17T18:36:15Z", "phase": "composite", "percent": 75, "message": "Rendered about 10200 of 13436 frames"}
+{"t": "2026-11-17T18:37:15Z", "phase": "composite", "percent": 82, "message": "Rendered about 11100 of 13436 frames"}
+{"t": "2026-11-17T18:38:15Z", "phase": "composite", "percent": 87, "message": "Rendered about 11700 of 13436 frames"}
+{"t": "2026-11-17T18:38:31Z", "phase": "composite", "percent": 100, "message": "Render complete"}
+{"t": "2026-11-17T18:38:56Z", "phase": "verify", "percent": 100, "message": "All checks pass"}
+{"t": "2026-11-17T18:38:56Z", "phase": "deliver", "percent": 100, "message": "Master and checks written to the project folder"}
+{"t": "2026-11-17T19:27:26Z", "phase": "composite", "percent": 89, "message": "Rendered about 12000 of 13388 frames"}
+{"t": "2026-11-17T19:28:26Z", "phase": "composite", "percent": 62, "message": "Rendered about 8400 of 13388 frames"}
+{"t": "2026-11-17T19:29:26Z", "phase": "composite", "percent": 42, "message": "Rendered about 5700 of 13388 frames"}
+{"t": "2026-11-17T19:30:26Z", "phase": "composite", "percent": 38, "message": "Rendered about 5100 of 13388 frames"}
+{"t": "2026-11-17T19:31:26Z", "phase": "composite", "percent": 53, "message": "Rendered about 7200 of 13388 frames"}
+{"t": "2026-11-17T19:32:26Z", "phase": "composite", "percent": 67, "message": "Rendered about 9000 of 13388 frames"}
+{"t": "2026-11-17T19:33:26Z", "phase": "composite", "percent": 80, "message": "Rendered about 10800 of 13388 frames"}
+{"t": "2026-11-17T19:34:26Z", "phase": "composite", "percent": 85, "message": "Rendered about 11400 of 13388 frames"}
+{"t": "2026-11-17T19:35:26Z", "phase": "composite", "percent": 87, "message": "Rendered about 11700 of 13388 frames"}
+{"t": "2026-11-17T19:36:02Z", "phase": "composite", "percent": 100, "message": "Render complete"}
+{"t": "2026-11-17T19:36:28Z", "phase": "verify", "percent": 100, "message": "All checks pass"}
+{"t": "2026-11-17T19:36:28Z", "phase": "deliver", "percent": 100, "message": "Master and checks written to the project folder"}
+{"t": "2026-11-17T19:57:06Z", "phase": "composite", "percent": 89, "message": "Rendered about 12000 of 13388 frames"}
+{"t": "2026-11-17T19:58:06Z", "phase": "composite", "percent": 62, "message": "Rendered about 8400 of 13388 frames"}
+{"t": "2026-11-17T19:59:06Z", "phase": "composite", "percent": 51, "message": "Rendered about 6900 of 13388 frames"}
+{"t": "2026-11-17T20:00:06Z", "phase": "composite", "percent": 35, "message": "Rendered about 4800 of 13388 frames"}
+{"t": "2026-11-17T20:01:06Z", "phase": "composite", "percent": 51, "message": "Rendered about 6900 of 13388 frames"}
+{"t": "2026-11-17T20:02:06Z", "phase": "composite", "percent": 62, "message": "Rendered about 8400 of 13388 frames"}
+{"t": "2026-11-17T20:03:06Z", "phase": "composite", "percent": 73, "message": "Rendered about 9900 of 13388 frames"}
+{"t": "2026-11-17T20:04:06Z", "phase": "composite", "percent": 82, "message": "Rendered about 11100 of 13388 frames"}
+{"t": "2026-11-17T20:05:06Z", "phase": "composite", "percent": 87, "message": "Rendered about 11700 of 13388 frames"}
+{"t": "2026-11-17T20:05:42Z", "phase": "composite", "percent": 100, "message": "Render complete"}
+{"t": "2026-11-17T20:06:03Z", "phase": "verify", "percent": 100, "message": "1 check(s) failed"}
+{"t": "2026-11-17T20:06:03Z", "phase": "deliver", "percent": 100, "message": "Master and checks written to the project folder"}
+{"t": "2026-11-17T20:22:25Z", "phase": "composite", "percent": 89, "message": "Rendered about 12000 of 13388 frames"}
+{"t": "2026-11-17T20:23:26Z", "phase": "composite", "percent": 62, "message": "Rendered about 8400 of 13388 frames"}
+{"t": "2026-11-17T20:24:26Z", "phase": "composite", "percent": 51, "message": "Rendered about 6900 of 13388 frames"}
+{"t": "2026-11-17T20:25:26Z", "phase": "composite", "percent": 44, "message": "Rendered about 6000 of 13388 frames"}
+{"t": "2026-11-17T20:26:26Z", "phase": "composite", "percent": 49, "message": "Rendered about 6600 of 13388 frames"}
+{"t": "2026-11-17T20:27:26Z", "phase": "composite", "percent": 58, "message": "Rendered about 7800 of 13388 frames"}
+{"t": "2026-11-17T20:28:26Z", "phase": "composite", "percent": 71, "message": "Rendered about 9600 of 13388 frames"}
+{"t": "2026-11-17T20:29:26Z", "phase": "composite", "percent": 78, "message": "Rendered about 10500 of 13388 frames"}
+{"t": "2026-11-17T20:30:26Z", "phase": "composite", "percent": 85, "message": "Rendered about 11400 of 13388 frames"}
+{"t": "2026-11-17T20:31:26Z", "phase": "composite", "percent": 87, "message": "Rendered about 11700 of 13388 frames"}
+{"t": "2026-11-17T20:31:52Z", "phase": "composite", "percent": 100, "message": "Render complete"}
+{"t": "2026-11-17T20:32:21Z", "phase": "verify", "percent": 100, "message": "All checks pass"}
+{"t": "2026-11-17T20:32:21Z", "phase": "deliver", "percent": 100, "message": "Master and checks written to the project folder"}

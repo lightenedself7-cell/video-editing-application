@@ -1,0 +1,51 @@
+{
+  "linkedin.png": {
+    "source": "https://static.licdn.com/aero-v1/sc/h/al2o9zrvru7aqj8e1x2rzsrca (LinkedIn favicon, 64px; ico converted to png)",
+    "fetched": "2026-11-15",
+    "sha256": "3da384b977e179059c44a49a1cf7df50faa6ab7874468c0edd961a855d7e2bcb",
+    "recoloured": false
+  },
+  "indeed.png": {
+    "source": "https://www.indeed.com/favicon.ico (48px; ico converted to png)",
+    "fetched": "2026-11-15",
+    "sha256": "65ce7bc096cb45a641e2ce52829ae5d2da5a9c600575f6acd914b09e13c7eee6",
+    "recoloured": false
+  },
+  "hiringcafe.png": {
+    "source": "https://hiring.cafe/apple-touch-icon.png (180px)",
+    "fetched": "2026-11-15",
+    "sha256": "ceb5cd0ff597215182c570ab8df7e189cb901bcb398cd9c517c8840872114838",
+    "recoloured": false
+  },
+  "claude.png": {
+    "source": "https://claude.ai/apple-touch-icon.png (180px)",
+    "fetched": "2026-11-15",
+    "sha256": "7cc4dedd98fdb563e214fbf59994fdd03bb3e1c918a5f5035453253186489b89",
+    "recoloured": false
+  },
+  "sheets.png": {
+    "source": "https://www.gstatic.com/images/branding/product/2x/sheets_2020q4_48dp.png (96px, Google Sheets)",
+    "fetched": "2026-11-15",
+    "sha256": "7bef05dde4e1e8e9c5e7374cab674241f4d77b8574b19e829f2f414fe94191a6",
+    "recoloured": false
+  },
+  "linkedin_512.png": {
+    "source": "https://commons.wikimedia.org/wiki/Special:FilePath/LinkedIn_icon.svg (current LinkedIn \"in\" mark, rasterised 512px with cairosvg)",
+    "fetched": "2026-11-15",
+    "sha256": "3a56b2ac3fcd31f9675f9a366c178dc0cea8e8732f2b5bb69f7a4207bf38be4c",
+    "recoloured": false
+  },
+  "indeed_wordmark_800.png": {
+    "source": "https://commons.wikimedia.org/wiki/Special:FilePath/Indeed_logo.svg (Indeed wordmark, rasterised 800px with cairosvg)",
+    "fetched": "2026-11-15",
+    "sha256": "6f4c3940d35793a5d0f27b83efcf6b2e5228e53c9b706d4f13dd136a4c1a8f94",
+    "recoloured": false
+  },
+  "_note": "Large LinkedIn and Indeed marks are Wikimedia SVGs (brand sites block downloads); the 64/48px favicons stay as fallbacks. cairosvg installed into .venv with user approval.",
+  "chatgpt.png": {
+    "source": "https://commons.wikimedia.org/wiki/Special:FilePath/ChatGPT-Logo.svg (black knot mark, rasterised 300px with cairosvg; chatgpt.com blocks icon downloads). Not in the creator's original logo list: added because the narration names ChatGPT (skill rule: show the real icon when a brand is named).",
+    "fetched": "2026-11-15",
+    "sha256": "e903dc88bf470eeb90d67accc67f4d5612629c92242f073001a7cb902075d984",
+    "recoloured": false
+  }
+}

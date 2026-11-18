@@ -1,0 +1,32 @@
+{
+ "project": "budget-free-website-startup-guide-clean",
+ "date": "2026-11-07",
+ "theme": "clean-creator",
+ "master": "budget-free-website-startup-guide-clean-master.mp4",
+ "master_sha256": "d8df4334fe0f578446bd17524f4c4c242fb3ee3e5f8341dcbd06d077200ff4ee",
+ "source": "/home/dev/videos/budget-free-website-startup-guide-clean.mp4",
+ "source_sha256": "ea8bfd2eec998ef7393aac1695fb664b7b4fde70e56676f8b19530be5212617c",
+ "directive": "editorial-directive.json",
+ "directive_sha256": "3702e4f053763d4c21b788e8553a675616604031877fe9e518b773fb871ef121",
+ "video": "H.264 High, yuv420p, 1280x720, 30/1 fps, CRF 16, keyint 60; single-pass Python compositor (scripts/compose.py), 8 frame-exact chunks, concat -c copy",
+ "audio": "source AAC 48 kHz stereo stream-copied; packets identical to source",
+ "loudness_lufs": {
+  "integrated_lufs": -14.1,
+  "lra_lu": 3.5,
+  "true_peak_dbfs": -1.1
+ },
+ "transcription": "faster-whisper small int8, local CPU; no upload",
+ "brand_assets": "brand/SOURCES.json",
+ "alpha_assets": "assets/*.png",
+ "scripts": {
+  "compose.py": "afad6dccf75781c0dae2a6f25c117544a659f4730c81855ed211824a01653e66",
+  "gfx.py": "0239a9db6c1f2366c99d21250e3d539a71c678a867bbd3887b9d833d881041db",
+  "build_directive.py": "8ed91c42592cef2899118dd4d7358363f4f8b3167b1cf29d293944e16a471b61",
+  "verify.py": "0479459a499e8982138f269e881bb63df6cbfc5c55e41a7bfab68cce2814118f",
+  "bubble_classify.py": "f8e6acbfc5735ddcf3e180d79df0da3a0c08d8b401f393ed63bfed3efdf630e9",
+  "transcribe_local.py": "e8b4bdd57589b963ec2f43012cbbd89c2b806a26253dcc5aa7a0652b41b5dcde",
+  "render_all.sh": "725294608ec9337c60ea92de241bd4ad770e9cb9d9a6093cdd0408f68f2e4886"
+ },
+ "checks": "reports/checks.json",
+ "all_checks_ok": true
+}

@@ -1,0 +1,37 @@
+{
+ "streams": [
+  {
+   "codec_name": "h264",
+   "width": 1280,
+   "height": 720,
+   "pix_fmt": "yuv420p",
+   "r_frame_rate": "30/1",
+   "duration": "664.000000",
+   "nb_read_frames": "19920"
+  },
+  {
+   "codec_name": "aac",
+   "sample_rate": "48000",
+   "channels": 2,
+   "r_frame_rate": "0/0",
+   "duration": "664.000000",
+   "nb_read_frames": "31125"
+  }
+ ],
+ "video_ok": true,
+ "duration_v": 664.0,
+ "duration_a": 664.0,
+ "av_diff_s": 0.0,
+ "decode_errors": "",
+ "loudness": {
+  "I": -14.0,
+  "LRA": 3.2
+ },
+ "true_peak_dbtp": -1.4,
+ "protected_region_max_delta": 137.13217163085938,
+ "protected_frames_checked": 3823,
+ "frames_written": 19920,
+ "source_sha256": "2ddfc5e95adcece3239536ab94b09a2b736a0c140aaa483d74c8614ff6c7d457",
+ "master_sha256": "4de8f1f31609ae4dd77d9a54bd261489fb0219b8e127f534b811d96a7240cf6c",
+ "directive_sha256": "c075633ddf9e9dea2e627a6fff642084edd0710c01d17ecb87e68b8ca73c66b3"
+}

@@ -1,0 +1,128 @@
+[0.00-4.28] The boring part of a job search is not applying, it's filtering, matching every job
+[4.00-7.68] job with your CV and shortlisting a few that are actually worth your time.
+[7.82-10.06] This is the part we are going to automate today.
+[10.24-12.16] Claude does it for you while you're sleeping.
+[12.38-13.62] The job comes from Haring Cafe.
+[13.90-17.86] If you're new here, that's a job site that pulls postings straight from company's
+[17.18-18.72] company's own carrier pages.
+[19.18-20.48] I did a full video on it.
+[20.68-21.34] Link is up here.
+[21.46-22.20] So I tested this.
+[22.38-23.74] I have been running it for four nights.
+[24.14-25.86] One night it ran 36 searches.
+[26.12-29.48] It read 15 jobs and only one came into my spreadsheet. And
+[29.04-34.68] And it is very easy. I didn't open a job board. I didn't type a prompt and the spreadsheet I
+[34.04-39.60] I never typed a single cell in it by end of this video. You can have the same thing running for you So
+[39.42-42.84] So you don't have to sit there board searching and filtering I'm
+[42.46-47.30] I'm showing this in Claude because that's where I tested it. The connector is not locked to Claude So
+[47.12-51.96] So if you use a different AI app that supports connectors, you can try the same idea there But
+[51.72-57.18] But stay with me till the end because I'm gonna give all of it for you one blank spreadsheet two prompts you
+[56.82-60.32] you can copy and schedule. Let's get started. So you need three things.
+[60.66-63.80] Clod pro plan, a $20 plan, that is enough, that's what I use.
+[64.26-67.30] Hiring cafe connector. If you watched my last video, you already have it.
+[67.38-69.78] If not, the link is right here and the Google Sheets connector.
+[70.02-73.56] So Clod can write to a spreadsheet you own. No code, no API keys.
+[73.72-75.72] If you can copy and paste, you can do this too.
+[75.96-79.94] Now that hiring cafe connector, I want to stop here for a second because
+[79.64-81.64] because almost nobody knows about this yet.
+[81.78-84.76] They launched it just a few weeks ago around late October And
+[84.38-88.78] And let me save you some pain here. I tried the hard way first. I used an Appify
+[88.36-92.66] Appify scraper that pulls jobs from Hiring Cafe and it almost worked. But Hiring
+[92.28-96.58] Hiring Cafe blocked it in between. When I looked into it, it made sense. Hiring Cafe
+[96.34-101.26] Cafe has a rule file for bots. So if you see here, it will disallow search state.
+[100.88-105.36] state. So Hiring Cafe asked bots to stay out of its search pages and sites like
+[105.10-108.70] like this usually have bot protection on top. So a connector is the front door.
+[108.90-111.90] Hiring Cafe built it for Claude and Chatchapiti and they support it. There
+[111.72-115.74] There are a lot of scrapers you can find it on ApiFile that will do this scraping from Hiring
+[115.46-119.88] Hiring Cafe and probably it will cost you less but there is a real chance that you might
+[119.44-121.98] might get blocked and I can't guarantee the results.
+[122.20-127.08] The way that actually built for this is Connector Hiring Cafe made for Claude and Chachibit.
+[126.66-127.08] Chachibit.
+[127.62-130.54] For this video we are sticking with the Hiring Cafe Connector and Claude.
+[130.66-131.34] Look at what you get.
+[131.50-135.68] No Hiring Cafe account, no login, it's just read -only so Claude can search and read
+[135.46-139.18] read but it can't apply to anything, it can't change anything and it searches with
+[138.96-145.52] with real filters. Seniority, remote or hybrid, location, posted in last 24 hours. Now you might be
+[145.36-149.64] be thinking, hiring cafe already has email alerts. So why do I need this? Good question.
+[149.82-155.16] An alert sends you matches. This applies your rules, tells you why every job was kept or thrown out
+[154.90-159.68] out and keeps a record of every night. Because the connector on its own doesn't remember anything.
+[159.30-163.52] anything. No saved jobs, no history. So we give it memory. That's the spreadsheet.
+[163.90-168.54] Step one, and you're going to like this part. Open Google Drive, make a blank sheet, call
+[168.10-172.72] call it anything. Copy this link. That is the only thing you will ever do in the spreadsheet by hand.
+[172.88-178.24] Now open cloud. Three things go in. Your resume, just attach it. The setup prompt, it is in the description
+[177.86-182.46] description and your sheet link. So sheet link, you can get it from here. This is your sheet link.
+[182.76-186.70] Once you copy the setup prompt, you have to replace feel for sheet link and then you have to
+[186.60-190.90] to say your deal breaker in plain English the way you would tell a friend. In my case,
+[191.00-195.44] probably I would say a fine job. I fit my resume remote in Canada or hybrid in Toronto. No
+[195.02-200.46] No intentions, no contract rules, nothing director level, nothing, five days in office, travel after 20 % So
+[200.06-203.26] So this is the prompt and hit enter
+[203.60-207.26] By the way, this is a sample resume for Jordan Ellis He's
+[206.76-210.66] He's a project manager of ATL experience and software companies Okay,
+[210.18-214.96] Okay, so four tabs have now filled in and the config is the interesting one Claude
+[214.62-218.62] Claude reads your resume and works out which job titles to search If
+[218.36-220.26] If you don't have to list a single one Remember
+[219.94-225.08] Remember the title track from my last video where 10 companies call the same job 10 different things this
+[224.66-229.20] this does that for you so when you give that prompt it searches for relevant roles
+[228.82-232.58] roles that is matching to your CV then it writes a short profile of your background
+[232.24-236.88] background and adds the deal breakers you give it one thing here and it matters see
+[236.48-240.52] see this line no people management title no program management experience shown
+[240.02-244.76] shown so that's a gap and I know it stings a little to see it written down keep
+[244.22-248.84] keep it don't delete it that's what let's God warn you when a job asked for it
+[248.66-253.16] it and not hand you a high on a job that was never going to call you back If
+[252.84-256.26] If this is adding any value so far, please like, comment and subscribe.
+[256.54-259.98] And before the next part, let me tell you why I even bothered building this.
+[260.56-266.02] You have got work, you have got family and somewhere in between you squeeze in a few minutes to look for a job.
+[266.16-271.48] You open a job board just to check and 14 minutes later you have seen the same posting three times.
+[271.62-277.32] Some are like three months old and some don't match and you close the laptop feeling worse than when you opened it.
+[277.74-279.32] That's not a job, sir. That's scrolling.
+[279.66-281.54] So that's what this fixes. Step
+[281.14-286.98] Step 2. The second prompt. This is the one that runs every night. It's long. You don't need to read it.
+[287.06-291.26] Copy it and put the Google sheet link on the top and hit enter and it's done.
+[291.34-295.72] But I don't want you to run something you don't understand. So here are the three things it's doing for you.
+[295.86-300.72] One, it doesn't ask questions. Think about it. At midnight you're asleep. Who's going to answer?
+[300.86-304.78] So it makes the most reasonable call and writes down what it is assumed.
+[305.02-309.84] It says no first. Director level no. Contract no. Five days in office no. only
+[309.44-316.76] only what survives get a rating high medium or low and a reason okay so once the run happened overnight
+[316.26-320.90] overnight look at this the customer success manager it is rated medium there is a technical product
+[320.56-326.74] product manager which is rated high and also the cool part is it gives the reason also like why it is
+[326.52-332.32] is high medium low and then there are like rejected tab it shows the job that got rejected and the
+[332.16-337.27] the reason for it to reject and also there is this log for which day it ran and why so So
+[337.19-341.91] So that's how your sheet looks like and there will not be any duplicate entry.
+[342.19-346.37] So by spending 10 seconds on the sheet, you will know whether to open a job or not.
+[346.45-348.49] And it also gives the links to the job as well.
+[348.53-351.99] And the 1, 8, 3 out, they are not gone, they are right here with the rule that fired.
+[352.23-357.01] If you catch it being too strict or too loose, you can go back to your prompt and fix your
+[356.79-359.35] your rules according to yours, your requirement.
+[359.61-360.67] And that's how it gets kept.
+[360.75-362.65] It remembers what it has already seen.
+[362.79-364.05] So no duplicate entry.
+[364.23-364.75] Okay. So
+[364.41-368.93] So for scheduling you can just come and check in the schedule once you run that second prompt yours
+[368.53-373.57] yours should be scheduled and in the morning you can come and check the status. I created this for demo
+[373.35-378.93] demo purpose and it does work for me beautifully. So some people ask why midnight? So this is a little
+[378.79-379.27] little trick.
+[379.45-380.69] and Claude usage works in
+[380.51-384.43] in five hours sessions and a lot of people think it resets at a fixed time. It doesn't. The
+[384.25-387.57] The session starts with your first message and it ends five hours later.
+[388.05-391.03] So if the search runs at midnight, that session is over by about five AM.
+[391.21-393.39] You wake up, you sit down to work and you start fresh.
+[393.63-395.35] I want to be honest, it's not pre -usage.
+[395.43-397.41] It still counts toward your weekly limit.
+[397.63-401.71] That's why the prompt only looks at the last 24 hours and
+[401.53-403.93] and caps every search at 25 results.
+[404.27-408.53] So that's it, a blank sheet, one prompt builds it, one prompt runs it and
+[408.39-409.51] and it works while you sleep.
+[409.91-411.39] Both prompts are in the description And
+[411.05-415.65] And when you search changes, don't touch the prom, just tell Claude what changed like add
+[415.35-418.51] add product manager to my titles and it updates the sheet for you.
+[418.63-420.85] If automating isn't not your thing, that's okay.
+[421.03-425.87] Open hiring cafe once a day, set the filter to the last 24 hours, spend 5 minutes and you're
+[425.67-427.41] you're still ahead of most people.
+[427.55-431.89] If this added value for you, please like, comment and subscribe and share it with the
+[431.77-435.79] the people you know who are looking for a job and want a way to automate this.
+[436.13-439.99] So they can focus on actually applying and not get tired searching, filtering and trying
+[439.79-441.87] trying to work out what is even relevant for them.
+[441.97-443.97] If you get stuck setting this up, tell me in the comments.
+[444.25-444.95] I would love to help.
+[445.34-445.94] Thank you for watching.
+[446.14-446.96] See you in the next video.

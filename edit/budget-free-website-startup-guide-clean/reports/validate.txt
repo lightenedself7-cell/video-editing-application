@@ -1,0 +1,2 @@
+valid directive: editorial-directive.json
+sha256: 3702e4f053763d4c21b788e8553a675616604031877fe9e518b773fb871ef121

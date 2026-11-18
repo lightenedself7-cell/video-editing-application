@@ -1,0 +1,31 @@
+{
+  "skill": "long-form",
+  "theme": "clean-creator",
+  "projectName": "budget-free-website-startup-guide-clean",
+  "approvalMode": "review-plan",
+  "loudness": "keep",
+  "captions": false,
+  "allowRemoteUpload": false,
+  "notes": "Follow skills/presenter-long-form-editor/references/clean-creator-style.md, including the Attention toolkit. Raspberry on burgundy palette. Keep it classy: small changes often, never busy. Use a roadmap marker for the build steps and a phone mockup where I talk about mobile. Don't change the audio; the ending is already fixed.",
+  "sections": [
+    {
+      "id": "cf22423c-7e7a-4a23-bcc4-a333e790aa68",
+      "path": "/home/dev/videos/budget-free-website-startup-guide-clean.mp4",
+      "kind": "camera",
+      "media": {
+        "path": "/home/dev/videos/budget-free-website-startup-guide-clean.mp4",
+        "kind": "video",
+        "durationS": 729.4,
+        "width": 1280,
+        "height": 720,
+        "fps": "30/1",
+        "sampleRate": 48000,
+        "channels": 2
+      }
+    }
+  ],
+  "presenterFraming": "full-frame",
+  "delivery": "source",
+  "jobId": "1bf46e21-efbb-4695-8179-c6f2ff144e08",
+  "createdAt": "2026-11-07T17:52:00.682Z"
+}

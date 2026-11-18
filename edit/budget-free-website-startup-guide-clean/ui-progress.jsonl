@@ -1,0 +1,49 @@
+{"t":"2026-11-07T17:52:15Z","phase":"intake","percent":0,"message":"Reading skill, references and source"}
+{"t":"2026-11-07T17:52:38Z","phase":"transcribe","percent":0,"message":"Local faster-whisper (small) word-level transcription"}
+{"t":"2026-11-07T17:53:08Z","phase":"transcribe","percent":10,"message":"Transcribing locally; measuring loudness and shot layout"}
+{"t":"2026-11-07T17:55:11Z","phase":"intake","percent":100,"message":"Source -14.1 LUFS; 66% already screen-share with baked bubble"}
+{"t":"2026-11-07T17:55:11Z","phase":"brand-assets","skipped":true,"message":"No brand named needs a logo before plan approval; deferred"}
+{"t":"2026-11-07T17:55:46Z","phase":"transcribe","percent":26,"message":"Transcribed 140s of 729s"}
+{"t":"2026-11-07T17:57:27Z","phase":"transcribe","percent":41,"message":"Transcribed 266s of 729s"}
+{"t":"2026-11-07T17:59:27Z","phase":"transcribe","percent":56,"message":"Transcribed 397s of 729s"}
+{"t":"2026-11-07T18:02:28Z","phase":"transcribe","percent":71,"message":"Transcribed 530s of 729s"}
+{"t":"2026-11-07T18:05:29Z","phase":"transcribe","percent":87,"message":"Transcribed 661s of 729s"}
+{"t":"2026-11-07T18:07:19Z","phase":"transcribe","percent":100,"message":"Word-level transcript ready (local)"}
+{"t":"2026-11-07T18:11:08Z","phase":"directive","percent":0,"message":"Building editorial directive and director treatment"}
+{"t":"2026-11-07T18:12:16Z","phase":"brand-assets","percent":0,"message":"Correction: logos (WhatsApp, AI Studio, Amazon, Cloudflare) fetched after approval"}
+{"t":"2026-11-07T18:13:11Z","phase":"directive","percent":100,"message":"director-treatment.md and editorial-directive.json written"}
+{"t":"2026-11-07T18:13:11Z","phase":"validate","percent":100,"message":"Structure valid; only blocker is pending approval (by design)"}
+{"t":"2026-11-07T18:13:11Z","phase":"graphics","percent":null,"message":"Stopped for plan approval (review-plan mode); ui-question.json written"}
+{"t":"2026-11-07T18:37:52Z","phase":"validate","percent":100,"message":"Approved directive validates"}
+{"t":"2026-11-07T18:37:52Z","phase":"brand-assets","percent":0,"message":"Fetching Montserrat and official logos"}
+{"t":"2026-11-07T18:38:38Z","phase":"brand-assets","percent":100,"message":"4 official icons + Montserrat fetched; SOURCES.json written"}
+{"t":"2026-11-07T18:38:46Z","phase":"graphics","percent":0,"message":"Tracking baked presenter bubble in screen recordings"}
+{"t":"2026-11-07T18:45:13Z","phase":"graphics","percent":20,"message":"Remotion skills present; authoring graphics in Python single-pass compositor"}
+{"t":"2026-11-07T18:49:42Z","phase":"graphics","percent":100,"message":"Graphics authored and spot-checked on stills"}
+{"t":"2026-11-07T18:49:42Z","phase":"composite","percent":0,"message":"Single-pass composite, 8 parallel chunks"}
+{"t":"2026-11-07T18:49:45Z","phase":"composite","percent":0,"message":"Rendered ~0 of 21881 frames"}
+{"t":"2026-11-07T18:51:17Z","phase":"composite","percent":0,"message":"Rendered ~0 of 21881 frames"}
+{"t":"2026-11-07T18:52:49Z","phase":"composite","percent":8,"message":"Rendered ~1800 of 21881 frames"}
+{"t":"2026-11-07T18:54:22Z","phase":"composite","percent":12,"message":"Rendered ~2700 of 21881 frames"}
+{"t":"2026-11-07T18:55:57Z","phase":"composite","percent":17,"message":"Rendered ~3900 of 21881 frames"}
+{"t":"2026-11-07T18:57:29Z","phase":"composite","percent":23,"message":"Rendered ~5100 of 21881 frames"}
+{"t":"2026-11-07T18:59:02Z","phase":"composite","percent":30,"message":"Rendered ~6600 of 21881 frames"}
+{"t":"2026-11-07T19:00:36Z","phase":"composite","percent":34,"message":"Rendered ~7500 of 21881 frames"}
+{"t":"2026-11-07T19:02:08Z","phase":"composite","percent":41,"message":"Rendered ~9000 of 21881 frames"}
+{"t":"2026-11-07T19:03:43Z","phase":"composite","percent":46,"message":"Rendered ~10200 of 21881 frames"}
+{"t":"2026-11-07T19:05:17Z","phase":"composite","percent":46,"message":"Rendered ~10200 of 21881 frames"}
+{"t":"2026-11-07T19:06:52Z","phase":"composite","percent":53,"message":"Rendered ~11700 of 21881 frames"}
+{"t":"2026-11-07T19:08:26Z","phase":"composite","percent":58,"message":"Rendered ~12900 of 21881 frames"}
+{"t":"2026-11-07T19:10:01Z","phase":"composite","percent":60,"message":"Rendered ~13200 of 21881 frames"}
+{"t":"2026-11-07T19:11:36Z","phase":"composite","percent":68,"message":"Rendered ~15000 of 21881 frames"}
+{"t":"2026-11-07T19:13:12Z","phase":"composite","percent":71,"message":"Rendered ~15600 of 21881 frames"}
+{"t":"2026-11-07T19:14:46Z","phase":"composite","percent":78,"message":"Rendered ~17100 of 21881 frames"}
+{"t":"2026-11-07T19:16:18Z","phase":"composite","percent":82,"message":"Rendered ~18000 of 21881 frames"}
+{"t":"2026-11-07T19:17:50Z","phase":"composite","percent":93,"message":"Rendered ~20400 of 21881 frames"}
+{"t":"2026-11-07T19:19:21Z","phase":"composite","percent":98,"message":"Rendered ~21600 of 21881 frames"}
+{"t":"2026-11-07T19:19:41Z","phase":"composite","percent":95,"message":"Chunks done; concatenating and muxing source audio (copy)"}
+{"t":"2026-11-07T19:19:45Z","phase":"composite","percent":100,"message":"Master muxed"}
+{"t":"2026-11-07T19:19:45Z","phase":"verify","percent":0,"message":"Decode, probe, loudness, identity, safe-region, alpha, checksums"}
+{"t":"2026-11-07T19:22:46Z","phase":"verify","percent":60,"message":"Automated checks pass; reviewing contact sheets"}
+{"t":"2026-11-07T19:24:20Z","phase":"verify","percent":100,"message":"All checks pass; -14.1 LUFS, -1.1 dBTP; audio identical to source"}
+{"t":"2026-11-07T19:24:20Z","phase":"deliver","percent":100,"message":"Master, receipt, checks and contact sheets in project folder"}

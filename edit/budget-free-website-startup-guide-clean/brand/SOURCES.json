@@ -1,0 +1,58 @@
+[
+ {
+  "brand": "WhatsApp",
+  "file": "whatsapp.png",
+  "from": "whatsapp.svg",
+  "url": "https://static.whatsapp.net/rsrc.php/y1/r/FJbTMJqMap7.svg",
+  "found_on": "https://www.whatsapp.com/ (rel=icon)",
+  "recolour": "none; rasterised with resvg at 512px",
+  "date": "2026-11-07",
+  "sha256": "c3190d0e4af5e130c40fc1d41ba143c28c1219434028197473cb8cc63194200f",
+  "source_sha256": "1ab6db0cc2eb55d911f151b0aa339c55b6b225efcceddb8ff2050cab1410e347"
+ },
+ {
+  "brand": "Google AI Studio",
+  "file": "ai_studio.png",
+  "url": "https://www.gstatic.com/images/branding/productlogos/ai_studio/v1/web-96dp/logo_ai_studio_color_2x_web_96dp.png",
+  "found_on": "https://aistudio.google.com/ (rel=icon, v1 product logo)",
+  "recolour": "none",
+  "date": "2026-11-07",
+  "sha256": "50847292b22187ddb5623f57faac525e70d193bb9ffb40d1926f972ac55b9ddb"
+ },
+ {
+  "brand": "Amazon",
+  "file": "amazon_touch.png",
+  "url": "https://www.aboutamazon.com/_next/static/media/apple-touch-icon.706b1b87.png",
+  "found_on": "https://www.aboutamazon.com/ (apple-touch-icon; amazon.com refused automated fetch)",
+  "recolour": "none",
+  "date": "2026-11-07",
+  "sha256": "f8184c36ab5439a22007f105d0366f10bbb782ab1d379e38759e452965c18805"
+ },
+ {
+  "brand": "Cloudflare",
+  "file": "cloudflare.png",
+  "from": "cloudflare_logo.svg",
+  "url": "https://www.cloudflare.com/logo.svg",
+  "found_on": "https://www.cloudflare.com/",
+  "recolour": "none; rasterised with resvg at 682px",
+  "date": "2026-11-07",
+  "sha256": "0779c2bfc65a5cebb65d9f706718471a2ab407e53d528f17c54f819ffba38fbc",
+  "source_sha256": "c9ec1d5d5e4b0924666756a70179395c26b010372f8d7eec3539575281cebf1b"
+ },
+ {
+  "brand": "Montserrat (font, OFL)",
+  "file": "fonts/Montserrat.ttf",
+  "url": "https://github.com/google/fonts/raw/main/ofl/montserrat/Montserrat%5Bwght%5D.ttf",
+  "recolour": "n/a",
+  "date": "2026-11-07",
+  "sha256": "0f7b311b2f3279e4eef9b2f968bcdbab6e28f4daeb1f049f4f278a902bcd82f7"
+ },
+ {
+  "brand": "Montserrat Italic (font, OFL)",
+  "file": "fonts/Montserrat-Italic.ttf",
+  "url": "https://github.com/google/fonts/raw/main/ofl/montserrat/Montserrat-Italic%5Bwght%5D.ttf",
+  "recolour": "n/a",
+  "date": "2026-11-07",
+  "sha256": "51607f316bc020e59f03cbf51543eecffbea501c0b31d73e5b82927c5cca442c"
+ }
+]

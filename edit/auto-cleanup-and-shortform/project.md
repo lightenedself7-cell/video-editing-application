@@ -17,6 +17,12 @@ USER DECISION (2026-11-17): short-form (step 4) is DEFERRED, not today. Build st
 ## STATUS 2026-11-18
 - Step 1 BUILT: skills/presenter-long-form-editor/scripts/auto_clean.py (plan -> cuts.md approval -> apply). Tested on a synthetic clip with a known
   transcript (filler, pause, false start, cut-cut marker): all caught, no kept word clipped, duration matches the plan. NOT yet run on real footage.
+- 2026-11-18 first real test ("Create a No-Code AI Website Tutorial.mp4", 1:32): 6 cuts; cut 3 was a FALSE retake ("website using Google"
+  said twice in normal speech). Fixed: if the first take finishes a sentence it is listed as "possible retake, check" and KEPT by default (skip true).
+- Known gaps: audio-only, so head turns / looking away and recorder pauses are not detected (next: face-direction check with OpenCV/MediaPipe,
+  local, flagged in cuts.md for approval). Slow explaining is not detected (idea: flag low words-per-second stretches, optional 1.1-1.2x speed-up).
+  Whisper small mishears some words; --model medium is more accurate but slower. Use --keep-pause 0 for harder jump cuts.
+- From here, code changes happen in Claude Code on the user's PC (cloud session handed over 2026-11-18). git pull first.
 - Next: run it on one real raw recording, tune --max-pause / --min-repeat from the user's review of cuts.md. Then steps 2, 3, 5.
 
 ## Build order

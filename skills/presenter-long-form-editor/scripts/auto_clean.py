@@ -104,7 +104,14 @@ def find_cuts(words, duration, a):
             if nw[i:i + k] == nw[j:j + k] and all(nw[i:i + k]):
                 hit = j
         if hit is not None:
-            cuts.append({"start": W[i]["start"], "end": W[hit]["start"], "reason": "repeated take", "i0": i, "i1": hit - 1})
+            # a real false start stops mid-sentence; if the first "take" finishes a sentence it is
+            # probably normal speech that repeats a phrase, so list it for review and keep it by default
+            finished = any(W[x]["w"].endswith((".", "?", "!")) for x in range(i, hit))
+            if finished:
+                cuts.append({"start": W[i]["start"], "end": W[hit]["start"], "reason": "possible retake, check",
+                             "i0": i, "i1": hit - 1, "check": True})
+            else:
+                cuts.append({"start": W[i]["start"], "end": W[hit]["start"], "reason": "repeated take", "i0": i, "i1": hit - 1})
             i = hit
         else:
             i += 1
@@ -157,10 +164,11 @@ def merge(cuts, words, env, hop):
         if merged and c["start"] <= merged[-1]["end"] + 0.02:
             m = merged[-1]
             m["end"] = max(m["end"], c["end"])
+            m["check"] = m["check"] or c.get("check", False)
             if c["reason"] not in m["reason"]:
                 m["reason"] += " + " + c["reason"]
         else:
-            merged.append({"start": c["start"], "end": c["end"], "reason": c["reason"]})
+            merged.append({"start": c["start"], "end": c["end"], "reason": c["reason"], "check": c.get("check", False)})
     return merged
 
 
@@ -179,7 +187,7 @@ def write_plan(out, src, tr, cuts):
     for n, c in enumerate(cuts, 1):
         c["id"] = n
         c["removed_text"] = text_between(words, c["start"], c["end"])
-        c["skip"] = False
+        c["skip"] = bool(c.pop("check", False))  # flagged cuts are kept unless the creator approves them
     removed = sum(c["end"] - c["start"] for c in cuts)
     plan = {"source": os.path.abspath(src), "duration": tr["duration"], "removed_s": round(removed, 2),
             "result_s": round(tr["duration"] - removed, 2), "cuts": cuts}
@@ -192,11 +200,13 @@ def write_plan(out, src, tr, cuts):
     lines = [f"# Cut list for {os.path.basename(src)}", "",
              f"- Original: {fmt(tr['duration'])}  |  after cleanup: {fmt(plan['result_s'])}  |  removed: {removed:.1f}s in {len(cuts)} cuts",
              "- By type: " + ", ".join(f"{k} {v}" for k, v in sorted(by.items())),
-             "- To keep a cut: set `\"skip\": true` on its id in cuts.json, then run `apply`.", "",
+             "- To keep a cut: set `\"skip\": true` on its id in cuts.json, then run `apply`.",
+             "- Rows marked KEPT are flagged for review and will NOT be cut unless you set `\"skip\": false`.", "",
              "| id | time | type | removed | context after |", "|---|---|---|---|---|"]
     for c in cuts:
         after = text_between(words, c["end"], c["end"] + 3.0)
-        lines.append(f"| {c['id']} | {fmt(c['start'])}-{fmt(c['end'])} | {c['reason']} | {c['removed_text'] or '(silence)'} | {after} |")
+        kind = c['reason'] + (" (KEPT)" if c["skip"] else "")
+        lines.append(f"| {c['id']} | {fmt(c['start'])}-{fmt(c['end'])} | {kind} | {c['removed_text'] or '(silence)'} | {after} |")
     open(os.path.join(out, "cuts.md"), "w").write("\n".join(lines) + "\n")
     return plan
 

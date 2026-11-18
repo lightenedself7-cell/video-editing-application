@@ -14,6 +14,11 @@ Local commits only until the user says push (see memory: career-ops / video-app 
 
 USER DECISION (2026-11-17): short-form (step 4) is DEFERRED, not today. Build steps 1-3 and 5 only; revisit short-form when the user asks.
 
+## STATUS 2026-11-18
+- Step 1 BUILT: skills/presenter-long-form-editor/scripts/auto_clean.py (plan -> cuts.md approval -> apply). Tested on a synthetic clip with a known
+  transcript (filler, pause, false start, cut-cut marker): all caught, no kept word clipped, duration matches the plan. NOT yet run on real footage.
+- Next: run it on one real raw recording, tune --max-pause / --min-repeat from the user's review of cuts.md. Then steps 2, 3, 5.
+
 ## Build order
 1. **Cleanup step (long-form first).** New script, e.g. skills/video-use/helpers/auto_clean.py or skills/presenter-long-form-editor/scripts/auto_clean.py:
    - transcribe with faster-whisper, word timestamps, KEEP fillers (initial_prompt with "um, uh, er"), vad_filter on (Silero is built in; venv av pinned 16.1.0, do not upgrade).

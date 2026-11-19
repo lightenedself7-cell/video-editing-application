@@ -1,0 +1,9 @@
+
+# Personal photos and per-project test output (kept on disk, never pushed; public repo)
+edit/photos/
+edit/thumbnail-test/
+edit/*/render/
+edit/*/verify/
+edit/*/reports/**/*.png
+edit/*/reports/**/*.jpg
+edit/*/prepared/**/*.wav

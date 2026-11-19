@@ -7,3 +7,6 @@ edit/*/verify/
 edit/*/reports/**/*.png
 edit/*/reports/**/*.jpg
 edit/*/prepared/**/*.wav
+# Saved copies of third-party web pages (used only to extract logos)
+edit/*/brand/raw/**/*.html
+edit/*/brand/raw/**/*.htm

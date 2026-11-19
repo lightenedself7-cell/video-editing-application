@@ -14,14 +14,25 @@ Local commits only until the user says push (see memory: career-ops / video-app 
 
 USER DECISION (2026-11-17): short-form (step 4) is DEFERRED, not today. Build steps 1-3 and 5 only; revisit short-form when the user asks.
 
-## STATUS (2026-11-17): steps 1, 2, 3, 5 built, local commit only
-- Step 1 DONE: skills/presenter-long-form-editor/scripts/auto_clean.py (`analyze` -> cuts.json + cuts.md, `apply --approved [--drop N] [--voice-chain]` -> cleaned mp4, transcript-cut.json, cut-map.json; `make_T` shifts times). Tests: `.venv/bin/python -m unittest discover -s skills/presenter-long-form-editor/tests` (instant).
-  Real test on the spreadsheet video (test-run/): found the repeated take (6:19.8-6:26.8, kept the LAST take, flagged for review), encode checked (decode OK, duration exact).
-  KNOWN LIMITS: Whisper smooths immediate repeats, so the 405.0 s false start ("that's why the prompt only look" twice) is NOT visible to word-level detection (try `--model medium` or review by ear). This speaker is fluent, so few pauses; threshold 0.5 s, keep 0.3 s, cuts under 0.25 s ignored. Silent screen demos: use `--protect a-b` or the ⚠ flag.
+## STATUS 2026-11-19
+- Step 1 BUILT: skills/presenter-long-form-editor/scripts/auto_clean.py (plan -> cuts.md approval -> apply). Tested on a synthetic clip with a known
+  transcript (filler, pause, false start, cut-cut marker): all caught, no kept word clipped, duration matches the plan. NOT yet run on real footage.
+- 2026-11-18 first real test ("Create a No-Code AI Website Tutorial.mp4", 1:32): 6 cuts; cut 3 was a FALSE retake ("website using Google"
+  said twice in normal speech). Fixed: if the first take finishes a sentence it is listed as "possible retake, check" and KEPT by default (skip true).
+- Known gaps: audio-only, so head turns / looking away and recorder pauses are not detected (next: face-direction check with OpenCV/MediaPipe,
+  local, flagged in cuts.md for approval). Slow explaining is not detected (idea: flag low words-per-second stretches, optional 1.1-1.2x speed-up).
+  Whisper small mishears some words; --model medium is more accurate but slower. Use --keep-pause 0 for harder jump cuts.
+- From here, code changes happen in Claude Code on the user's PC (cloud session handed over 2026-11-18). git pull first.
+- Audio (2026-11-18): apply now runs a "studio sound" chain by default (--audio studio|loudnorm|none, --lufs -14);
+  user picked chain C in an A/B test (denoise + voice EQ + compression + two-pass loudnorm; noise floor -46 -> -70 dB).
+- Next: run it on one real raw recording, tune --max-pause / --min-repeat from the user's review of cuts.md. Then steps 2, 3, 5.
 - Step 2 DONE on the agent side: SKILL.md steps 1b/1c. NOT done: app UI (prepare.ts does not run the cleanup or show cuts.md for approval; a cut-approval screen in the app is a separate build).
 - Step 3 DONE: scripts/look.py (moody, aesthetic, cinematic, clean, natural -> registry theme + mild grade; `resolve`, `grade`, `list`). Grade is applied to the cleaned source before graphics.
-- Step 5 RESULT: GPU encode is NOT possible here (WSL has libd3d12 but no libcuda, so NVENC fails; VAAPI has no display). Use CPU: cleaned intermediate now defaults to `-preset veryfast -crf 12` (447 s video encoded in 3m17 vs roughly double at slow). Render time of the final theme video is unchanged (about 9-10 min).
+- Step 5 RESULT: GPU encode is NOT possible here (WSL has libd3d12 but no libcuda, so NVENC fails; VAAPI has no display). Use CPU: use the default x264 preset; --nvenc will not work in WSL. Render time of the final theme video is unchanged (about 9-10 min).
 - Short-form (step 4) still deferred.
+- Merged into main 2026-11-19: the auto-cleanup branch's auto_clean.py (plan/apply, studio audio) REPLACED main's Nov 17 version
+  (analyze/apply --approved, --script, --protect, make_T, cut-map; and its tests). That version is in git history (commit aed3794)
+  if script matching or --protect for silent screen demos is wanted later.
 
 ## Build order
 1. **Cleanup step (long-form first).** New script, e.g. skills/video-use/helpers/auto_clean.py or skills/presenter-long-form-editor/scripts/auto_clean.py:

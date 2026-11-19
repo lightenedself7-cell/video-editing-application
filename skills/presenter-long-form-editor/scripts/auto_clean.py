@@ -1,482 +1,360 @@
 #!/usr/bin/env python3
-"""auto_clean.py - automatic cleanup of raw talking-head footage (long-form first).
+"""Auto-cleanup for raw presenter footage: long pauses, fillers, false starts, repeated takes, "cut cut" markers.
 
-Removes silences, ums/ers, stutters, false starts and repeated takes (and anything before a spoken "cut cut"), in TWO steps so nothing is
-ever cut without approval:
+Two steps, with the creator's approval in between (never encode before the cut list is approved):
 
-  1. analyze  SRC --out DIR [--script script.txt]   -> DIR/cuts.json + DIR/cuts.md  (a readable before/after list; nothing is encoded)
-  2. apply    DIR --approved [--drop 3,7]            -> cleaned video + time-shifted transcript + cut-map.json
+  plan   transcribe locally (faster-whisper, fillers kept) and write cuts.json + cuts.md
+  apply  read the approved cuts.json, encode the cleaned source and a time-shifted transcript
 
-Ideas credited to Nick Saraev's public VAD jump-cut directive (min silence 0.5 s, padding, merge gap, "cut cut" restart phrase) and his voice chain.
-Transcription is local faster-whisper with filler-friendly prompting; cut points are snapped to audio dips (RMS) so no cut lands mid-syllable.
+Usage (from the repo root, inside WSL):
+  .venv/bin/python skills/presenter-long-form-editor/scripts/auto_clean.py plan  RAW.mp4 --out edit/<project>/cleanup
+  # read edit/<project>/cleanup/cuts.md; to keep a cut's audio, set "skip": true on it in cuts.json
+  .venv/bin/python skills/presenter-long-form-editor/scripts/auto_clean.py apply RAW.mp4 --out edit/<project>/cleanup
 
-Run with the repo venv (numpy + faster-whisper): .venv/bin/python skills/presenter-long-form-editor/scripts/auto_clean.py ...
+The original file is never modified. Transcription is local only.
+
+Audio (apply step, --audio): "studio" (default) = rumble cut, denoise, voice EQ, compression, then two-pass loudness
+to --lufs (default -14, YouTube); "loudnorm" = two-pass loudness only; "none" = audio untouched.
+Chain chosen by the creator on 2026-11-18 (A/B test on the no-code-website video, option C).
 """
-from __future__ import annotations
-
 import argparse
-import bisect
-import difflib
-import hashlib
 import json
+import os
 import re
 import subprocess
 import sys
-from pathlib import Path
 
-FILLERS = {"um", "umm", "uh", "uhh", "er", "erm", "ah", "hmm", "hm", "mm", "mmm", "uhm", "eh", "ehm"}
-STOP1 = {"the", "a", "an", "i", "we", "you", "it", "is", "to", "and", "that", "this", "of", "in", "so", "but", "my", "our", "your", "they", "its", "its"}
-FILLER_PROMPT = "Um, so, uh, I think, er, we, hmm, you know, um, let's start. Uh, okay."
-REVIEW_PAUSE_S = 3.0      # pauses at least this long are flagged: the screen may be doing something while the speaker is quiet
-REVIEW_WORDS = 14         # removed spans at least this many words long are flagged
+FILLERS = {"um", "umm", "uh", "uhh", "uhm", "er", "erm", "ah", "ahh", "hmm", "mm", "mmm"}
+FILLER_PROMPT = "Um, uh, so, er, I mean, uh, let me, um, start again."
 
-
-def norm(w: str) -> str:
-    return re.sub(r"[^a-z0-9']", "", w.lower())
-
-
-def fmt_t(t: float) -> str:
-    return f"{int(t // 60)}:{t % 60:04.1f}"
+# "Studio sound": highpass/lowpass, FFT + non-local-means denoise, -2 dB mud at 200 Hz, +3 dB presence at 3.5 kHz,
+# -2 dB sibilance at 7.5 kHz, 4:1 compression. Loudness is normalised after this (two-pass loudnorm).
+STUDIO_CHAIN = ("highpass=f=90,lowpass=f=12000,afftdn=nr=18:nf=-42:tn=1,anlmdn=s=4,"
+                "equalizer=f=200:t=q:w=1:g=-2,equalizer=f=3500:t=q:w=1:g=3,equalizer=f=7500:t=q:w=2:g=-2,"
+                "acompressor=threshold=-22dB:ratio=4:attack=5:release=120:makeup=3")
+LOUD_TP, LOUD_LRA = -1.5, 11
 
 
-# ---------------------------------------------------------------- audio envelope
-class Audio:
-    """10 ms RMS envelope in dB; used to find real silences and quiet cut points."""
+# ---------- transcript ----------
 
-    def __init__(self, db):
-        import numpy as np
-        self.np = np
-        self.db = db
-        floor, speech = float(np.percentile(db, 10)), float(np.percentile(db, 90))
-        self.thr = min(max(floor + 0.25 * (speech - floor), floor + 6), speech - 15)
-
-    @classmethod
-    def load(cls, src: str):
-        import numpy as np
-        p = subprocess.run(["ffmpeg", "-v", "error", "-nostdin", "-i", src, "-vn", "-ac", "1", "-ar", "16000", "-f", "s16le", "-"], capture_output=True, check=True)
-        a = np.frombuffer(p.stdout, dtype=np.int16).astype(np.float32) / 32768
-        n = len(a) // 160
-        fr = a[: n * 160].reshape(n, 160)
-        return cls(20 * np.log10(np.sqrt((fr ** 2).mean(1)) + 1e-9))
-
-    def silent_span(self, lo: float, hi: float):
-        """Longest run of below-threshold frames between lo and hi (seconds), or None."""
-        i0 = max(0, int((lo - 0.05) * 100))
-        i1 = min(len(self.db), int((hi + 0.05) * 100) + 1)
-        best, run_s = None, None
-        for k in range(i0, i1 + 1):
-            quiet = k < i1 and self.db[k] < self.thr
-            if quiet and run_s is None:
-                run_s = k
-            elif not quiet and run_s is not None:
-                if best is None or k - run_s > best[1] - best[0]:
-                    best = (run_s, k)
-                run_s = None
-        return None if best is None else (best[0] / 100, best[1] / 100)
-
-    def snap(self, t: float, lo: float, hi: float, window: float = 0.06) -> float:
-        a, b = max(int((t - window) * 100), int(lo * 100), 0), min(int((t + window) * 100), int(hi * 100), len(self.db) - 1)
-        if b <= a:
-            return t
-        ti = int(t * 100)
-        seg = self.db[a:b + 1] + 0.02 * self.np.abs(self.np.arange(a, b + 1) - ti)
-        return (a + int(seg.argmin()) + 0.5) / 100
-
-
-# ---------------------------------------------------------------- transcription
-def transcribe(src: str, model_name: str) -> dict:
+def transcribe(src, model_name):
     from faster_whisper import WhisperModel
     model = WhisperModel(model_name, device="auto", compute_type="auto")
-    segs, info = model.transcribe(src, word_timestamps=True, vad_filter=True, initial_prompt=FILLER_PROMPT, condition_on_previous_text=False,
-                                  vad_parameters={"min_silence_duration_ms": 500, "speech_pad_ms": 100})
-    words, phrases = [], []
-    for s in segs:
-        phrases.append({"start": round(s.start, 2), "end": round(s.end, 2), "text": s.text.strip()})
+    segments, info = model.transcribe(
+        src, word_timestamps=True, vad_filter=True, initial_prompt=FILLER_PROMPT,
+        condition_on_previous_text=False,
+    )
+    words = []
+    for s in segments:
         for w in s.words or []:
             words.append({"w": w.word.strip(), "start": round(w.start, 3), "end": round(w.end, 3)})
-    return {"language": info.language, "duration": round(info.duration, 3), "words": words, "phrases": phrases}
+    return {"language": info.language, "duration": round(info.duration, 3), "words": words}
 
 
-# ---------------------------------------------------------------- detection
-def detect(words, duration, *, pause=0.5, keep=0.3, script=None, audio=None, protect=(), fillers=True, repeats=True, lead_keep=0.2, tail_keep=0.35):
-    """Return a list of cut dicts (start, end, types, removed_text, before, after, ...) for the given word list. Pure apart from `audio`."""
-    n = len(words)
-    tok = [norm(w["w"]) for w in words]
-    removed: dict[int, set] = {}
+def norm(word):
+    return re.sub(r"[^a-z0-9']", "", word.lower())
 
-    def mark(i0, i1, reason):
-        for k in range(i0, i1 + 1):
-            removed.setdefault(k, set()).add(reason)
 
-    def seq_alive():
-        return [k for k in range(n) if k not in removed and tok[k]]
+# ---------- audio envelope (for snapping cut points to quiet spots) ----------
 
-    if fillers:
-        for k in range(n):
-            if tok[k] in FILLERS:
-                mark(k, k, "filler")
+def rms_envelope(src, hop=0.01):
+    import numpy as np
+    raw = subprocess.run(
+        ["ffmpeg", "-hide_banner", "-nostdin", "-loglevel", "error", "-i", src, "-vn", "-ac", "1", "-ar", "16000",
+         "-f", "s16le", "-"], capture_output=True, check=True).stdout
+    a = np.frombuffer(raw, dtype=np.int16).astype(np.float32) / 32768.0
+    n = int(16000 * hop)
+    frames = len(a) // n
+    if frames == 0:
+        return np.zeros(1), hop
+    a = a[: frames * n].reshape(frames, n)
+    return np.sqrt((a ** 2).mean(axis=1)) + 1e-9, hop
 
-    # "cut cut" restart marker: drop the marker and the whole unbroken run of speech before it
-    for k in range(n - 1):
-        if tok[k] == "cut" and tok[k + 1] == "cut" and words[k + 1]["start"] - words[k]["end"] < 0.8:
-            j = k
-            while j > 0 and k - j < 45 and words[j]["start"] - words[j - 1]["end"] <= 0.7:
-                j -= 1
-            mark(j, k + 1, "cut-cut")
 
-    if repeats:
-        # script retakes: a script sentence heard more than once -> keep the last take
-        if script:
-            _script_retakes(words, tok, removed, seq_alive, script, mark)
-        _stutters_and_restarts(words, tok, removed, seq_alive, mark)
-        _self_retakes(words, tok, seq_alive, mark)
+def snap(t, env, hop, lo, hi):
+    """Move t to the quietest 10 ms frame within [lo, hi] (bounds never cross a kept word)."""
+    if hi - lo < hop:
+        return t
+    i0, i1 = max(0, int(lo / hop)), min(len(env) - 1, int(hi / hop))
+    if i1 <= i0:
+        return t
+    seg = env[i0:i1 + 1]
+    return round((i0 + int(seg.argmin())) * hop + hop / 2, 3)
 
+
+# ---------- detection ----------
+
+def find_cuts(words, duration, a):
     cuts = []
-    # word-run cuts (fillers, repeats, retakes): remove the words and the pauses around them down to `keep`
-    rem = sorted(removed)
-    runs, cur = [], []
-    for k in rem:
-        if cur and k == cur[-1] + 1:
-            cur.append(k)
+    W = words
+    nw = [norm(x["w"]) for x in W]
+
+    # 1. "cut cut" marker: remove the unfinished sentence before it plus the marker itself
+    i = 0
+    while i < len(W) - 1:
+        if nw[i] == "cut" and nw[i + 1] == "cut":
+            j = i
+            while j > 0:
+                prev = W[j - 1]
+                if W[j]["start"] - prev["end"] > a.sentence_gap or prev["w"].endswith((".", "?", "!")):
+                    break
+                j -= 1
+            cuts.append({"start": W[j]["start"], "end": W[i + 1]["end"], "reason": "cut-cut marker", "i0": j, "i1": i + 1})
+            i += 2
         else:
-            if cur:
-                runs.append(cur)
-            cur = [k]
-    if cur:
-        runs.append(cur)
-    for r in runs:
-        i0, i1 = r[0], r[-1]
-        s, e = words[i0]["start"], words[i1]["end"]
-        le = words[i0 - 1]["end"] if i0 > 0 else None
-        rs = words[i1 + 1]["start"] if i1 + 1 < n else None
-        s2 = 0.0 if le is None else s - max(0.0, (s - le) - keep / 2)
-        e2 = duration if rs is None else e + max(0.0, (rs - e) - keep / 2)
-        types = sorted({t for k in r for t in removed[k]})
-        cuts.append({"start": s2, "end": e2, "types": types, "review": len(r) >= REVIEW_WORDS})
+            i += 1
 
-    # pauses between two kept, adjacent words (pauses next to removed runs are already absorbed above)
-    for k in range(n - 1):
-        if k in removed or k + 1 in removed:
-            continue
-        gap = words[k + 1]["start"] - words[k]["end"]
-        if gap < pause - 0.15:
-            continue
-        lo, hi = words[k]["end"], words[k + 1]["start"]
-        span = audio.silent_span(lo, hi) if audio else (lo, hi)
-        if not span or span[1] - span[0] < pause:
-            continue
-        s, e = span[0] + keep / 2, span[1] - keep / 2
-        if e - s >= 0.25:
-            cuts.append({"start": s, "end": e, "types": ["pause"], "review": (span[1] - span[0]) >= REVIEW_PAUSE_S})
+    # 2. repeated take / false start: words[i:i+k] restarted at j (keeps the LAST take)
+    k = a.min_repeat
+    i = 0
+    while i < len(W) - k:
+        hit = None
+        for j in range(i + 2, min(len(W) - k + 1, i + a.max_repeat_words)):
+            if W[j]["start"] - W[i]["start"] > a.max_repeat_seconds:
+                break
+            if nw[i:i + k] == nw[j:j + k] and all(nw[i:i + k]):
+                hit = j
+        if hit is not None:
+            # a real false start stops mid-sentence; if the first "take" finishes a sentence it is
+            # probably normal speech that repeats a phrase, so list it for review and keep it by default
+            finished = any(W[x]["w"].endswith((".", "?", "!")) for x in range(i, hit))
+            if finished:
+                cuts.append({"start": W[i]["start"], "end": W[hit]["start"], "reason": "possible retake, check",
+                             "i0": i, "i1": hit - 1, "check": True})
+            else:
+                cuts.append({"start": W[i]["start"], "end": W[hit]["start"], "reason": "repeated take", "i0": i, "i1": hit - 1})
+            i = hit
+        else:
+            i += 1
 
-    alive = [k for k in range(n) if k not in removed]
-    if alive:
-        f, l = alive[0], alive[-1]
-        if f > 0 and not any(c["start"] == 0.0 for c in cuts) and words[f]["start"] > lead_keep + 0.4:
-            cuts.append({"start": 0.0, "end": words[f]["start"] - lead_keep, "types": ["leading-silence"], "review": words[f]["start"] > 2.0})
-        if duration - words[l]["end"] > tail_keep + 0.5 and not any(c["end"] >= duration - 1e-6 for c in cuts):
-            cuts.append({"start": words[l]["end"] + tail_keep, "end": duration, "types": ["trailing-silence"], "review": duration - words[l]["end"] > 3.0})
+    # 3. fillers, plus the silence around them down to keep_pause
+    half = a.keep_pause / 2
+    for i, w in enumerate(nw):
+        if w in FILLERS:
+            prev_end = W[i - 1]["end"] if i > 0 else 0.0
+            next_start = W[i + 1]["start"] if i + 1 < len(W) else duration
+            s = min(W[i]["start"], prev_end + half)
+            e = max(W[i]["end"], next_start - half)
+            cuts.append({"start": s, "end": e, "reason": "filler", "i0": i, "i1": i})
 
-    # protected ranges (e.g. a silent screen demo): drop pause/silence cuts that touch them
-    cuts = [c for c in cuts if not (set(c["types"]) <= {"pause", "leading-silence", "trailing-silence"} and any(c["start"] < b and c["end"] > a for a, b in protect))]
-
-    cuts = _merge(cuts)
-    if audio:                                              # land every cut on a real audio dip, never mid-syllable
-        for c in cuts:
-            lo_s, hi_e = _neighbours(words, removed, c["start"], c["end"], duration)
-            if c["start"] > 0.0:
-                c["start"] = min(audio.snap(c["start"], lo_s - 0.03, c["end"] - 0.05), c["end"] - 0.05)
-            if c["end"] < duration - 1e-6:
-                c["end"] = max(audio.snap(c["end"], c["start"] + 0.05, hi_e + 0.03), c["start"] + 0.05)
-        cuts = _merge(cuts)
-    cuts = [c for c in cuts if c["end"] - c["start"] >= 0.08]
-
-    kept_starts = [words[k]["start"] for k in alive]
-    kept_ends = [words[k]["end"] for k in alive]
-    out = []
-    for i, c in enumerate(cuts, 1):
-        s, e = c["start"], c["end"]
-        gone = [words[k]["w"] for k in rem if min(e, words[k]["end"]) - max(s, words[k]["start"]) >= 0.5 * (words[k]["end"] - words[k]["start"])]
-        a_i = bisect.bisect_right(kept_ends, s + 0.02)
-        b_i = bisect.bisect_left(kept_starts, e - 0.02)
-        before = " ".join(words[k]["w"] for k in alive[max(0, a_i - 7):a_i])
-        after = " ".join(words[k]["w"] for k in alive[b_i:b_i + 7])
-        types = c["types"]
-        out.append({"id": i, "start": round(s, 3), "end": round(e, 3), "len": round(e - s, 2), "types": types,
-                    "removed_text": " ".join(gone) if gone else f"[silence {e - s:.1f} s]", "before": before, "after": after,
-                    "review": bool(c.get("review")), "approved": True})
-    return out
+    # 4. long pauses (incl. head and tail of the recording): trim down to keep_pause
+    edges = [(0.0, W[0]["start"] if W else duration, -1, 0)]
+    edges += [(W[i]["end"], W[i + 1]["start"], i, i + 1) for i in range(len(W) - 1)]
+    edges += [(W[-1]["end"] if W else 0.0, duration, len(W) - 1, len(W))]
+    half = a.keep_pause / 2
+    for s, e, ia, ib in edges:
+        if e - s > a.max_pause:
+            lead = 0.0 if ia < 0 else half
+            tail = 0.0 if ib >= len(W) else half
+            if e - tail - (s + lead) > 0.05:
+                cuts.append({"start": s + lead, "end": e - tail, "reason": f"pause {e - s:.1f}s", "i0": None, "i1": None})
+    return cuts
 
 
-def _merge(cuts):
-    cuts = sorted(cuts, key=lambda c: (c["start"], c["end"]))
+def merge(cuts, words, env, hop):
+    """Snap to audio dips without entering kept words, then merge overlaps."""
+    starts = [w["start"] for w in words]
+    ends = [w["end"] for w in words]
     out = []
     for c in cuts:
-        if out and c["start"] <= out[-1]["end"] + 0.05:
-            p = out[-1]
-            p["end"] = max(p["end"], c["end"])
-            p["types"] = sorted(set(p["types"]) | set(c["types"]))
-            p["review"] = p.get("review") or c.get("review")
-        else:
-            out.append(dict(c))
-    return out
-
-
-def _neighbours(words, removed, s, e, duration):
-    left = max((w["end"] for k, w in enumerate(words) if k not in removed and w["end"] <= s + 0.03), default=0.0)
-    right = min((w["start"] for k, w in enumerate(words) if k not in removed and w["start"] >= e - 0.03), default=duration)
-    return left, right
-
-
-def _stutters_and_restarts(words, tok, removed, seq_alive, mark):
-    seq = seq_alive()
-    T = lambda k: tok[seq[k]]
-    p = 0
-    while p < len(seq):
-        hit = None
-        for m in range(8, 0, -1):                          # immediate repeats: "the plan the plan", "I I"
-            if p + 2 * m <= len(seq) and all(T(p + x) == T(p + m + x) for x in range(m)):
-                if m >= 2 or (T(p) in STOP1 and words[seq[p + 1]]["start"] - words[seq[p]]["end"] < 0.5 and not words[seq[p]]["w"].endswith((",", ".", ";", ":", "?", "!"))):
-                    hit = (seq[p], seq[p + m - 1], p + m)
-                    break
-        if not hit:                                         # restarts: the opening words come back after a break
-            for m in range(6, 1, -1):
-                for j in range(p + m + 1, min(p + 41, len(seq) - m + 1)):
-                    if not all(T(p + x) == T(j + x) for x in range(m)):
-                        continue
-                    if m == 2 and j - p > 5:
-                        continue
-                    if words[seq[j]]["start"] - words[seq[p]]["start"] > 15:
-                        continue
-                    prev, nxt = seq[j - 1], seq[j]
-                    brk = words[nxt]["start"] - words[prev]["end"] >= 0.3 or nxt - prev > 1 or words[prev]["w"].endswith(("-", "…", "—"))
-                    if brk or m >= 6:                      # a 6+ word phrase said twice is never an accident
-                        hit = (seq[p], seq[j] - 1, j)
-                        break
-                if hit:
-                    break
-        if hit:
-            mark(hit[0], hit[1], "repeat" if hit[2] - p <= 8 and hit[1] - hit[0] + 1 <= 8 and hit[2] == p + (hit[1] - hit[0] + 1) else "false-start")
-            p = hit[2]
-        else:
-            p += 1
-
-
-def _units(words, tok, seq):
-    units, cur = [], []
-    for k in seq:
-        cur.append(k)
-        if words[k]["w"].endswith((".", "?", "!")):
-            units.append(cur)
-            cur = []
-    if cur:
-        units.append(cur)
-    return units
-
-
-def _self_retakes(words, tok, seq_alive, mark):
-    """Without a script: a sentence said again (>= 80 % similar) within the next four sentences means the earlier one was a retake."""
-    seq = seq_alive()
-    units = [u for u in _units(words, tok, seq) if len(u) >= 4]
-    k = 0
-    while k < len(units):
-        a = [tok[x] for x in units[k]]
-        hit = None
-        for l in range(k + 1, min(k + 5, len(units))):
-            if words[units[l][0]]["start"] - words[units[k][0]]["start"] > 60:
-                break
-            if difflib.SequenceMatcher(None, a, [tok[x] for x in units[l]]).ratio() >= 0.8:
-                hit = l
-                break
-        if hit is not None:
-            mark(units[k][0], units[hit][0] - 1, "retake")
-            k = hit
-        else:
-            k += 1
-
-
-def _script_retakes(words, tok, removed, seq_alive, script, mark):
-    """With a script: every script sentence heard more than once keeps only its LAST take."""
-    seq = seq_alive()
-    toks = [tok[k] for k in seq]
-    for sent in re.split(r"(?<=[.!?])\s+|\n+", script):
-        st = [norm(w) for w in sent.split() if norm(w)]
-        if len(st) < 5:
+        s, e = c["start"], c["end"]
+        if c["i0"] is not None:
+            i0, i1 = c["i0"], c["i1"]
+            lo = ends[i0 - 1] if i0 > 0 else 0.0
+            hi = starts[i1 + 1] if i1 + 1 < len(words) else e + 0.3
+            if s >= words[i0]["start"] - 0.001:   # cut starts on a word edge: snap into the quiet before it
+                s = snap(s, env, hop, max(lo, s - 0.12), s)
+            if e <= words[i1]["end"] + 0.001:     # cut ends on a word edge: snap into the quiet after it
+                e = snap(e, env, hop, e, min(hi, e + 0.12))
+        out.append({**c, "start": round(s, 3), "end": round(e, 3)})
+    out.sort(key=lambda c: c["start"])
+    merged = []
+    for c in out:
+        if c["end"] - c["start"] < 0.06:
             continue
-        sset, m = set(st), len(st)
-        cands = []
-        for p in range(0, len(toks) - m + 1):
-            win = toks[p:p + m]
-            if len(sset & set(win)) < 0.6 * len(sset):
-                continue
-            r = difflib.SequenceMatcher(None, st, win).ratio()
-            if r >= 0.75:
-                cands.append((r, p))
-        chosen = []
-        for r, p in sorted(cands, reverse=True):
-            if all(abs(p - q) >= m for _, q in chosen):
-                chosen.append((r, p))
-        pos = sorted(p for _, p in chosen)
-        for a, b in zip(pos, pos[1:]):
-            mark(seq[a], seq[b] - 1, "retake")
+        if merged and c["start"] <= merged[-1]["end"] + 0.02:
+            m = merged[-1]
+            m["end"] = max(m["end"], c["end"])
+            m["check"] = m["check"] or c.get("check", False)
+            if c["reason"] not in m["reason"]:
+                m["reason"] += " + " + c["reason"]
+        else:
+            merged.append({"start": c["start"], "end": c["end"], "reason": c["reason"], "check": c.get("check", False)})
+    return merged
 
 
-# ---------------------------------------------------------------- time map + transcript shifting
-def make_T(removed):
-    """T(x): original time -> cleaned time, for removed = [[a, b], ...] on the original timeline."""
-    removed = sorted((float(a), float(b)) for a, b in removed)
+# ---------- reports ----------
 
-    def T(x: float) -> float:
-        return round(x - sum(max(0.0, min(x, b) - a) for a, b in removed), 3)
-    return T
+def text_between(words, s, e):
+    return " ".join(w["w"] for w in words if w["start"] >= s - 0.01 and w["end"] <= e + 0.01)
 
 
-def shift_transcript(raw: dict, removed) -> dict:
-    T = make_T(removed)
-    inside = lambda s, e: any(s >= a - 0.01 and e <= b + 0.01 for a, b in removed)
-    words = []
-    for w in raw["words"]:
-        if inside(w["start"], w["end"]):
-            continue
-        s, e = T(w["start"]), T(w["end"])
-        if e - s > 0.01:
-            words.append({**w, "start": s, "end": e})
-    phrases = []
-    for ph in raw["phrases"]:
-        kept = [w for w in raw["words"] if ph["start"] - 0.01 <= w["start"] <= ph["end"] + 0.01 and not inside(w["start"], w["end"])]
-        if kept:
-            phrases.append({"start": round(T(kept[0]["start"]), 2), "end": round(T(kept[-1]["end"]), 2), "text": " ".join(w["w"] for w in kept)})
-    return {**raw, "duration": round(T(raw["duration"]), 2), "words": words, "phrases": phrases, "cut": {"removed": [[a, b] for a, b in removed]}}
+def fmt(t):
+    return f"{int(t // 60)}:{t % 60:05.2f}"
 
 
-# ---------------------------------------------------------------- reports
-def write_report(d: Path, src: str, duration: float, cuts: list, params: dict):
-    total = sum(c["end"] - c["start"] for c in cuts)
-    (d / "cuts.json").write_text(json.dumps({"source": src, "duration": duration, "params": params, "removed_s": round(total, 2),
-                                             "cleaned_duration": round(duration - total, 2), "cuts": cuts}, indent=1, ensure_ascii=False))
+def write_plan(out, src, tr, cuts):
+    words = tr["words"]
+    for n, c in enumerate(cuts, 1):
+        c["id"] = n
+        c["removed_text"] = text_between(words, c["start"], c["end"])
+        c["skip"] = bool(c.pop("check", False))  # flagged cuts are kept unless the creator approves them
+    removed = sum(c["end"] - c["start"] for c in cuts)
+    plan = {"source": os.path.abspath(src), "duration": tr["duration"], "removed_s": round(removed, 2),
+            "result_s": round(tr["duration"] - removed, 2), "cuts": cuts}
+    json.dump(plan, open(os.path.join(out, "cuts.json"), "w"), indent=1, ensure_ascii=False)
+
     by = {}
     for c in cuts:
-        for t in c["types"]:
-            by[t] = by.get(t, 0) + 1
-    lines = [f"# Cut list: {Path(src).name}", "",
-             f"Original {fmt_t(duration)} -> cleaned **{fmt_t(duration - total)}** (removes {total:.1f} s in {len(cuts)} cuts: " + ", ".join(f"{v} {k}" for k, v in sorted(by.items())) + ")", "",
-             "Nothing is encoded until you approve. To skip a cut, tell me its number (or set `approved` to false in cuts.json). Cuts marked ⚠ need a look: a long quiet stretch may be a screen demo, or a large span of speech.", "",
-             "| # | time (orig) | len | type | removed | context |", "|---|---|---|---|---|---|"]
+        key = c["reason"].split(" ")[0]
+        by[key] = by.get(key, 0) + 1
+    lines = [f"# Cut list for {os.path.basename(src)}", "",
+             f"- Original: {fmt(tr['duration'])}  |  after cleanup: {fmt(plan['result_s'])}  |  removed: {removed:.1f}s in {len(cuts)} cuts",
+             "- By type: " + ", ".join(f"{k} {v}" for k, v in sorted(by.items())),
+             "- To keep a cut: set `\"skip\": true` on its id in cuts.json, then run `apply`.",
+             "- Rows marked KEPT are flagged for review and will NOT be cut unless you set `\"skip\": false`.", "",
+             "| id | time | type | removed | context after |", "|---|---|---|---|---|"]
     for c in cuts:
-        ctx = f"…{c['before']} **[CUT]** {c['after']}…".replace("|", "/")
-        lines.append(f"| {c['id']}{' ⚠' if c['review'] else ''} | {fmt_t(c['start'])}-{fmt_t(c['end'])} | {c['len']:.1f}s | {'+'.join(c['types'])} | {c['removed_text'].replace('|', '/')} | {ctx} |")
-    (d / "cuts.md").write_text("\n".join(lines) + "\n")
+        after = text_between(words, c["end"], c["end"] + 3.0)
+        kind = c['reason'] + (" (KEPT)" if c["skip"] else "")
+        lines.append(f"| {c['id']} | {fmt(c['start'])}-{fmt(c['end'])} | {kind} | {c['removed_text'] or '(silence)'} | {after} |")
+    open(os.path.join(out, "cuts.md"), "w").write("\n".join(lines) + "\n")
+    return plan
 
 
-# ---------------------------------------------------------------- encode
-def probe_fps(src: str) -> str:
-    out = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=r_frame_rate", "-of", "csv=p=0", src], capture_output=True, text=True).stdout.strip()
-    return out or "30"
+# ---------- apply ----------
+
+def keep_segments(cuts, duration):
+    segs, t = [], 0.0
+    for c in sorted(cuts, key=lambda c: c["start"]):
+        if c["start"] > t + 0.03:
+            segs.append((t, c["start"]))
+        t = max(t, c["end"])
+    if duration > t + 0.03:
+        segs.append((t, duration))
+    return segs
 
 
-VOICE_CHAIN = "highpass=f=80,lowpass=f=12000,equalizer=f=200:t=q:w=1:g=-1,equalizer=f=3000:t=q:w=1:g=2,acompressor=threshold=-18dB:ratio=2.5:attack=20:release=250"
+def shift_transcript(tr, cuts):
+    C = sorted((c["start"], c["end"]) for c in cuts)
+
+    def T(x):
+        return round(x - sum(min(b, x) - a for a, b in C if x > a), 3)
+
+    words = [dict(w, start=T(w["start"]), end=T(w["end"])) for w in tr["words"]
+             if not any(w["start"] >= a - 0.01 and w["end"] <= b + 0.01 for a, b in C)]
+    return {**tr, "duration": T(tr["duration"]), "words": words, "cut": {"removed": C}}
 
 
-def encode(src: str, removed, dest: Path, *, preset="veryfast", crf=12, voice_chain=False, fade=0.015):
-    dur = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", src], capture_output=True, text=True).stdout)
-    removed = sorted((max(0.0, a), min(dur, b)) for a, b in removed)
-    keep, t = [], 0.0
-    for a, b in removed:
-        if a - t > 0.02:
-            keep.append((t, a))
-        t = max(t, b)
-    if dur - t > 0.02:
-        keep.append((t, dur))
-    parts, labels = [], ""
-    for i, (a, b) in enumerate(keep):
-        fin = f",afade=t=in:st=0:d={fade}" if a > 0.0 else ""
-        fout = f",afade=t=out:st={max(0.0, b - a - fade):.3f}:d={fade}" if b < dur - 0.01 else ""
-        parts.append(f"[0:v]trim=start={a:.3f}:end={b:.3f},setpts=PTS-STARTPTS[v{i}];[0:a]atrim=start={a:.3f}:end={b:.3f},asetpts=PTS-STARTPTS{fin}{fout}[a{i}]")
-        labels += f"[v{i}][a{i}]"
-    tail = f"[ao];[ao]{VOICE_CHAIN}[a]" if voice_chain else "[a]"
-    graph = ";\n".join(parts) + f";\n{labels}concat=n={len(keep)}:v=1:a=1[v]{tail}"
-    script = dest.with_suffix(".filtergraph.txt")
-    script.write_text(graph)
-    fps = probe_fps(src)
-    cmd = ["ffmpeg", "-hide_banner", "-nostdin", "-loglevel", "error", "-stats", "-y", "-i", src, "-filter_complex_script", str(script), "-map", "[v]", "-map", "[a]",
-           "-c:v", "libx264", "-preset", preset, "-crf", str(crf), "-pix_fmt", "yuv420p", "-r", fps, "-c:a", "aac", "-b:a", "256k", "-ar", "44100", "-movflags", "+faststart", str(dest)]
+def audio_segments(segs, fade=0.015):
+    """Audio-only trim graph (with 15 ms fades at each join), ending in [acat]."""
+    parts = []
+    for n, (s, e) in enumerate(segs):
+        af = f"[0:a]atrim={s:.3f}:{e:.3f},asetpts=PTS-STARTPTS"
+        if n > 0:
+            af += f",afade=t=in:st=0:d={fade}"
+        if n < len(segs) - 1:
+            af += f",afade=t=out:st={max(0, e - s - fade):.3f}:d={fade}"
+        parts.append(af + f"[a{n}];")
+    return "".join(parts) + "".join(f"[a{n}]" for n in range(len(segs))) + f"concat=n={len(segs)}:v=0:a=1[acat]"
+
+
+def measure_loudness(src, audio_graph, pre, lufs):
+    """Pass 1 of two-pass loudnorm on the cut + processed audio; returns the measured values."""
+    graph = audio_graph + f";[acat]{pre}loudnorm=I={lufs}:TP={LOUD_TP}:LRA={LOUD_LRA}:print_format=json[m]"
+    err = subprocess.run(["ffmpeg", "-hide_banner", "-nostdin", "-i", src, "-filter_complex", graph, "-map", "[m]",
+                          "-f", "null", "-"], capture_output=True, text=True).stderr
+    m = re.search(r"\{[^{}]*\"input_i\"[^{}]*\}", err)
+    if not m:
+        sys.exit("loudness measurement failed:\n" + err[-2000:])
+    return json.loads(m.group(0))
+
+
+def audio_chain(a, src, audio_graph):
+    """Filters applied after the cuts: '' for --audio none, else [studio chain,] two-pass loudnorm."""
+    if a.audio == "none":
+        return ""
+    pre = STUDIO_CHAIN + "," if a.audio == "studio" else ""
+    print(f"audio: {a.audio}, measuring loudness (pass 1) ...")
+    m = measure_loudness(src, audio_graph, pre, a.lufs)
+    return (f"{pre}loudnorm=I={a.lufs}:TP={LOUD_TP}:LRA={LOUD_LRA}:measured_I={m['input_i']}:measured_TP={m['input_tp']}"
+            f":measured_LRA={m['input_lra']}:measured_thresh={m['input_thresh']}:offset={m['target_offset']}:linear=true")
+
+
+def apply(a):
+    plan = json.load(open(os.path.join(a.out, "cuts.json")))
+    cuts = [c for c in plan["cuts"] if not c.get("skip")]
+    duration = plan["duration"]
+    segs = keep_segments(cuts, duration)
+    agraph = audio_segments(segs)
+    post = audio_chain(a, a.src, agraph)
+    vgraph = "".join(f"[0:v]trim={s:.3f}:{e:.3f},setpts=PTS-STARTPTS[v{n}];" for n, (s, e) in enumerate(segs))
+    vgraph += "".join(f"[v{n}]" for n in range(len(segs))) + f"concat=n={len(segs)}:v=1:a=0[v]"
+    graph = f"{vgraph};{agraph};[acat]{post or 'anull'}[a]"
+    gpath = os.path.join(a.out, "cut-graph.txt")
+    open(gpath, "w").write(graph)
+
+    base = os.path.splitext(os.path.basename(a.src))[0]
+    dst = a.output or os.path.join(a.out, f"{base}-clean.mp4")
+    if os.path.abspath(dst) == os.path.abspath(a.src):
+        sys.exit("refusing to overwrite the original footage")
+    venc = ["-c:v", "h264_nvenc", "-preset", "p6", "-cq", "16"] if a.nvenc else ["-c:v", "libx264", "-preset", a.preset, "-crf", "12"]
+    cmd = ["ffmpeg", "-hide_banner", "-nostdin", "-loglevel", "error", "-y", "-i", a.src,
+           "-filter_complex_script", gpath, "-map", "[v]", "-map", "[a]", *venc, "-pix_fmt", "yuv420p",
+           "-c:a", "aac", "-b:a", "256k", *(["-ar", "48000"] if post else []), "-movflags", "+faststart", dst]
     subprocess.run(cmd, check=True)
-    script.unlink(missing_ok=True)
-    return keep
 
-
-# ---------------------------------------------------------------- CLI
-def cmd_analyze(a):
-    d = Path(a.out)
-    d.mkdir(parents=True, exist_ok=True)
-    raw_path = d / "raw-transcript.json"
-    if raw_path.exists() and not a.retranscribe and raw_path.stat().st_mtime >= Path(a.src).stat().st_mtime:
-        raw = json.loads(raw_path.read_text())
-        print("reusing", raw_path)
-    else:
-        print("transcribing locally (faster-whisper, fillers kept) ...", flush=True)
-        raw = transcribe(a.src, a.model)
-        raw_path.write_text(json.dumps(raw, ensure_ascii=False))
-    print("reading audio envelope ...", flush=True)
-    audio = Audio.load(a.src)
-    script = Path(a.script).read_text() if a.script else None
-    protect = [tuple(float(x) for x in r.split("-")) for r in a.protect.split(",") if r] if a.protect else []
-    cuts = detect(raw["words"], raw["duration"], pause=a.pause, keep=a.keep, script=script, audio=audio, protect=protect, fillers=not a.no_fillers, repeats=not a.no_repeats)
-    params = {"pause": a.pause, "keep": a.keep, "script": a.script, "protect": a.protect, "model": a.model}
-    write_report(d, str(Path(a.src).resolve()), raw["duration"], cuts, params)
-    total = sum(c["end"] - c["start"] for c in cuts)
-    print(f"{len(cuts)} cuts, {total:.1f} s removed ({fmt_t(raw['duration'])} -> {fmt_t(raw['duration'] - total)}). Review {d / 'cuts.md'} then run: apply {d} --approved")
-
-
-def cmd_apply(a):
-    d = Path(a.dir)
-    if not a.approved:
-        sys.exit("Refusing to encode: cuts must be approved first. Show cuts.md to the user, then re-run with --approved (and --drop N,N for any cut they rejected).")
-    data = json.loads((d / "cuts.json").read_text())
-    drop = {int(x) for x in a.drop.split(",") if x} if a.drop else set()
-    removed = [[c["start"], c["end"]] for c in data["cuts"] if c.get("approved", True) and c["id"] not in drop]
-    src = data["source"]
-    dest = Path(a.output) if a.output else Path(src).with_name(Path(src).stem + "-cut.mp4")
-    keep = encode(src, removed, dest, preset=a.preset, crf=a.crf, voice_chain=a.voice_chain)
-    raw = json.loads((d / "raw-transcript.json").read_text())
-    shifted = shift_transcript(raw, removed)
-    (d / "transcript-cut.json").write_text(json.dumps(shifted, ensure_ascii=False))
-    (d / "transcript-cut.txt").write_text("".join(f"[{p['start']:.2f}-{p['end']:.2f}] {p['text']}\n" for p in shifted["phrases"]))
-    (d / "cut-map.json").write_text(json.dumps({"source": src, "cleaned": str(dest), "removed": removed, "keep": keep, "old_duration": data["duration"], "new_duration": shifted["duration"]}, indent=1))
-    h = hashlib.sha256()
-    with open(dest, "rb") as f:
-        for chunk in iter(lambda: f.read(1 << 20), b""):
-            h.update(chunk)
-    (d / "source-cut.sha256").write_text(f"{h.hexdigest()}  {dest}\n")
-    print(f"CLEAN_DONE {dest} ({fmt_t(data['duration'])} -> {fmt_t(shifted['duration'])}); transcript {d / 'transcript-cut.json'}")
+    tpath = os.path.join(a.out, "transcript.json")
+    if os.path.exists(tpath):
+        json.dump(shift_transcript(json.load(open(tpath)), cuts), open(os.path.join(a.out, "transcript-clean.json"), "w"),
+                  ensure_ascii=False)
+    got = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0", dst],
+                               capture_output=True, text=True).stdout.strip())
+    expect = sum(e - s for s, e in segs)
+    print(f"cleaned: {dst}\n  {len(cuts)} cuts applied, {len(segs)} segments, duration {got:.2f}s (expected {expect:.2f}s)")
+    if abs(got - expect) > 0.5:
+        print("  WARNING: duration differs from the plan by more than 0.5 s, check the edit boundaries")
 
 
 def main():
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    sub = ap.add_subparsers(dest="cmd", required=True)
-    a = sub.add_parser("analyze")
-    a.add_argument("src")
-    a.add_argument("--out", required=True)
-    a.add_argument("--script", help="text file with the intended script; repeated takes of a script sentence keep only the last")
-    a.add_argument("--pause", type=float, default=0.5, help="silence at least this long is shortened (default 0.5 s)")
-    a.add_argument("--keep", type=float, default=0.3, help="silence left behind after a cut (default 0.3 s)")
-    a.add_argument("--protect", default="", help="comma list of 'start-end' seconds where silence must NOT be cut (silent screen demos)")
-    a.add_argument("--model", default="small")
-    a.add_argument("--no-fillers", action="store_true")
-    a.add_argument("--no-repeats", action="store_true")
-    a.add_argument("--retranscribe", action="store_true")
-    a.set_defaults(fn=cmd_analyze)
-    b = sub.add_parser("apply")
-    b.add_argument("dir")
-    b.add_argument("--approved", action="store_true", help="required: the user has approved cuts.md")
-    b.add_argument("--drop", default="", help="comma list of cut ids the user rejected")
-    b.add_argument("--output")
-    b.add_argument("--preset", default="veryfast", help="x264 preset; the cleaned file is an intermediate the renderer re-encodes, so veryfast at CRF 12 is visually lossless and ~2x faster than slow")
-    b.add_argument("--crf", type=int, default=12)
-    b.add_argument("--voice-chain", action="store_true", help="highpass 80, lowpass 12k, EQ, gentle compression (final loudness is set later)")
-    b.set_defaults(fn=cmd_apply)
-    args = ap.parse_args()
-    args.fn(args)
+    p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    p.add_argument("step", choices=["plan", "apply"])
+    p.add_argument("src")
+    p.add_argument("--out", required=True, help="working folder, e.g. edit/<project>/cleanup")
+    p.add_argument("--transcript", help="reuse an existing word-level transcript JSON instead of transcribing")
+    p.add_argument("--model", default=os.environ.get("VIDEO_WHISPER_MODEL", "small"))
+    p.add_argument("--max-pause", type=float, default=0.6, help="pauses longer than this get trimmed (s)")
+    p.add_argument("--keep-pause", type=float, default=0.3, help="pause length left after trimming (s)")
+    p.add_argument("--min-repeat", type=int, default=3, help="words that must match to call it a retake")
+    p.add_argument("--max-repeat-words", type=int, default=40)
+    p.add_argument("--max-repeat-seconds", type=float, default=25.0)
+    p.add_argument("--sentence-gap", type=float, default=0.7)
+    p.add_argument("--output", help="cleaned video path (default: <out>/<name>-clean.mp4)")
+    p.add_argument("--nvenc", action="store_true", help="encode on the NVIDIA GPU (check: ffmpeg -encoders | grep nvenc)")
+    p.add_argument("--preset", default="medium", help="x264 preset when not using --nvenc")
+    p.add_argument("--audio", choices=["studio", "loudnorm", "none"], default="studio",
+                   help="studio = denoise + voice EQ + compression + loudness (default); loudnorm = loudness only")
+    p.add_argument("--lufs", type=float, default=-14.0, help="target integrated loudness (YouTube -14)")
+    a = p.parse_args()
+    os.makedirs(a.out, exist_ok=True)
+    if a.step == "apply":
+        return apply(a)
+
+    tpath = os.path.join(a.out, "transcript.json")
+    if a.transcript:
+        tr = json.load(open(a.transcript))
+    else:
+        print("transcribing locally ...")
+        tr = transcribe(a.src, a.model)
+    if not tr.get("duration"):
+        tr["duration"] = float(subprocess.run(["ffprobe", "-v", "error", "-show_entries", "format=duration", "-of", "csv=p=0",
+                                               a.src], capture_output=True, text=True).stdout.strip())
+    json.dump(tr, open(tpath, "w"), ensure_ascii=False)
+    env, hop = rms_envelope(a.src)
+    cuts = merge(find_cuts(tr["words"], tr["duration"], a), tr["words"], env, hop)
+    plan = write_plan(a.out, a.src, tr, cuts)
+    print(f"plan: {len(cuts)} cuts, {plan['removed_s']}s removed, {fmt(tr['duration'])} -> {fmt(plan['result_s'])}")
+    print(f"review {os.path.join(a.out, 'cuts.md')}, then run: apply")
 
 
 if __name__ == "__main__":
